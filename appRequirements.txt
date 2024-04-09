@@ -1,0 +1,26 @@
+language: English
+
+screen-flow
+1. login screen (if not logged in)
+2. Home screen - main menu
+
+Main menu
+- quizzes
+- new word
+- word list
+
+responsive: mobile-first dev
+
+features:
+- quizzes
+- add a new word
+- login(oauth: google)
+
+libraries
+- tailwindcss
+
+tools
+- supabase
+
+additional requirements
+- pwa

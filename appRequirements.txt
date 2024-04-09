@@ -3,24 +3,58 @@ language: English
 screen-flow
 1. login screen (if not logged in)
 2. Home screen - main menu
+2.1 quizzes
+2.1.1 category
+2.1.1.1 categories
+2.1.2 random - 10 questions
+2.2 new word
+2.2.1 category
+2.2.1.1 select category (can select multiple)
+2.2.1.2 add category
+2.3 word list
+2.3.1 all words
+2.3.2 categories (upper bar)
+
 
 Main menu
 - quizzes
 - new word
 - word list
+- Coming soon
+
+new word
+- category
+
+quizzes
+- random
+- category
+- gain experience
+- read word (Web Speech API)
+
+word list
+- category by category
+- remove
+- move to another category
+- read word
 
 responsive: mobile-first dev
 
 features:
+- dark mode
+- animation
 - quizzes
 - add a new word
 - login(oauth: google)
+- user level
 
 libraries
 - tailwindcss
 
 tools
 - supabase
+
+API
+- Web Speech API
 
 additional requirements
 - pwa

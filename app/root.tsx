@@ -8,11 +8,14 @@ import {
 } from '@remix-run/react';
 import 'remixicon/fonts/remixicon.css';
 import stylesheet from '~/tailwind.css?url';
-import BottomMenuBar from './components/BottomMenuBar';
+import { BottomMenuBar } from './components/BottomMenuBar';
+import { Header } from './components/Header';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
+
+// TODO: add loader to check if user is logged in, if not redirect to login page
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,6 +27,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <header>
+          <Header />
+        </header>
         {children}
         <ScrollRestoration />
         <Scripts />

@@ -9,14 +9,14 @@ export const BottomMenuBar = () => {
       </button>
       <button className="h-16">
         <div className="flex flex-col justify-center">
-          <i className="text-white ri-file-list-line ri-2x" />
-          <span className="text-white text-xs">Word List</span>
+          <i className="text-white ri-questionnaire-line ri-2x" />
+          <span className="text-white text-xs">Quiz</span>
         </div>
       </button>
       <button className="h-16">
         <div className="flex flex-col justify-center">
-          <i className="text-white ri-questionnaire-line ri-2x" />
-          <span className="text-white text-xs">Help</span>
+          <i className="text-white ri-file-list-line ri-2x" />
+          <span className="text-white text-xs">Word List</span>
         </div>
       </button>
       <button className="h-16">

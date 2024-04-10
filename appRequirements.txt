@@ -19,6 +19,8 @@ screen-flow
 Routes
 menu: Home
 /users/$userId
+menu: Home
+/users/$userId/quiz
 menu: Word list
 /users/$userId/wordlist
 menu: Account
@@ -51,6 +53,7 @@ features:
 - dark mode
 - animation
 - quizzes
+- word list (search word)
 - add a new word
 - login(oauth: google)
 - user level

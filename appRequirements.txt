@@ -11,6 +11,7 @@ screen-flow
 2.2.1 category
 2.2.1.1 select category (can select multiple)
 2.2.1.2 add category
+2.2.2 text field for category and ai recommendation button (omit words that are already in the list, if less than 10 suggest adding more text)
 2.3 word list
 2.3.1 all words
 2.3.2 categories (upper bar)

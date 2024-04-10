@@ -6,7 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
+import 'remixicon/fonts/remixicon.css';
 import stylesheet from '~/tailwind.css?url';
+import BottomMenuBar from './components/BottomMenuBar';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -25,6 +27,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <footer className="w-full fixed bottom-0 left-0">
+          <BottomMenuBar />
+        </footer>
       </body>
     </html>
   );

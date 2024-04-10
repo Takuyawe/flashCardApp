@@ -1,4 +1,4 @@
-const BottomMenuBar = () => {
+export const BottomMenuBar = () => {
   return (
     <div className="bg-base-dark h-16 w-full flex items-center justify-around">
       <button className="h-16">
@@ -28,5 +28,3 @@ const BottomMenuBar = () => {
     </div>
   );
 };
-
-export default BottomMenuBar;

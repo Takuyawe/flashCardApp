@@ -26,7 +26,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      {/* TODO: should h-dvh */}
+      <body className="h-screen">
         <header>
           <Header />
         </header>

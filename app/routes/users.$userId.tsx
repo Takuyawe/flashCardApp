@@ -6,12 +6,12 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 export default function Layout() {
-  const userId = useLoaderData<typeof loader>();
+  //   const userId = useLoaderData<typeof loader>();
   return (
     <>
-      <div className="h-10 w-full bg-slate-400">
+      {/* <div className="h-10 w-full bg-slate-400">
         <span className="text-base-dark">Hello! {userId}</span>
-      </div>
+      </div> */}
       <Outlet />
     </>
   );

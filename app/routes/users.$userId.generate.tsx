@@ -10,6 +10,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const word = formData.get('word');
 
   // TODO: server side validation
+  // TODO: try catch statement
 
   const response = await anthropic.messages.create({
     model: 'claude-3-haiku-20240307',

@@ -5,6 +5,7 @@ export const CategorySelect = () => {
         Category
       </label>
       <div className="flex w-80 justify-stretch gap-x-2">
+        {/* TODO: customize options */}
         <select
           name="category"
           className="flex-1 border-2 border-base-dark rounded-md pl-2 text-lg">

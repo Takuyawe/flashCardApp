@@ -17,14 +17,12 @@ export const EgSentenceInput = ({ word }: Props) => {
 
   useEffect(() => {
     if (!generatedText) return;
-    let index = 0;
     const intervalId = setInterval(() => {
-      if (index < generatedText.length) {
-        setSentence((prevState) => prevState + generatedText[index]);
-        index++;
-      } else {
-        clearInterval(intervalId);
-      }
+      setSentence((prevState) => {
+        if (prevState.length < generatedText.length)
+          return prevState + generatedText[prevState.length];
+        return prevState;
+      });
     }, 50);
 
     return () => clearInterval(intervalId);

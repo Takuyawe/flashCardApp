@@ -2,48 +2,17 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 type Props = {
-  word: string;
+  sentence: string;
+  setSentence: React.Dispatch<React.SetStateAction<string>>;
 };
 
-type FetcherDataType = {
-  response: { content: [{ text: string }] };
-};
-
-export const EgSentenceInput = ({ word }: Props) => {
-  const [sentence, setSentence] = useState<string>("");
-  const fetcher = useFetcher();
-  const generatedText = (fetcher.data as FetcherDataType)?.response.content[0]
-    .text;
-
-  useEffect(() => {
-    setSentence((prevState) => "");
-    if (!generatedText) return;
-    const intervalId = setInterval(() => {
-      setSentence((prevState) => {
-        if (prevState.length < generatedText.length)
-          return prevState + generatedText[prevState.length];
-        return prevState;
-      });
-    }, 50);
-
-    return () => clearInterval(intervalId);
-  }, [generatedText]);
-
+export const EgSentenceInput = ({ sentence, setSentence }: Props) => {
   return (
-    <div className="flex flex-col gap-y-1">
+    <div className="flex flex-col items-center gap-y-1">
       <div className="flex w-full justify-between">
         <label className="text-md" htmlFor="egSentence">
-          Example Sentences (optional)
+          Example Sentences
         </label>
-        <fetcher.Form action="generate" method="post">
-          <input type="hidden" name="word" value={word} />
-          <button
-            type="submit"
-            className="bg-purple-600 text-white rounded-md h-7 w-8"
-          >
-            <i className="ri-ai-generate text-xl font-bold" />
-          </button>
-        </fetcher.Form>
       </div>
       <textarea
         name="exampleSentence"

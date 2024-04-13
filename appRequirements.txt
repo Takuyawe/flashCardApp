@@ -72,3 +72,9 @@ API
 
 additional requirements
 - pwa
+
+
+Nicole's Advice
+- add hiragana and romaji for example sentence
+- auto suggestion for word box in case of misspelling
+- change categories in case of misput

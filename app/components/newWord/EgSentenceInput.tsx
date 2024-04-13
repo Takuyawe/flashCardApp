@@ -1,5 +1,5 @@
-import { useFetcher } from '@remix-run/react';
-import { useEffect, useState } from 'react';
+import { useFetcher } from "@remix-run/react";
+import { useEffect, useState } from "react";
 
 type Props = {
   word: string;
@@ -10,12 +10,13 @@ type FetcherDataType = {
 };
 
 export const EgSentenceInput = ({ word }: Props) => {
-  const [sentence, setSentence] = useState<string>('');
+  const [sentence, setSentence] = useState<string>("");
   const fetcher = useFetcher();
   const generatedText = (fetcher.data as FetcherDataType)?.response.content[0]
     .text;
 
   useEffect(() => {
+    setSentence((prevState) => "");
     if (!generatedText) return;
     const intervalId = setInterval(() => {
       setSentence((prevState) => {
@@ -38,7 +39,8 @@ export const EgSentenceInput = ({ word }: Props) => {
           <input type="hidden" name="word" value={word} />
           <button
             type="submit"
-            className="bg-purple-600 text-white rounded-md h-7 w-8">
+            className="bg-purple-600 text-white rounded-md h-7 w-8"
+          >
             <i className="ri-ai-generate text-xl font-bold" />
           </button>
         </fetcher.Form>

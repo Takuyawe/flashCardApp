@@ -1,5 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { ActionFunctionArgs, json } from "@remix-run/node";
+import {
+  DEFINITION_INSTRUCTION,
+  SENTENCE_INSTRUCTION,
+} from "~/constants/AIInstruction";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const apiKey = process.env.CLAUDE_API;
@@ -22,7 +26,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         content: [
           {
             type: "text",
-            text: `この単語"${word}"の定義を書いてください。ただし、文字数は15文字以下で、定義文以外は返さないでください。また、できるだけひらがなとカタカナを使ってください。`,
+            text: DEFINITION_INSTRUCTION.BEGINNER.replace(
+              "word",
+              word as string
+            ),
           },
         ],
       },
@@ -39,7 +46,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         content: [
           {
             type: "text",
-            text: `この単語"${word}"の例文を書いてください。ただし、文字数は30文字以下で、例文以外は返さないでください。`,
+            text: SENTENCE_INSTRUCTION.BEGINNER.replace("word", word as string),
           },
         ],
       },

@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { ActionFunctionArgs, json } from "@remix-run/node";
 import {
+  CLAUDE_MODEL,
   DEFINITION_INSTRUCTION,
   SENTENCE_INSTRUCTION,
 } from "~/constants/AIInstruction";
@@ -17,7 +18,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   // TODO: try catch statement
 
   const definitionResponse = await anthropic.messages.create({
-    model: "claude-3-haiku-20240307",
+    model: CLAUDE_MODEL,
     max_tokens: 100,
     temperature: 1,
     messages: [
@@ -37,7 +38,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   });
 
   const sentenceResponse = await anthropic.messages.create({
-    model: "claude-3-haiku-20240307",
+    model: CLAUDE_MODEL,
     max_tokens: 100,
     temperature: 1,
     messages: [

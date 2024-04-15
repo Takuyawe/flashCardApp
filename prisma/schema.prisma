@@ -12,3 +12,37 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id    String @id @default(cuid())
+  name  String
+  email String
+  password String
+  createdAt DateTime @map("created_at")
+  categories Category[]
+}
+
+model Category {
+  id    String @id @default(cuid())
+  userId String @map("user_id")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parentCategoryId String @map("parent_category_id")
+  parentCategory Category @relation("ParentChild", fields: [parentCategoryId], references: [id], onDelete: Cascade)
+  childCategories  Category[] @relation("ParentChild")
+  name             String
+  createdAt        DateTime @map("created_at")
+  words Word[]
+}
+
+model Word {
+  id    String @id @default(cuid())
+  categoryId String @map("category_id")
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  name             String
+  kana             String
+  romaji           String
+  definition       String
+  part             String
+  exampleSentence  String @map("example_sentence")
+  createdAt        DateTime @map("created_at")
+}

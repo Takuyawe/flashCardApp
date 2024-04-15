@@ -51,6 +51,8 @@ word list
 - move to another category (multiple words)
 - double click and rename directory
 - read word
+- show word card when a word is clicked
+- add pencil button to update the word
 
 responsive: mobile-first dev
 

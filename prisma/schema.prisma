@@ -31,6 +31,7 @@ model Category {
   childCategories  Category[] @relation("ParentChild")
   name             String
   createdAt        DateTime @map("created_at")
+  updatedAt        DateTime @map("updated_at")
   words Word[]
 }
 
@@ -45,4 +46,5 @@ model Word {
   part             String
   exampleSentence  String @map("example_sentence")
   createdAt        DateTime @map("created_at")
+  updatedAt        DateTime @map("updated_at")
 }

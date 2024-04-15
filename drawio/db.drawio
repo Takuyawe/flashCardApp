@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="OS2UnCGQcr4NiaXf5B9f" name="Page-1">
-        <mxGraphModel dx="519" dy="320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="397" dy="367" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -10,8 +10,8 @@
                 <mxCell id="3" value="&lt;div&gt;Categories&lt;/div&gt;&lt;ul&gt;&lt;li&gt;ID&lt;/li&gt;&lt;li&gt;ユーザーID (foreign key)&lt;/li&gt;&lt;li&gt;ParentCategory ID (self-referencing foreign key)&lt;/li&gt;&lt;li&gt;Name&lt;/li&gt;&lt;li&gt;CreatedAt&lt;/li&gt;&lt;/ul&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;" parent="1" vertex="1">
                     <mxGeometry x="200" y="40" width="190" height="190" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="&lt;div&gt;Word&lt;/div&gt;&lt;ul&gt;&lt;li&gt;ID&lt;/li&gt;&lt;li&gt;Category ID (foreign key)&lt;/li&gt;&lt;li&gt;Name&lt;/li&gt;&lt;li&gt;Kana&lt;/li&gt;&lt;li&gt;Definition&lt;/li&gt;&lt;li&gt;Part&lt;/li&gt;&lt;li&gt;Example sentence&lt;/li&gt;&lt;li&gt;CreatedAt&lt;/li&gt;&lt;/ul&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;" parent="1" vertex="1">
-                    <mxGeometry x="413.5" y="40" width="210" height="210" as="geometry"/>
+                <mxCell id="4" value="&lt;div&gt;Word&lt;/div&gt;&lt;ul&gt;&lt;li&gt;ID&lt;/li&gt;&lt;li&gt;Category ID (foreign key)&lt;/li&gt;&lt;li&gt;Name&lt;/li&gt;&lt;li&gt;Kana&lt;/li&gt;&lt;li&gt;Romaji&lt;/li&gt;&lt;li&gt;Definition&lt;/li&gt;&lt;li&gt;Part&lt;/li&gt;&lt;li&gt;Example sentence&lt;/li&gt;&lt;li&gt;CreatedAt&lt;/li&gt;&lt;/ul&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="413.5" y="40" width="230" height="230" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs } from '@remix-run/node';
-import { Outlet, useLoaderData } from '@remix-run/react';
+import { Outlet } from '@remix-run/react';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   return params.userId;

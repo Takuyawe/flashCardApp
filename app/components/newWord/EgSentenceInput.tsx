@@ -1,6 +1,3 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useState } from "react";
-
 type Props = {
   sentence: string;
   setSentence: React.Dispatch<React.SetStateAction<string>>;

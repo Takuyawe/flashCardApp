@@ -1,4 +1,4 @@
-import { ActionFunctionArgs } from '@remix-run/node';
+import { ActionFunctionArgs, json } from '@remix-run/node';
 import { useState } from 'react';
 import { AIGenerationButton } from '~/components/newWord/AIGenerationButton';
 import { CategorySelect } from '~/components/newWord/CategorySelect';
@@ -6,6 +6,9 @@ import { DefinitionInput } from '~/components/newWord/DefinitionInput';
 import { EgSentenceInput } from '~/components/newWord/EgSentenceInput';
 import { SaveButton } from '~/components/newWord/SaveButton';
 import { WordInput } from '~/components/newWord/WordInput';
+import { convertToRomaji } from '~/modules/convertToRomaji';
+import { getYahooAnalysisData } from '~/modules/getYahooAnalysisData';
+import { addNewWord } from '~/modules/prisma';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -13,7 +16,22 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const definition = formData.get('definition');
   const sentence = formData.get('sentence');
 
-  return { word, definition, sentence };
+  const { kana, part } = await getYahooAnalysisData(word as string);
+  const romajiWord = convertToRomaji(kana);
+  const now = new Date();
+
+  const response = addNewWord(
+    word as string,
+    definition as string,
+    '1',
+    kana,
+    romajiWord,
+    part,
+    sentence as string,
+    now
+  );
+
+  return json({ response });
 };
 
 export default function Index() {

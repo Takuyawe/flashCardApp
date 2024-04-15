@@ -46,8 +46,10 @@ quizzes
 
 word list
 - category by category
-- remove
-- move to another category
+- Delete button and show minus icon for everything in the list
+- show undo button after deleting something
+- move to another category (multiple words)
+- double click and rename directory
 - read word
 
 responsive: mobile-first dev

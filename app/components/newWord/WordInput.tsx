@@ -3,6 +3,8 @@ type Props = {
   setWord: React.Dispatch<React.SetStateAction<string>>;
 };
 
+// TODO: word is 10 characters max
+
 export const WordInput = ({ word, setWord }: Props) => {
   return (
     <div className="grid place-items-center h-40 w-80 rounded-3xl border-2 border-base-dark shadow-sm">

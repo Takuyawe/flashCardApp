@@ -1,10 +1,10 @@
-import Anthropic from "@anthropic-ai/sdk";
-import { ActionFunctionArgs, json } from "@remix-run/node";
+import Anthropic from '@anthropic-ai/sdk';
+import { ActionFunctionArgs, json } from '@remix-run/node';
 import {
   CLAUDE_MODEL,
   DEFINITION_INSTRUCTION,
   SENTENCE_INSTRUCTION,
-} from "~/constants/AIInstruction";
+} from '~/constants/AIInstruction';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const apiKey = process.env.CLAUDE_API;
@@ -12,9 +12,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     apiKey: apiKey,
   });
   const formData = await request.formData();
-  const word = formData.get("word");
+  const word = formData.get('word');
 
-  // TODO: server side validation
+  // TODO: server side validation with conform
   // TODO: try catch statement
 
   const definitionResponse = await anthropic.messages.create({
@@ -23,12 +23,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     temperature: 1,
     messages: [
       {
-        role: "user",
+        role: 'user',
         content: [
           {
-            type: "text",
+            type: 'text',
             text: DEFINITION_INSTRUCTION.BEGINNER.replace(
-              "word",
+              'word',
               word as string
             ),
           },
@@ -43,11 +43,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     temperature: 1,
     messages: [
       {
-        role: "user",
+        role: 'user',
         content: [
           {
-            type: "text",
-            text: SENTENCE_INSTRUCTION.BEGINNER.replace("word", word as string),
+            type: 'text',
+            text: SENTENCE_INSTRUCTION.BEGINNER.replace('word', word as string),
           },
         ],
       },

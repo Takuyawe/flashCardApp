@@ -26,8 +26,8 @@ model Category {
   id    String @id @default(cuid())
   userId String @map("user_id")
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  parentCategoryId String @map("parent_category_id")
-  parentCategory Category @relation("ParentChild", fields: [parentCategoryId], references: [id], onDelete: Cascade)
+  parentCategoryId String? @map("parent_category_id")
+  parentCategory Category? @relation("ParentChild", fields: [parentCategoryId], references: [id], onDelete: Cascade)
   childCategories  Category[] @relation("ParentChild")
   name             String
   createdAt        DateTime @map("created_at")

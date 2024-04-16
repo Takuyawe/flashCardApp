@@ -10,6 +10,31 @@ export default {
       },
       colors: {
         'base-dark': '#050023',
+        'smoke-light': 'rgba(0, 0, 0, 0.5)',
+        'bright-blue': '#78C6FF',
+      },
+      animation: {
+        'fade-in':
+          'fade-in 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000)   both',
+        'fade-out': 'fade-out 0.5s linear   both',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': {
+            opacity: '0',
+          },
+          to: {
+            opacity: '1',
+          },
+        },
+        'fade-out': {
+          '0%': {
+            opacity: '1',
+          },
+          to: {
+            opacity: '0',
+          },
+        },
       },
     },
   },

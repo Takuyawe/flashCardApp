@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { CategorySelect } from './CategorySelect';
 import { useFetcher } from '@remix-run/react';
+import { Categories } from '~/types';
 
 type Props = {
+  categories: Categories;
   closeModal: () => void;
 };
 
-export const AddCategory = ({ closeModal }: Props) => {
+export const AddCategory = ({ categories, closeModal }: Props) => {
   const [newCategory, setNewCategory] = useState<string>('');
   const [parentCategory, setParentCategory] = useState<string>('');
   const fetcher = useFetcher();
@@ -35,6 +37,7 @@ export const AddCategory = ({ closeModal }: Props) => {
               <CategorySelect
                 category={parentCategory}
                 setCategory={setParentCategory}
+                categories={categories}
               />
             </div>
           </div>

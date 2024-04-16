@@ -24,7 +24,7 @@ export const CategorySelectContainer = ({
           setChosenCategory={setCategory}
           categories={categories}
         />
-        <AddCategoryButton />
+        <AddCategoryButton categories={categories} />
       </div>
     </div>
   );

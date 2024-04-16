@@ -18,6 +18,11 @@ const CATEGORIES: Record<
       },
       3: {
         name: 'Basketball',
+        children: {
+          7: {
+            name: 'Soccer',
+          },
+        },
       },
     },
   },
@@ -29,8 +34,41 @@ const CATEGORIES: Record<
       },
       6: {
         name: 'Vegetables',
+        children: {
+          8: {
+            name: 'Cabbage',
+          },
+        },
       },
     },
+  },
+  9: {
+    name: 'Animals',
+    children: {
+      10: {
+        name: 'Mammals',
+      },
+      11: {
+        name: 'Reptiles',
+        children: {
+          12: {
+            name: 'Snakes',
+          },
+        },
+      },
+    },
+  },
+  13: {
+    name: 'Fruits',
+  },
+  14: {
+    name: 'Vegetables',
+  },
+  15: {
+    name: 'Cabbages',
+  },
+  16: {
+    name: 'Snakes',
   },
 };
 
@@ -42,11 +80,13 @@ type ItemProps = {
       { name: string; children?: Record<string, { name: string }> }
     >;
   };
-  chosenCategory?: string;
+  chosenCategory: string;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const CategoryItem = ({ category, chosenCategory, setCategory }: ItemProps) => {
+  const [isChildrenOpen, setIsChildrenOpen] = useState(true);
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-x-1">
@@ -57,10 +97,17 @@ const CategoryItem = ({ category, chosenCategory, setCategory }: ItemProps) => {
             <i className="ri-circle-fill text-base-dark text-md" />
           )}
         </button>
-        <i className="ri-folder-fill text-bright-blue text-2xl" />
+        {category.children && !isChildrenOpen ? (
+          <i className="ri-arrow-right-s-line text-xl" />
+        ) : (
+          <i className="ri-arrow-down-s-line text-xl" />
+        )}
+        <button onClick={() => setIsChildrenOpen(!isChildrenOpen)}>
+          <i className="ri-folder-fill text-bright-blue text-2xl" />
+        </button>
         <span>{category.name}</span>
       </div>
-      {category.children && (
+      {isChildrenOpen && category.children && (
         <div className="ml-4">
           {Object.keys(category.children).map((childKey) => (
             <CategoryItem
@@ -83,7 +130,6 @@ type Props = {
 
 export const CategorySelect = ({ category, setCategory }: Props) => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  // TODO: customize options
 
   return (
     <>
@@ -107,7 +153,7 @@ export const CategorySelect = ({ category, setCategory }: Props) => {
         </div>
       </div>
       {isCategoriesOpen && (
-        <div className="absolute top-48 left-12 h-auto w-5/6 bg-white border border-base-dark">
+        <div className="absolute top-44 left-7 py-4 pl-3 h-auto min-h-60 max-h-96 overflow-auto w-5/6 rounded-md bg-white border border-base-dark">
           <div className="flex flex-col">
             {Object.keys(CATEGORIES).map((key) => (
               <CategoryItem

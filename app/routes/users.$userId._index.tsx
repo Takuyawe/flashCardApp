@@ -38,10 +38,11 @@ export default function Index() {
   const [word, setWord] = useState<string>('');
   const [definition, setDefinition] = useState<string>('');
   const [sentence, setSentence] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-8">
-      <CategorySelectContainer />
+      <CategorySelectContainer category={category} setCategory={setCategory} />
       <WordInput word={word} setWord={setWord} />
       <AIGenerationButton
         word={word}

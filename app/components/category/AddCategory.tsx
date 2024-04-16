@@ -7,6 +7,7 @@ type Props = {
 
 export const AddCategory = ({ closeModal }: Props) => {
   const [newCategory, setNewCategory] = useState<string>('');
+  const [parentCategory, setParentCategory] = useState<string>('');
 
   return (
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-60 h-80 w-5/6 bg-white shadow-lg rounded-lg animate-fade-in">
@@ -29,7 +30,10 @@ export const AddCategory = ({ closeModal }: Props) => {
               Parent Category
             </label>
             <div className="flex h-10 w-72">
-              <CategorySelect />
+              <CategorySelect
+                category={parentCategory}
+                setCategory={setParentCategory}
+              />
             </div>
           </div>
         </div>

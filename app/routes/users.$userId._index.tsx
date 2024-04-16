@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, json } from '@remix-run/node';
 import { useState } from 'react';
 import { AIGenerationButton } from '~/components/newWord/AIGenerationButton';
-import { CategorySelect } from '~/components/newWord/CategorySelect';
+import { CategorySelectContainer } from '~/components/newWord/CategorySelectContainer';
 import { DefinitionInput } from '~/components/newWord/DefinitionInput';
 import { EgSentenceInput } from '~/components/newWord/EgSentenceInput';
 import { SaveButton } from '~/components/newWord/SaveButton';
@@ -41,7 +41,7 @@ export default function Index() {
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-8">
-      <CategorySelect />
+      <CategorySelectContainer />
       <WordInput word={word} setWord={setWord} />
       <AIGenerationButton
         word={word}

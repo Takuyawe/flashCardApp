@@ -1,5 +1,5 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect } from "react";
+import { useFetcher } from '@remix-run/react';
+import { useEffect } from 'react';
 
 type FetcherDataType = {
   definitionResponse: { content: [{ text: string }] };
@@ -30,8 +30,8 @@ export const AIGenerationButton = ({
     )
       return;
 
-    setSentence(() => "");
-    setDefinition(() => "");
+    setSentence(() => '');
+    setDefinition(() => '');
 
     const intervalId = setInterval(() => {
       setDefinition((prevState) => {
@@ -51,7 +51,7 @@ export const AIGenerationButton = ({
     }, 50);
 
     return () => clearInterval(intervalId);
-  }, [generatedDefinitionAndSentence[0], generatedDefinitionAndSentence[1]]);
+  }, [generatedDefinitionAndSentence[0]]);
 
   return (
     <fetcher.Form action="generate" method="post">

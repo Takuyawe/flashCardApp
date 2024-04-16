@@ -34,7 +34,9 @@ export const AddCategory = ({ closeModal }: Props) => {
           </div>
         </div>
         <div className="flex justify-end w-full gap-x-3 mr-14">
-          <button className="h-6 w-20 bg-white text-base-dark outline outline-base-dark rounded-xl text-md">
+          <button
+            onClick={closeModal}
+            className="h-6 w-20 bg-white text-base-dark outline outline-base-dark rounded-xl text-md">
             Cancel
           </button>
           <button className="h-6 w-20 bg-base-dark text-white rounded-xl text-md">

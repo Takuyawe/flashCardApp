@@ -1,8 +1,13 @@
-import type { LinksFunction } from '@remix-run/node';
+import type {
+  LinksFunction,
+  LoaderFunction,
+  LoaderFunctionArgs,
+} from '@remix-run/node';
 import {
   Links,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
@@ -16,6 +21,13 @@ export const links: LinksFunction = () => [
 ];
 
 // TODO: add loader to check if user is logged in, if not redirect to login page
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const userId = 'clv0qs04i00006d6c18akraw9';
+  if (request.url === 'http://localhost:5173/')
+    return redirect(`/users/${userId}`);
+  return null;
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

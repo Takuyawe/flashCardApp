@@ -1,35 +1,30 @@
 import { useState } from 'react';
+import { CategoryWithChildren } from '~/types';
 
-type ItemProps = {
-  category: {
-    name: string;
-    children?: Record<
-      number,
-      { name: string; children?: Record<string, { name: string }> }
-    >;
-  };
+type Props = {
+  category: CategoryWithChildren;
   chosenCategory: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setChosenCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const CategoryItem = ({
   category,
   chosenCategory,
-  setCategory,
-}: ItemProps) => {
+  setChosenCategory,
+}: Props) => {
   const [isChildrenOpen, setIsChildrenOpen] = useState(true);
 
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-x-1">
         <button
-          onClick={() => setCategory(category.name)}
+          onClick={() => setChosenCategory(category.name)}
           className="flex items-center justify-center h-4 min-w-4 rounded-full bg-white outline outline-base-dark">
           {chosenCategory === category.name && (
             <i className="ri-circle-fill text-base-dark text-md" />
           )}
         </button>
-        {category.children && !isChildrenOpen ? (
+        {category.childCategories.length > 0 && !isChildrenOpen ? (
           <i className="ri-arrow-right-s-line text-xl" />
         ) : (
           <i className="ri-arrow-down-s-line text-xl" />
@@ -39,14 +34,14 @@ export const CategoryItem = ({
         </button>
         <span>{category.name}</span>
       </div>
-      {isChildrenOpen && category.children && (
+      {isChildrenOpen && category.childCategories.length > 0 && (
         <div className="ml-4">
-          {Object.keys(category.children).map((childKey) => (
+          {category.childCategories.map((childCategory) => (
             <CategoryItem
-              key={childKey}
-              category={category.children![parseInt(childKey)]}
+              key={childCategory.id}
+              category={childCategory}
               chosenCategory={chosenCategory}
-              setCategory={setCategory}
+              setChosenCategory={setChosenCategory}
             />
           ))}
         </div>

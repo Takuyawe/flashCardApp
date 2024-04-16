@@ -24,7 +24,7 @@ export const CategoryItem = ({
       <div className="flex items-center gap-x-1">
         <button
           onClick={() => setCategory(category.name)}
-          className="flex items-center justify-center h-4 w-4 rounded-full bg-white outline outline-base-dark">
+          className="flex items-center justify-center h-4 min-w-4 rounded-full bg-white outline outline-base-dark">
           {chosenCategory === category.name && (
             <i className="ri-circle-fill text-base-dark text-md" />
           )}

@@ -1,5 +1,12 @@
 language: English
 
+TODO:
+- auto suggestion for word input
+- change categories from word list
+- remove bullet points and make it blue when chosen
+- use recoil for storing user data
+- validation with conform
+
 screen-flow
 1. login screen (if not logged in)
 2. Home screen - main menu

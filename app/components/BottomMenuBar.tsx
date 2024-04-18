@@ -1,30 +1,28 @@
+import { CustomNavLink } from './CustomNavLink';
+
 export const BottomMenuBar = () => {
   return (
     <div className="bg-base-dark h-16 w-full flex items-center justify-around">
-      <button className="h-16">
-        <div className="flex flex-col justify-center">
-          <i className="text-white ri-home-8-line ri-2x" />
-          <span className="text-white text-xs">Home</span>
-        </div>
-      </button>
-      <button className="h-16">
-        <div className="flex flex-col justify-center">
-          <i className="text-white ri-questionnaire-line ri-2x" />
-          <span className="text-white text-xs">Quiz</span>
-        </div>
-      </button>
-      <button className="h-16">
-        <div className="flex flex-col justify-center">
-          <i className="text-white ri-file-list-line ri-2x" />
-          <span className="text-white text-xs">Word List</span>
-        </div>
-      </button>
-      <button className="h-16">
-        <div className="flex flex-col justify-center">
-          <i className="text-white ri-account-circle-line ri-2x" />
-          <span className="text-white text-xs">Account</span>
-        </div>
-      </button>
+      <CustomNavLink
+        to="/users/clv0qs04i00006d6c18akraw9"
+        icon="ri-home-8-line"
+        text="Home"
+      />
+      <CustomNavLink
+        to="/users/clv0qs04i00006d6c18akraw9/quiz"
+        icon="ri-questionnaire-line"
+        text="Quiz"
+      />
+      <CustomNavLink
+        to="/users/clv0qs04i00006d6c18akraw9/word-list"
+        icon="ri-file-list-line"
+        text="Word List"
+      />
+      <CustomNavLink
+        to="/users/clv0qs04i00006d6c18akraw9/account"
+        icon="ri-account-circle-line"
+        text="Account"
+      />
     </div>
   );
 };

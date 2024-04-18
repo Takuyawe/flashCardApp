@@ -25,6 +25,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const word = formData.get('word');
   const definition = formData.get('definition');
   const sentence = formData.get('sentence');
+  const categoryId = formData.get('categoryId');
 
   const { kana, part } = await getYahooAnalysisData(word as string);
   const romajiWord = convertToRomaji(kana);
@@ -33,7 +34,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const response = addNewWord(
     word as string,
     definition as string,
-    '1',
+    categoryId as string,
     kana,
     romajiWord,
     part,
@@ -68,7 +69,12 @@ export default function Index() {
       />
       <DefinitionInput definition={definition} setDefinition={setDefinition} />
       <EgSentenceInput sentence={sentence} setSentence={setSentence} />
-      <SaveButton word={word} definition={definition} sentence={sentence} />
+      <SaveButton
+        word={word}
+        definition={definition}
+        sentence={sentence}
+        categoryId={chosenCategoryId}
+      />
     </div>
   );
 }

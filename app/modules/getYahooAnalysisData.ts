@@ -16,14 +16,14 @@ export const getYahooAnalysisData = async (text: string) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'User-Agent': `Yahoo AppID: ${process.env.YAHOO_APP_ID}`,
+      'User-Agent': `Yahoo AppID: ${process.env.YAHOO_CLIENT_ID}`,
     },
     body: JSON.stringify(reqData),
   });
 
   const data = await response.json();
 
-  const result = data.result[0];
+  const result = data.result.tokens[0];
 
   const kana = result[1];
   const part = result[3];

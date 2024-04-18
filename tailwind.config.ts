@@ -12,6 +12,7 @@ export default {
         'base-dark': '#050023',
         'smoke-light': 'rgba(0, 0, 0, 0.5)',
         'bright-blue': '#78C6FF',
+        'light-blue': '#90EBFF',
       },
       animation: {
         'fade-in':

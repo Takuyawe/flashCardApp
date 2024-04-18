@@ -20,26 +20,27 @@ export const CategoryItem = ({
     <div className="flex flex-col">
       <div className="flex items-center gap-x-1">
         <button
+          onClick={() => setIsChildrenOpen(!isChildrenOpen)}
+          className="flex items-center justify-center">
+          {category.childCategories &&
+          category.childCategories.length > 0 &&
+          !isChildrenOpen ? (
+            <i className="ri-arrow-right-s-line text-xl" />
+          ) : (
+            <i className="ri-arrow-down-s-line text-xl" />
+          )}
+          <i className="ri-folder-fill text-bright-blue text-2xl" />
+        </button>
+        <button
           onClick={() => {
             setChosenCategory(category.name);
             setChosenCategoryId(category.id);
           }}
-          className="flex items-center justify-center h-4 min-w-4 rounded-full bg-white outline outline-base-dark">
-          {chosenCategory === category.name && (
-            <i className="ri-circle-fill text-base-dark text-md" />
-          )}
+          className={`text-start w-full pl-1 mr-3 rounded-sm ${
+            chosenCategory === category.name && 'bg-light-blue'
+          }`}>
+          {category.name}
         </button>
-        {category.childCategories &&
-        category.childCategories.length > 0 &&
-        !isChildrenOpen ? (
-          <i className="ri-arrow-right-s-line text-xl" />
-        ) : (
-          <i className="ri-arrow-down-s-line text-xl" />
-        )}
-        <button onClick={() => setIsChildrenOpen(!isChildrenOpen)}>
-          <i className="ri-folder-fill text-bright-blue text-2xl" />
-        </button>
-        <span>{category.name}</span>
       </div>
       {isChildrenOpen &&
         category.childCategories &&

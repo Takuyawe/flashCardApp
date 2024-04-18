@@ -9,7 +9,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const response = addNewCategory(
     'clv0qs04i00006d6c18akraw9',
-    parentCategoryId as string,
+    parentCategoryId !== '' ? (parentCategoryId as string) : null,
     newCategory as string,
     now
   );

@@ -48,7 +48,14 @@ export const CategorySelect = ({
               : 'top-36 left-12 min-h-60 max-h-96 w-2/3'
           } overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark`}>
           <div className="flex flex-col">
-            {/* TODO: create root category option */}
+            <button
+              onClick={() => {
+                setChosenCategory('root');
+                setChosenCategoryId('');
+              }}
+              className="bg-base-dark text-white text-sm rounded-sm mb-2 mx-auto px-3">
+              Add a folder in the root directory
+            </button>
             {categories.map((category) => (
               <CategoryItem
                 key={category.id}

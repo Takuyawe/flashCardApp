@@ -1,6 +1,7 @@
 language: English
 
 TODO:
+- example sentence {hiragana, romaji, meaning}
 - auto suggestion for word input
 - change categories from word list
 - use recoil for storing user data

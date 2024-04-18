@@ -40,6 +40,7 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
                 setChosenCategory={setParentCategory}
                 categories={categories}
                 setChosenCategoryId={setParentCategoryId}
+                isCategoryAddingScreen
               />
             </div>
           </div>

@@ -14,7 +14,7 @@ export const CategoryItem = ({
   setChosenCategory,
   setChosenCategoryId,
 }: Props) => {
-  const [isChildrenOpen, setIsChildrenOpen] = useState(true);
+  const [isChildrenOpen, setIsChildrenOpen] = useState(false);
 
   return (
     <div className="flex flex-col">

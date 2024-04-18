@@ -1,9 +1,7 @@
-import { Prisma } from '@prisma/client';
+import { Category } from '@prisma/client';
 
-export type CategoryWithChildren = Prisma.CategoryGetPayload<{
-  include: {
-    childCategories: true;
-  };
-}>;
+export interface CategoryWithChildren extends Category {
+  childCategories?: CategoryWithChildren[];
+}
 
 export type Categories = CategoryWithChildren[];

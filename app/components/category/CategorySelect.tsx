@@ -5,12 +5,14 @@ import { Categories } from '~/types';
 type Props = {
   chosenCategory: string;
   setChosenCategory: React.Dispatch<React.SetStateAction<string>>;
+  setChosenCategoryId: React.Dispatch<React.SetStateAction<string>>;
   categories: Categories;
 };
 
 export const CategorySelect = ({
   chosenCategory,
   setChosenCategory,
+  setChosenCategoryId,
   categories,
 }: Props) => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -46,6 +48,7 @@ export const CategorySelect = ({
                 category={category}
                 chosenCategory={chosenCategory}
                 setChosenCategory={setChosenCategory}
+                setChosenCategoryId={setChosenCategoryId}
               />
             ))}
           </div>

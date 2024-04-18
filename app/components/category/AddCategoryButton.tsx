@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { Modal } from '../modal/Modal';
 import { AddCategory } from './AddCategory';
+import { Categories } from '~/types';
 
-export const AddCategoryButton = () => {
+type Props = {
+  categories: Categories;
+};
+
+export const AddCategoryButton = ({ categories }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -17,7 +22,7 @@ export const AddCategoryButton = () => {
         <i className="ri-add-line text-3xl" />
       </button>
       <Modal isOpen={isOpen}>
-        <AddCategory closeModal={closeModal} />
+        <AddCategory categories={categories} closeModal={closeModal} />
       </Modal>
     </>
   );

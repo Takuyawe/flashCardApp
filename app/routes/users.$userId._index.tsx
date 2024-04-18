@@ -10,11 +10,14 @@ import { WordInput } from '~/components/newWord/WordInput';
 import { convertToRomaji } from '~/modules/convertToRomaji';
 import { getYahooAnalysisData } from '~/modules/getYahooAnalysisData';
 import { addNewWord, fetchCategories } from '~/modules/prisma';
+import { typedjson } from 'remix-typedjson';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const userId = params.userId;
   const categories = await fetchCategories(userId as string);
-  return json(categories);
+  return typedjson({
+    categories,
+  });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -46,7 +49,8 @@ export default function Index() {
   const [definition, setDefinition] = useState<string>('');
   const [sentence, setSentence] = useState<string>('');
   const [category, setCategory] = useState<string>('');
-  const categories = useLoaderData<typeof loader>();
+  const [chosenCategoryId, setChosenCategoryId] = useState<string>('');
+  const { categories } = useLoaderData<typeof loader>();
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-8">
@@ -54,6 +58,7 @@ export default function Index() {
         category={category}
         setCategory={setCategory}
         categories={categories}
+        setChosenCategoryId={setChosenCategoryId}
       />
       <WordInput word={word} setWord={setWord} />
       <AIGenerationButton

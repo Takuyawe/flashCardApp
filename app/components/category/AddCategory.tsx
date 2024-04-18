@@ -11,6 +11,7 @@ type Props = {
 export const AddCategory = ({ categories, closeModal }: Props) => {
   const [newCategory, setNewCategory] = useState<string>('');
   const [parentCategory, setParentCategory] = useState<string>('');
+  const [parentCategoryId, setParentCategoryId] = useState<string>('');
   const fetcher = useFetcher();
 
   return (
@@ -35,9 +36,10 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
             </label>
             <div className="flex h-10 w-72">
               <CategorySelect
-                category={parentCategory}
-                setCategory={setParentCategory}
+                chosenCategory={parentCategory}
+                setChosenCategory={setParentCategory}
                 categories={categories}
+                setChosenCategoryId={setParentCategoryId}
               />
             </div>
           </div>
@@ -51,7 +53,11 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
 
           <fetcher.Form action="category" method="post">
             <input type="hidden" name="newCategory" value={newCategory} />
-            <input type="hidden" name="parentCategory" value={parentCategory} />
+            <input
+              type="hidden"
+              name="parentCategoryId"
+              value={parentCategoryId}
+            />
             <button
               type="submit"
               className="h-6 w-20 bg-base-dark text-white rounded-xl text-md">

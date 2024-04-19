@@ -3,12 +3,15 @@ import {
   Links,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from '@remix-run/react';
 import 'remixicon/fonts/remixicon.css';
 import stylesheet from '~/tailwind.css?url';
 import { Header } from './components/Header';
+import { createSupabaseServerClient } from './supabase.server';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },

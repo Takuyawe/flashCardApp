@@ -13,6 +13,7 @@ export default {
         'smoke-light': 'rgba(0, 0, 0, 0.5)',
         'bright-blue': '#78C6FF',
         'light-blue': '#90EBFF',
+        facebook: '#2c64f6',
       },
       animation: {
         'fade-in':

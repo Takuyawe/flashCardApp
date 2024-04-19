@@ -15,7 +15,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   );
   if (response.user) {
     const userId = response.user.id;
-    return createUserSession(userId, `/users/${userId}`);
+    return createUserSession(userId, '/');
   } else {
     return json({ message: response.message }, { status: 400 });
   }

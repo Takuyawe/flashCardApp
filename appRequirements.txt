@@ -4,6 +4,8 @@ TODO:
 - show message for each input
 - validation with conform
 - use recoil for storing user data
+- hash password
+- create user
 - example sentence {hiragana, romaji, meaning}
 - auto suggestion for word input
 - change categories from word list

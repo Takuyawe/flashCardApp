@@ -11,6 +11,7 @@ import stylesheet from '~/tailwind.css?url';
 import { Header } from './components/Header';
 import { requireUserSession } from './server/auth.server';
 import { redirect } from 'remix-typedjson';
+import { RecoilRoot } from 'recoil';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -30,8 +31,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  // const loaderResponse = useLoaderData<typeof loader>();
-
   return (
     <html lang="en">
       <head>
@@ -54,5 +53,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <RecoilRoot>
+      <Outlet />
+    </RecoilRoot>
+  );
 }

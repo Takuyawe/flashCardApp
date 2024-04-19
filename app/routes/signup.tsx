@@ -9,6 +9,7 @@ import { AUTHENTICATOR_STRATEGY_NAME } from '~/constants/Authentication';
 // import { SuccessMessage } from '~/components/login/SuccessMessage';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
+  //   TODO: Change for sign up method
   const response = await authenticator.authenticate(
     AUTHENTICATOR_STRATEGY_NAME,
     request
@@ -21,7 +22,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 };
 
-export default function Login() {
+export default function SignUp() {
   const actionResponse = useActionData<typeof action>();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -29,7 +30,7 @@ export default function Login() {
   return (
     <div className="mx-auto mt-10 h-1/2 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
       <div className="flex flex-col h-full items-center justify-start p-4">
-        <span className="text-2xl">Sign In</span>
+        <span className="text-2xl">Sign Up</span>
         <Form method="post">
           <div className="flex flex-col mt-12 gap-y-6">
             {actionResponse?.message && <ErrorMessage />}
@@ -51,16 +52,13 @@ export default function Login() {
             <button
               type="submit"
               className="h-10 w-60 bg-base-dark text-white rounded-md text-lg mt-4">
-              Sign In
+              Sign Up
             </button>
           </div>
         </Form>
         <div className="flex flex-col items-start justify-center w-60 gap-y-1 mt-10">
           <button className="text-sm text-bright-purple">
-            Create an Account
-          </button>
-          <button className="text-sm text-bright-purple">
-            Forgot your Password?
+            Login with your Account
           </button>
         </div>
       </div>

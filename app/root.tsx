@@ -22,7 +22,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await requireUserSession(request);
 
   if (!userId) {
-    if (url.pathname !== '/login') return redirect('/login');
+    if (url.pathname !== '/login' && url.pathname !== '/signup')
+      return redirect('/login');
   } else {
     if (url.pathname !== `/users/${userId}`)
       return redirect(`/users/${userId}`);

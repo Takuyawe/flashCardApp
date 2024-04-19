@@ -1,12 +1,12 @@
 language: English
 
 TODO:
+- create user
 - show message for each input
 - validation with conform
-- use recoil for storing user data
 - hash password
-- create user
 - example sentence {hiragana, romaji, meaning}
+- forgotten password
 - auto suggestion for word input
 - change categories from word list
 

@@ -6,7 +6,7 @@ type Props = {
   setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const LoginInput = ({
+export const AuthInput = ({
   label,
   name,
   placeholder,

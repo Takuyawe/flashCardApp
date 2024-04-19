@@ -6,10 +6,12 @@ import {
   redirect,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from '@remix-run/react';
 import 'remixicon/fonts/remixicon.css';
 import stylesheet from '~/tailwind.css?url';
 import { Header } from './components/Header';
+import { createSupabaseServerClient } from './supabase.server';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -17,14 +19,9 @@ export const links: LinksFunction = () => [
 
 // TODO: add loader to check if user is logged in, if not redirect to login page
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const userId = 'clv0qs04i00006d6c18akraw9';
-  if (request.url === 'http://localhost:5173/')
-    return redirect(`/users/${userId}`);
-  return null;
-};
-
 export function Layout({ children }: { children: React.ReactNode }) {
+  // const loaderResponse = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>

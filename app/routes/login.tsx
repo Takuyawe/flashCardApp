@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json } from '@remix-run/node';
+import { ActionFunctionArgs, json, redirect } from '@remix-run/node';
 import { Auth } from '@supabase/auth-ui-react';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
@@ -17,15 +17,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider,
     options: {
-      queryParams: { redirect_to: 'https://flash-card-app-mu.vercel.app/' },
+      redirectTo: 'https://flash-card-app-mu.vercel.app/',
     },
   });
-  console.log(data);
 
   if (error) {
     console.log('error', error);
   }
 
+  if (data.url) return redirect(data.url);
   return json({ data, error });
 };
 

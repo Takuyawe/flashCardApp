@@ -2,9 +2,7 @@ import { Authenticator } from 'remix-auth';
 import { sessionStorage } from './session.server';
 import { FormStrategy } from 'remix-auth-form';
 import { login } from './login.server';
-import { User } from '@prisma/client';
 import { LoginResponse } from '../types';
-import { redirect } from '@remix-run/node';
 import {
   AUTHENTICATOR_STRATEGY_NAME,
   SESSION_ID,

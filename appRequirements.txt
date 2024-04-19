@@ -1,8 +1,6 @@
 language: English
 
 TODO:
-- store session or cookie expirable data
-- show error banner above email
 - show message for each input
 - validation with conform
 - use recoil for storing user data

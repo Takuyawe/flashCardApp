@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, json, redirect } from '@remix-run/node';
+import { ActionFunctionArgs, json } from '@remix-run/node';
 import { Form, useActionData } from '@remix-run/react';
 import { useState } from 'react';
 import { authenticator } from '~/server/auth.server';
@@ -23,7 +23,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function Login() {
   const actionResponse = useActionData<typeof action>();
-  console.log(actionResponse);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

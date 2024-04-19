@@ -10,3 +10,8 @@ export type LoginResponse = {
   message?: string;
   user?: User;
 };
+
+export type AuthResponse = {
+  message?: string;
+  user?: User;
+};

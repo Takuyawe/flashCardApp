@@ -1,24 +1,5 @@
-import { Authenticator } from 'remix-auth';
 import { sessionStorage } from './session.server';
-import { FormStrategy } from 'remix-auth-form';
-import { login } from './login.server';
-import { LoginResponse } from '../types';
-import {
-  AUTHENTICATOR_STRATEGY_NAME,
-  SESSION_ID,
-} from '../constants/Authentication';
-
-export const authenticator = new Authenticator<LoginResponse>(sessionStorage);
-
-authenticator.use(
-  new FormStrategy(async ({ form }) => {
-    const email = form.get('email') as string;
-    const password = form.get('password') as string;
-    const response = await login(email, password);
-    return response;
-  }),
-  AUTHENTICATOR_STRATEGY_NAME
-);
+import { SESSION_ID } from '../constants/Authentication';
 
 export const requireUserSession = async (request: Request) => {
   const userId = await getUserFromSession(request);

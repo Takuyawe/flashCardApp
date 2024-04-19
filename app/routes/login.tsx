@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, json } from '@remix-run/node';
-import { Form, useActionData } from '@remix-run/react';
+import { Form, Link, useActionData } from '@remix-run/react';
 import { useState } from 'react';
-import { authenticator } from '~/server/auth.server';
+import { loginAuthenticator } from '~/server/login.server';
 import { ErrorMessage } from '~/components/login/ErrorMessage';
 import { AuthInput } from '~/components/login/AuthInput';
 import { createUserSession } from '~/server/session.server';
@@ -9,7 +9,7 @@ import { AUTHENTICATOR_STRATEGY_NAME } from '~/constants/Authentication';
 // import { SuccessMessage } from '~/components/login/SuccessMessage';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const response = await authenticator.authenticate(
+  const response = await loginAuthenticator.authenticate(
     AUTHENTICATOR_STRATEGY_NAME,
     request
   );
@@ -27,12 +27,14 @@ export default function Login() {
   const [password, setPassword] = useState<string>('');
 
   return (
-    <div className="mx-auto mt-10 h-1/2 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
+    <div className="mx-auto mt-10 h-3/5 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
       <div className="flex flex-col h-full items-center justify-start p-4">
         <span className="text-2xl">Sign In</span>
         <Form method="post">
           <div className="flex flex-col mt-12 gap-y-6">
-            {actionResponse?.message && <ErrorMessage />}
+            {actionResponse?.message && (
+              <ErrorMessage errorMessage={actionResponse.message} />
+            )}
             {/* {actionResponse?.message && <SuccessMessage />} */}
             <AuthInput
               label="Email"
@@ -55,10 +57,10 @@ export default function Login() {
             </button>
           </div>
         </Form>
-        <div className="flex flex-col items-start justify-center w-60 gap-y-1 mt-10">
-          <button className="text-sm text-bright-purple">
+        <div className="flex flex-col items-start justify-center w-60 gap-y-2 mt-10">
+          <Link to="/signup" className="text-sm text-bright-purple">
             Create an Account
-          </button>
+          </Link>
           <button className="text-sm text-bright-purple">
             Forgot your Password?
           </button>

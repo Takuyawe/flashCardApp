@@ -5,28 +5,33 @@ import {
   USER_NOT_FOUND,
   WRONG_PASSWORD,
 } from '../constants/Authentication';
-import { LoginResponse } from '../types';
+import { AuthResponse } from '../types';
 import { Authenticator } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
 import { sessionStorage } from './session.server';
 
-export const loginAuthenticator = new Authenticator<LoginResponse>(
+export const signupAuthenticator = new Authenticator<AuthResponse>(
   sessionStorage
 );
 
-loginAuthenticator.use(
+signupAuthenticator.use(
   new FormStrategy(async ({ form }) => {
+    const name = form.get('name') as string;
     const email = form.get('email') as string;
     const password = form.get('password') as string;
-    const response = await login(email, password);
+    const response = await signup(name, email, password);
     return response;
   }),
   AUTHENTICATOR_STRATEGY_NAME
 );
 
-type Login = (email: string, password: string) => Promise<LoginResponse>;
+type SignUp = (
+  name: string,
+  email: string,
+  password: string
+) => Promise<AuthResponse>;
 
-export const login: Login = async (email, password) => {
+export const signup: SignUp = async (name, email, password) => {
   const user = await getUserData(email);
 
   if (!email || !password) {

@@ -17,11 +17,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider,
     options: {
-      skipBrowserRedirect: true,
+      queryParams: { redirect_to: 'https://flash-card-app-mu.vercel.app/' },
     },
-    // options: {
-    //   queryParams: { redirect_to: 'http://localhost:5173/' },
-    // },
   });
   console.log(data);
 

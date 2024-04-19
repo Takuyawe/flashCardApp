@@ -11,8 +11,6 @@ type Login = (email: string, password: string) => Promise<LoginResponse>;
 export const login: Login = async (email, password) => {
   const user = await getUserData(email);
 
-  console.log('user', user);
-
   if (!email || !password) {
     return { message: EMPTY_INPUT };
   } else if (!user) {

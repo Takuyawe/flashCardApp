@@ -9,6 +9,8 @@ export default {
         body: 'calc(100dvh - 8rem)',
       },
       colors: {
+        'bright-green': '#4F8A10',
+        'bright-red': '#cc0000',
         'base-dark': '#050023',
         'smoke-light': 'rgba(0, 0, 0, 0.5)',
         'bright-blue': '#78C6FF',

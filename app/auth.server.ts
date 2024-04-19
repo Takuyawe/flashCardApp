@@ -4,6 +4,7 @@ import { FormStrategy } from 'remix-auth-form';
 import { login } from './login.server';
 import { User } from '@prisma/client';
 import { LoginResponse } from './types';
+import { redirect } from '@remix-run/node';
 
 export const authenticator = new Authenticator<LoginResponse>(sessionStorage);
 
@@ -16,3 +17,17 @@ authenticator.use(
   }),
   'user-login'
 );
+
+export const requireUserSession = async (request: Request) => {
+  const userId = await getUserFromSession(request);
+  return userId;
+};
+
+export const getUserFromSession = async (request: Request) => {
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+  const userId: string = session.get('userId');
+  if (!userId) return null;
+  return userId;
+};

@@ -1,4 +1,4 @@
-import type { LinksFunction } from '@remix-run/node';
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node';
 import {
   Links,
   Meta,
@@ -9,12 +9,25 @@ import {
 import 'remixicon/fonts/remixicon.css';
 import stylesheet from '~/tailwind.css?url';
 import { Header } from './components/Header';
+import { requireUserSession } from './auth.server';
+import { redirect } from 'remix-typedjson';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
 
-// TODO: add loader to check if user is logged in, if not redirect to login page
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const userId = await requireUserSession(request);
+
+  if (!userId) {
+    if (url.pathname !== '/login') return redirect('/login');
+  } else {
+    if (url.pathname !== `/users/${userId}`)
+      return redirect(`/users/${userId}`);
+  }
+  return null;
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   // const loaderResponse = useLoaderData<typeof loader>();

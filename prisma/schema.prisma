@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,37 +8,37 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(cuid())
-  name  String
-  email String
-  password String
-  createdAt DateTime @map("created_at")
+  id         String     @id @default(cuid())
+  name       String
+  email      String
+  password   String
+  createdAt  DateTime   @map("created_at")
   categories Category[]
 }
 
 model Category {
-  id    String @id @default(cuid())
-  userId String @map("user_id")
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  parentCategoryId String? @map("parent_category_id")
-  parentCategory Category? @relation("ParentChild", fields: [parentCategoryId], references: [id], onDelete: Cascade)
-  childCategories  Category[] @relation("ParentChild")
+  id               String     @id @default(cuid())
+  userId           String     @map("user_id")
+  parentCategoryId String?    @map("parent_category_id")
   name             String
-  createdAt        DateTime @map("created_at")
-  updatedAt        DateTime @map("updated_at")
-  words Word[]
+  createdAt        DateTime   @map("created_at")
+  updatedAt        DateTime   @map("updated_at")
+  parentCategory   Category?  @relation("ParentChild", fields: [parentCategoryId], references: [id], onDelete: Cascade)
+  childCategories  Category[] @relation("ParentChild")
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  words            Word[]
 }
 
 model Word {
-  id    String @id @default(cuid())
-  categoryId String @map("category_id")
-  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  name             String
-  kana             String
-  romaji           String
-  definition       String
-  part             String
-  exampleSentence  String @map("example_sentence")
-  createdAt        DateTime @map("created_at")
-  updatedAt        DateTime @map("updated_at")
+  id              String   @id @default(cuid())
+  categoryId      String   @map("category_id")
+  name            String
+  kana            String
+  romaji          String
+  definition      String
+  part            String
+  exampleSentence String   @map("example_sentence")
+  createdAt       DateTime @map("created_at")
+  updatedAt       DateTime @map("updated_at")
+  category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }

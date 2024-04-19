@@ -1,5 +1,18 @@
+import { User } from '@prisma/client';
 import { prisma } from '~/lib/prisma';
 import { Categories } from '~/types';
+
+type GetUserData = (email: string) => Promise<User | null>;
+export const getUserData: GetUserData = async (email) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+  });
+  console.log(user);
+
+  return user;
+};
 
 type AddNewWord = (
   word: string,

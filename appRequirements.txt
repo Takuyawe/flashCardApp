@@ -1,11 +1,15 @@
 language: English
 
 TODO:
+- store session or cookie expirable data
+- show error banner above email
+- show message for each input
+- validation with conform
+- use recoil for storing user data
 - example sentence {hiragana, romaji, meaning}
 - auto suggestion for word input
 - change categories from word list
-- use recoil for storing user data
-- validation with conform
+
 
 screen-flow
 1. login screen (if not logged in)

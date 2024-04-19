@@ -2,6 +2,7 @@ import { getUserData } from '../modules/prisma';
 import {
   AUTHENTICATOR_STRATEGY_NAME,
   EMPTY_INPUT_FOR_LOGIN,
+  EMPTY_INPUT_FOR_SIGNUP,
   USER_NOT_FOUND,
   WRONG_PASSWORD,
 } from '../constants/Authentication';
@@ -32,10 +33,11 @@ type SignUp = (
 ) => Promise<AuthResponse>;
 
 export const signup: SignUp = async (name, email, password) => {
+  // TODO: Change for sign up method
   const user = await getUserData(email);
 
-  if (!email || !password) {
-    return { message: EMPTY_INPUT_FOR_LOGIN };
+  if (!name || !email || !password) {
+    return { message: EMPTY_INPUT_FOR_SIGNUP };
   } else if (!user) {
     return { message: USER_NOT_FOUND };
   } else if (user?.password !== password) {

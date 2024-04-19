@@ -1,10 +1,10 @@
-import { getUserData } from './modules/prisma';
+import { getUserData } from '../modules/prisma';
 import {
   EMPTY_INPUT,
   USER_NOT_FOUND,
   WRONG_PASSWORD,
-} from './constants/LoginResponse';
-import { LoginResponse } from './types';
+} from '../constants/Authentication';
+import { LoginResponse } from '../types';
 
 type Login = (email: string, password: string) => Promise<LoginResponse>;
 

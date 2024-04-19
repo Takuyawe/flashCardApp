@@ -3,10 +3,11 @@ import { Form } from '@remix-run/react';
 import { Auth } from '@supabase/auth-ui-react';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { authenticator } from '~/auth.server';
+import { authenticator } from '~/server/auth.server';
 import { SocialAccountButton } from '~/components/login/SocialAccountButton';
 import { convertTextToProvider } from '~/modules/convertTextToProvider';
-import { createSupabaseServerClient } from '~/supabase.server';
+import { createSupabaseServerClient } from '~/server/supabase.server';
+import { AUTHENTICATOR_STRATEGY_NAME } from '~/constants/Authentication';
 
 // export const action = async ({ request }: ActionFunctionArgs) => {
 //   const { supabaseClient, headers } = createSupabaseServerClient(request);
@@ -32,10 +33,14 @@ import { createSupabaseServerClient } from '~/supabase.server';
 // };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  return await authenticator.authenticate('user-login', request, {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  });
+  return await authenticator.authenticate(
+    AUTHENTICATOR_STRATEGY_NAME,
+    request,
+    {
+      successRedirect: '/',
+      failureRedirect: '/login',
+    }
+  );
 };
 
 export default function Login() {

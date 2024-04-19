@@ -1,14 +1,18 @@
 import { ActionFunctionArgs, json, redirect } from '@remix-run/node';
 import { Form, useActionData } from '@remix-run/react';
 import { useState } from 'react';
-import { authenticator } from '~/auth.server';
+import { authenticator } from '~/server/auth.server';
 import { ErrorMessage } from '~/components/login/ErrorMessage';
 import { LoginInput } from '~/components/login/LoginInput';
-import { createUserSession } from '~/session.server';
+import { createUserSession } from '~/server/session.server';
+import { AUTHENTICATOR_STRATEGY_NAME } from '~/constants/Authentication';
 // import { SuccessMessage } from '~/components/login/SuccessMessage';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const response = await authenticator.authenticate('user-login', request);
+  const response = await authenticator.authenticate(
+    AUTHENTICATOR_STRATEGY_NAME,
+    request
+  );
   if (response.user) {
     const userId = response.user.id;
     return createUserSession(userId, `/users/${userId}`);

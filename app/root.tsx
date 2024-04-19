@@ -9,7 +9,7 @@ import {
 import 'remixicon/fonts/remixicon.css';
 import stylesheet from '~/tailwind.css?url';
 import { Header } from './components/Header';
-import { requireUserSession } from './auth.server';
+import { requireUserSession } from './server/auth.server';
 import { redirect } from 'remix-typedjson';
 
 export const links: LinksFunction = () => [

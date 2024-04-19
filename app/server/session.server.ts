@@ -1,4 +1,5 @@
 import { createCookieSessionStorage, redirect } from '@remix-run/node';
+import { SESSION_ID } from '../constants/Authentication';
 
 const sessionSecret: string | undefined = process.env.SESSION_SECRET;
 if (sessionSecret === undefined) throw new Error('SESSION_SECRET must be set');
@@ -20,7 +21,7 @@ export const createUserSession = async (
   redirectPath: string
 ) => {
   const session = await sessionStorage.getSession();
-  session.set('userId', userId);
+  session.set(SESSION_ID, userId);
   return redirect(redirectPath, {
     headers: {
       'Set-Cookie': await sessionStorage.commitSession(session),

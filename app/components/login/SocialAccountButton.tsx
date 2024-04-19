@@ -14,7 +14,7 @@ export const SocialAccountButton = ({ text, Icon, iconProps }: Props) => {
   return (
     <Form method="post">
       <input type="hidden" name="text" value={text} />
-      <button type="submit" className="outline rounded-md py-1 px-2">
+      <button type="submit" className="outline rounded-md py-1 px-2 w-full">
         <div className="flex gap-x-1 items-center">
           <Icon {...iconProps} />
           <span className="text-sm">Sign in with {text}</span>

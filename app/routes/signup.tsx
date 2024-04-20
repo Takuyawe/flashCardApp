@@ -1,22 +1,22 @@
-import { ActionFunctionArgs, json } from '@remix-run/node';
-import { Form, Link, useActionData } from '@remix-run/react';
-import { useState } from 'react';
-import { signupAuthenticator } from '~/server/signup.server';
-import { ErrorMessage } from '~/components/login/ErrorMessage';
-import { AuthInput } from '~/components/login/AuthInput';
-import { createUserSession } from '~/server/session.server';
-import { AUTHENTICATOR_STRATEGY_NAME } from '~/constants/Authentication';
+import { ActionFunctionArgs, json } from "@remix-run/node";
+import { Form, Link, useActionData } from "@remix-run/react";
+import { useState } from "react";
+import { signupAuthenticator } from "~/server/signup.server";
+import { ErrorMessage } from "~/components/login/ErrorMessage";
+import { AuthInput } from "~/components/login/AuthInput";
+import { createUserSession } from "~/server/session.server";
+import { SIGNUP_AUTHENTICATOR_STRATEGY_NAME } from "~/constants/Authentication";
 // import { SuccessMessage } from '~/components/login/SuccessMessage';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   //   TODO: Change for sign up method
   const response = await signupAuthenticator.authenticate(
-    AUTHENTICATOR_STRATEGY_NAME,
+    SIGNUP_AUTHENTICATOR_STRATEGY_NAME,
     request
   );
   if (response.user) {
     const userId = response.user.id;
-    return createUserSession(userId, '/');
+    return createUserSession(userId, "/");
   } else {
     return json({ message: response.message }, { status: 400 });
   }
@@ -24,9 +24,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function SignUp() {
   const actionResponse = useActionData<typeof action>();
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   return (
     <div className="mx-auto mt-10 h-2/3 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
@@ -61,7 +61,8 @@ export default function SignUp() {
             />
             <button
               type="submit"
-              className="h-10 w-60 bg-base-dark text-white rounded-md text-lg mt-4">
+              className="h-10 w-60 bg-base-dark text-white rounded-md text-lg mt-4"
+            >
               Sign Up
             </button>
           </div>

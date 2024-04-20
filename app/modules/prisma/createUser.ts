@@ -1,4 +1,8 @@
 import { User } from "@prisma/client";
+import {
+  DUPLICATE_EMAIL,
+  PRISMA_UNEXPECTED_ERROR,
+} from "~/constants/Authentication";
 import { prisma } from "~/lib/prisma";
 
 type CreateUser = (
@@ -6,25 +10,37 @@ type CreateUser = (
   email: string,
   password: string,
   now: Date
-) => Promise<User>;
+) => Promise<User | { message: string }>;
 export const createUser: CreateUser = async (name, email, password, now) => {
-  const userExists = await prisma.user.findFirst({
-    where: {
-      email,
-    },
-  });
-
-  if (userExists) {
-    throw new Error("User already exists");
+  try {
+    const userExists = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+    if (userExists) {
+      return { message: DUPLICATE_EMAIL };
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 
-  const user = await prisma.user.create({
-    data: {
-      name,
-      email,
-      password,
-      createdAt: now,
-    },
-  });
-  return user;
+  try {
+    return await prisma.user.create({
+      data: {
+        name,
+        email,
+        password,
+        createdAt: now,
+      },
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+
+  return { message: PRISMA_UNEXPECTED_ERROR };
 };

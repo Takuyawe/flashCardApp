@@ -1,5 +1,5 @@
 {
-  "name": "flushcardapp",
+  "name": "flash-cards-app",
   "private": true,
   "sideEffects": false,
   "type": "module",

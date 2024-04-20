@@ -1,11 +1,13 @@
 language: English
 
 TODO:
-- create user
 - show message for each input
 - validation with conform
 - hash password
+- fix style for mobile
+- logout
 - example sentence {hiragana, romaji, meaning}
+- word of the day
 - forgotten password
 - auto suggestion for word input
 - change categories from word list

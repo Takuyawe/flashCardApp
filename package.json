@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.3",
+    "@conform-to/react": "^1.1.0",
+    "@conform-to/zod": "^1.1.0",
     "@prisma/client": "^5.12.1",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",

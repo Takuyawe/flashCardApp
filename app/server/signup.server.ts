@@ -1,7 +1,9 @@
 import { createUser, getUserData } from "../modules/prisma";
 import {
+  AUTH_UNEXPECTED_ERROR,
   DUPLICATE_EMAIL,
   EMPTY_INPUT_FOR_SIGNUP,
+  PRISMA_UNEXPECTED_ERROR,
   SIGNUP_AUTHENTICATOR_STRATEGY_NAME,
   USER_NOT_FOUND,
 } from "../constants/Authentication";
@@ -9,6 +11,7 @@ import { AuthResponse } from "../types";
 import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 import { sessionStorage } from "./session.server";
+import { User } from "@prisma/client";
 
 export const signupAuthenticator = new Authenticator<AuthResponse>(
   sessionStorage
@@ -32,18 +35,15 @@ type SignUp = (
 ) => Promise<AuthResponse>;
 
 export const signup: SignUp = async (name, email, password) => {
-  // TODO: Change for sign up method
-  const user = await getUserData(email);
+  if (!name || !email || !password) return { message: EMPTY_INPUT_FOR_SIGNUP };
 
-  if (user) return { message: DUPLICATE_EMAIL };
-
-  const response = await createUser(name, email, password, new Date());
-
-  if (!name || !email || !password) {
-    return { message: EMPTY_INPUT_FOR_SIGNUP };
-  } else if (!user) {
-    return { message: USER_NOT_FOUND };
-  } else {
-    return { user };
+  try {
+    return await createUser(name, email, password, new Date());
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return { message: error.message };
+    }
   }
+
+  return { message: AUTH_UNEXPECTED_ERROR };
 };

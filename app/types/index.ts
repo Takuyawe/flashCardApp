@@ -1,4 +1,4 @@
-import { Category, User } from '@prisma/client';
+import { Category, User } from "@prisma/client";
 
 export interface CategoryWithChildren extends Category {
   childCategories?: CategoryWithChildren[];
@@ -11,7 +11,4 @@ export type LoginResponse = {
   user?: User;
 };
 
-export type AuthResponse = {
-  message?: string;
-  user?: User;
-};
+export type AuthResponse = User | { message: string };

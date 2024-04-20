@@ -1,16 +1,16 @@
-import { ActionFunctionArgs, json, LoaderFunctionArgs } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { useState } from 'react';
-import { AIGenerationButton } from '~/components/newWord/AIGenerationButton';
-import { CategorySelectContainer } from '~/components/newWord/CategorySelectContainer';
-import { DefinitionInput } from '~/components/newWord/DefinitionInput';
-import { EgSentenceInput } from '~/components/newWord/EgSentenceInput';
-import { SaveButton } from '~/components/newWord/SaveButton';
-import { WordInput } from '~/components/newWord/WordInput';
-import { convertToRomaji } from '~/modules/convertToRomaji';
-import { getYahooAnalysisData } from '~/modules/getYahooAnalysisData';
-import { addNewWord, fetchCategories } from '~/modules/prisma';
-import { typedjson } from 'remix-typedjson';
+import { ActionFunctionArgs, json, LoaderFunctionArgs } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { useState } from "react";
+import { AIGenerationButton } from "~/components/newWord/AIGenerationButton";
+import { CategorySelectContainer } from "~/components/newWord/CategorySelectContainer";
+import { DefinitionInput } from "~/components/newWord/DefinitionInput";
+import { EgSentenceInput } from "~/components/newWord/EgSentenceInput";
+import { SaveButton } from "~/components/newWord/SaveButton";
+import { WordInput } from "~/components/newWord/WordInput";
+import { convertToRomaji } from "~/modules/convertToRomaji";
+import { getYahooAnalysisData } from "~/modules/getYahooAnalysisData";
+import { addNewWord, fetchCategories } from "~/modules/prisma";
+import { typedjson } from "remix-typedjson";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const userId = params.userId;
@@ -22,10 +22,10 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const word = formData.get('word');
-  const definition = formData.get('definition');
-  const sentence = formData.get('sentence');
-  const categoryId = formData.get('categoryId');
+  const word = formData.get("word");
+  const definition = formData.get("definition");
+  const sentence = formData.get("sentence");
+  const categoryId = formData.get("categoryId");
 
   const { kana, part } = await getYahooAnalysisData(word as string);
   const romajiWord = convertToRomaji(kana);
@@ -46,11 +46,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function Index() {
-  const [word, setWord] = useState<string>('');
-  const [definition, setDefinition] = useState<string>('');
-  const [sentence, setSentence] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
-  const [chosenCategoryId, setChosenCategoryId] = useState<string>('');
+  const [word, setWord] = useState<string>("");
+  const [definition, setDefinition] = useState<string>("");
+  const [sentence, setSentence] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [chosenCategoryId, setChosenCategoryId] = useState<string>("");
   const { categories } = useLoaderData<typeof loader>();
 
   return (

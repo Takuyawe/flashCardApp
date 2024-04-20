@@ -11,4 +11,13 @@ export type LoginResponse = {
   user?: User;
 };
 
-export type AuthResponse = User | { message: string };
+export type PrismaCreateUserResponse = {
+  message?: string;
+  data?: User;
+};
+
+export type AuthResponse = {
+  success: boolean;
+  message?: string;
+  data?: User;
+};

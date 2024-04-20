@@ -14,8 +14,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     SIGNUP_AUTHENTICATOR_STRATEGY_NAME,
     request
   );
-  if (response.user) {
-    const userId = response.user.id;
+
+  if (response.success && response.data) {
+    const userId = response.data.id;
     return createUserSession(userId, "/");
   } else {
     return json({ message: response.message }, { status: 400 });

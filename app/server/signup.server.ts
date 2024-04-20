@@ -35,15 +35,23 @@ type SignUp = (
 ) => Promise<AuthResponse>;
 
 export const signup: SignUp = async (name, email, password) => {
-  if (!name || !email || !password) return { message: EMPTY_INPUT_FOR_SIGNUP };
+  if (!name || !email || !password)
+    return { success: false, message: EMPTY_INPUT_FOR_SIGNUP };
 
   try {
-    return await createUser(name, email, password, new Date());
+    const response = await createUser(name, email, password, new Date());
+    if (response.message === DUPLICATE_EMAIL) {
+      return { success: false, message: USER_NOT_FOUND };
+    } else if (response.message === PRISMA_UNEXPECTED_ERROR) {
+      return { success: false, message: response.message };
+    } else {
+      return { success: true, data: response.data };
+    }
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return { message: error.message };
+      return { success: false, message: error.message };
     }
   }
 
-  return { message: AUTH_UNEXPECTED_ERROR };
+  return { success: false, message: AUTH_UNEXPECTED_ERROR };
 };

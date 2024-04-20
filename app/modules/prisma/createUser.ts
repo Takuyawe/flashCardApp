@@ -4,13 +4,14 @@ import {
   PRISMA_UNEXPECTED_ERROR,
 } from "~/constants/Authentication";
 import { prisma } from "~/lib/prisma";
+import { PrismaCreateUserResponse } from "~/types";
 
 type CreateUser = (
   name: string,
   email: string,
   password: string,
   now: Date
-) => Promise<User | { message: string }>;
+) => Promise<PrismaCreateUserResponse>;
 export const createUser: CreateUser = async (name, email, password, now) => {
   try {
     const userExists = await prisma.user.findFirst({
@@ -28,7 +29,7 @@ export const createUser: CreateUser = async (name, email, password, now) => {
   }
 
   try {
-    return await prisma.user.create({
+    const data = await prisma.user.create({
       data: {
         name,
         email,
@@ -36,6 +37,7 @@ export const createUser: CreateUser = async (name, email, password, now) => {
         createdAt: now,
       },
     });
+    return { data };
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(error.message);

@@ -54,7 +54,7 @@ export default function Index() {
   const { categories } = useLoaderData<typeof loader>();
 
   return (
-    <div className="h-body flex flex-col items-center justify-center gap-y-8">
+    <div className="h-body flex flex-col items-center justify-center gap-y-4">
       <CategorySelectContainer
         category={category}
         setCategory={setCategory}

@@ -13,20 +13,20 @@ import { FormStrategy } from "remix-auth-form";
 import { sessionStorage } from "./session.server";
 import { User } from "@prisma/client";
 
-export const signupAuthenticator = new Authenticator<AuthResponse>(
-  sessionStorage
-);
+// export const signupAuthenticator = new Authenticator<AuthResponse>(
+//   sessionStorage
+// );
 
-signupAuthenticator.use(
-  new FormStrategy(async ({ form }) => {
-    const name = form.get("name") as string;
-    const email = form.get("email") as string;
-    const password = form.get("password") as string;
-    const response = await signup(name, email, password);
-    return response;
-  }),
-  SIGNUP_AUTHENTICATOR_STRATEGY_NAME
-);
+// signupAuthenticator.use(
+//   new FormStrategy(async ({ form }) => {
+//     const name = form.get("name") as string;
+//     const email = form.get("email") as string;
+//     const password = form.get("password") as string;
+//     const response = await signup(name, email, password);
+//     return response;
+//   }),
+//   SIGNUP_AUTHENTICATOR_STRATEGY_NAME
+// );
 
 type SignUp = (
   name: string,

@@ -4,6 +4,7 @@ type Props = {
   placeholder: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  error: string | undefined;
 };
 
 export const AuthInput = ({
@@ -12,6 +13,7 @@ export const AuthInput = ({
   placeholder,
   value,
   setValue,
+  error,
 }: Props) => {
   return (
     <div className="flex flex-col gap-y-1">
@@ -25,6 +27,7 @@ export const AuthInput = ({
         placeholder={placeholder}
         className="h-10 w-60 border-2 border-base-dark rounded-md pl-2 text-lg"
       />
+      {error && <span className="text-sm text-bright-red">{error}</span>}
     </div>
   );
 };

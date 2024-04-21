@@ -1,3 +1,5 @@
+export const FAILED_TO_LOGIN = "Failed to login";
+export const FAILED_TO_SIGNUP = "Failed to signup";
 export const USER_NOT_FOUND = "User doesn't exist";
 export const WRONG_PASSWORD = "Password is wrong";
 export const EMPTY_INPUT_FOR_LOGIN = "Please enter email and password";
@@ -5,6 +7,10 @@ export const DUPLICATE_EMAIL = "Email already exists";
 export const EMPTY_INPUT_FOR_SIGNUP = "Please enter name, email and password";
 export const PRISMA_UNEXPECTED_ERROR = "Unexpected error on Prisma";
 export const AUTH_UNEXPECTED_ERROR = "Unexpected error";
+export const PASSWORD_TOO_SHORT = "Password is too short";
+export const NAME_REQUIRED_ERROR = "Name is required";
+export const EMAIL_REQUIRED_ERROR = "Email is required";
+export const PASSWORD_REQUIRED_ERROR = "Password is required";
 export const SESSION_ID = "userId";
 export const LOGIN_AUTHENTICATOR_STRATEGY_NAME = "user-login";
 export const SIGNUP_AUTHENTICATOR_STRATEGY_NAME = "user-signup";

@@ -1,39 +1,72 @@
 import { ActionFunctionArgs, json } from "@remix-run/node";
 import { Form, Link, useActionData } from "@remix-run/react";
 import { useState } from "react";
-import { signupAuthenticator } from "~/server/signup.server";
+import { signup } from "~/server/signup.server";
 import { ErrorMessage } from "~/components/login/ErrorMessage";
 import { AuthInput } from "~/components/login/AuthInput";
 import { createUserSession } from "~/server/session.server";
-import { SIGNUP_AUTHENTICATOR_STRATEGY_NAME } from "~/constants/Authentication";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod";
+import { signupSchema } from "~/zodSchema";
+import { getFormProps, Submission, useForm } from "@conform-to/react";
+import { FAILED_TO_SIGNUP } from "~/constants/Authentication";
 // import { SuccessMessage } from '~/components/login/SuccessMessage';
 
+type ActionResponse = {
+  message: string;
+  submission?: any;
+};
+
 export const action = async ({ request }: ActionFunctionArgs) => {
-  //   TODO: Change for sign up method
-  const response = await signupAuthenticator.authenticate(
-    SIGNUP_AUTHENTICATOR_STRATEGY_NAME,
-    request
-  );
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: signupSchema,
+  });
+
+  if (submission.status !== "success") {
+    return json<ActionResponse>({
+      message: FAILED_TO_SIGNUP,
+      submission: submission.reply(),
+    });
+  }
+
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  const response = await signup(name, email, password);
 
   if (response.success && response.data) {
     const userId = response.data.id;
     return createUserSession(userId, "/");
   } else {
-    return json({ message: response.message }, { status: 400 });
+    if (response.message)
+      return json<ActionResponse>(
+        { message: response.message },
+        { status: 400 }
+      );
   }
 };
 
 export default function SignUp() {
   const actionResponse = useActionData<typeof action>();
+  const [form, fields] = useForm({
+    lastResult: actionResponse?.submission,
+    constraint: getZodConstraint(signupSchema),
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: signupSchema });
+    },
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   return (
-    <div className="mx-auto mt-10 h-2/3 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
+    <div className="mx-auto mt-10 h-auto min-h-2/3 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
       <div className="flex flex-col h-full items-center justify-start p-4">
         <span className="text-2xl">Sign Up</span>
-        <Form method="post">
+        <Form method="post" {...getFormProps(form)}>
           <div className="flex flex-col mt-12 gap-y-6">
             {actionResponse?.message && (
               <ErrorMessage errorMessage={actionResponse.message} />
@@ -45,6 +78,7 @@ export default function SignUp() {
               placeholder="Name"
               value={name}
               setValue={setName}
+              error={fields.name.errors && fields.name.errors[0]}
             />
             <AuthInput
               label="Email"
@@ -52,6 +86,7 @@ export default function SignUp() {
               placeholder="Email"
               value={email}
               setValue={setEmail}
+              error={fields.email.errors && fields.email.errors[0]}
             />
             <AuthInput
               label="Password"
@@ -59,6 +94,7 @@ export default function SignUp() {
               placeholder="Password"
               value={password}
               setValue={setPassword}
+              error={fields.password.errors && fields.password.errors[0]}
             />
             <button
               type="submit"

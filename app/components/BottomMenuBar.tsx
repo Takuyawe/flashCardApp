@@ -1,8 +1,8 @@
-import { CustomNavLink } from './CustomNavLink';
+import { CustomNavLink } from "./CustomNavLink";
 
 export const BottomMenuBar = () => {
   return (
-    <div className="bg-base-dark h-16 w-full flex items-center justify-around">
+    <div className="bg-base-dark h-14 w-full flex items-center justify-around">
       <CustomNavLink
         to="/users/clv0qs04i00006d6c18akraw9"
         icon="ri-home-8-line"

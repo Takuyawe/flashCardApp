@@ -1,6 +1,6 @@
-import { AddCategoryButton } from '../category/AddCategoryButton';
-import { CategorySelect } from '../category/CategorySelect';
-import { Categories } from '~/types';
+import { AddCategoryButton } from "../category/AddCategoryButton";
+import { CategorySelect } from "../category/CategorySelect";
+import { Categories } from "~/types";
 
 type Props = {
   category: string;
@@ -17,7 +17,7 @@ export const CategorySelectContainer = ({
 }: Props) => {
   return (
     <div className="flex flex-col gap-y-1">
-      <label className="text-md" htmlFor="category">
+      <label className="text-sm" htmlFor="category">
         Category
       </label>
       <div className="flex w-80 justify-stretch gap-x-2">

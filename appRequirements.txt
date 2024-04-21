@@ -1,14 +1,18 @@
 language: English
 
 TODO:
-- fix style for mobile
+- users.$userIdに、recoilでidを登録
+- category登録時に、ユーザーID使う
+- setting screen
 - logout
 - example sentence {hiragana, romaji, meaning}
 - word of the day
 - conform validation for adding a word
 - forgotten password
 - auto suggestion for word input
+- word list screen
 - change categories from word list
+- quiz game
 
 
 screen-flow

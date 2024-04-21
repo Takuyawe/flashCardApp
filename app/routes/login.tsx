@@ -59,6 +59,7 @@ export default function Login() {
   });
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  console.log(fields.password.errors);
 
   return (
     <div className="mx-auto mt-10 h-auto min-h-2/3 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">

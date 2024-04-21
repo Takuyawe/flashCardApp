@@ -9,6 +9,7 @@ import { AuthResponse, LoginResponse } from "../types";
 import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 import { sessionStorage } from "./session.server";
+import { comparePasswords } from "~/modules/comparePasswords";
 
 // export const loginAuthenticator = new Authenticator<LoginResponse>(
 //   sessionStorage
@@ -29,13 +30,10 @@ type Login = (email: string, password: string) => Promise<AuthResponse>;
 export const login: Login = async (email, password) => {
   const user = await getUserData(email);
 
-  if (!email || !password) {
-    return { success: false, message: EMPTY_INPUT_FOR_LOGIN };
-  } else if (!user) {
-    return { success: false, message: USER_NOT_FOUND };
-  } else if (user?.password !== password) {
-    return { success: false, message: WRONG_PASSWORD };
-  } else {
-    return { success: true, data: user };
-  }
+  if (!user) return { success: false, message: USER_NOT_FOUND };
+
+  const isMatched = await comparePasswords(password, user.password);
+  if (!isMatched) return { success: false, message: WRONG_PASSWORD };
+
+  return { success: true, data: user };
 };

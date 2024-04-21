@@ -12,6 +12,8 @@ import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 import { sessionStorage } from "./session.server";
 import { User } from "@prisma/client";
+import { hashPassword } from "~/modules/hashPassword";
+import { hash } from "bcrypt";
 
 // export const signupAuthenticator = new Authenticator<AuthResponse>(
 //   sessionStorage
@@ -38,10 +40,12 @@ export const signup: SignUp = async (name, email, password) => {
   if (!name || !email || !password)
     return { success: false, message: EMPTY_INPUT_FOR_SIGNUP };
 
+  const hashedPassword = await hashPassword(password);
+
   try {
-    const response = await createUser(name, email, password, new Date());
+    const response = await createUser(name, email, hashedPassword, new Date());
     if (response.message === DUPLICATE_EMAIL) {
-      return { success: false, message: USER_NOT_FOUND };
+      return { success: false, message: DUPLICATE_EMAIL };
     } else if (response.message === PRISMA_UNEXPECTED_ERROR) {
       return { success: false, message: response.message };
     } else {

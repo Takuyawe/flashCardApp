@@ -40,8 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      {/* TODO: should h-dvh */}
-      <body className="h-dvh">
+      <body className="max-h-dvh">
         <header>
           <Header />
         </header>

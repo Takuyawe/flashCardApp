@@ -1,13 +1,11 @@
 language: English
 
 TODO:
-- show message for each input
-- validation with conform
-- hash password
 - fix style for mobile
 - logout
 - example sentence {hiragana, romaji, meaning}
 - word of the day
+- conform validation for adding a word
 - forgotten password
 - auto suggestion for word input
 - change categories from word list

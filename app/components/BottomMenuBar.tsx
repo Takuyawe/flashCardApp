@@ -1,4 +1,4 @@
-import { CustomNavLink } from "./CustomNavLink";
+import { CustomNavLink } from './CustomNavLink';
 
 export const BottomMenuBar = () => {
   return (
@@ -19,7 +19,7 @@ export const BottomMenuBar = () => {
         text="Word List"
       />
       <CustomNavLink
-        to="/users/clv0qs04i00006d6c18akraw9/account"
+        to="/users/clv0qs04i00006d6c18akraw9/account/home"
         icon="ri-account-circle-line"
         text="Account"
       />

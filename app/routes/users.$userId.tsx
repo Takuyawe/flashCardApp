@@ -12,6 +12,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const user = await getUserDataWithId(userId as string);
   if (!user) return json({ user: null });
   const userWithNameAndEmail: UserAtom = {
+    id: user.id,
     name: user.name,
     email: user.email,
   };

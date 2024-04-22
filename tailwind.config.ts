@@ -6,7 +6,7 @@ export default {
     extend: {
       // TODO: settings for breakpoints
       height: {
-        body: 'calc(100dvh - 8rem)',
+        body: 'calc(100dvh - 6rem)',
       },
       colors: {
         'bright-purple': '#F14DFF',

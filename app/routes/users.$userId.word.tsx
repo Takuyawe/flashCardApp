@@ -7,10 +7,10 @@ import { EgSentenceInput } from '~/components/newWord/EgSentenceInput';
 import { SaveButton } from '~/components/newWord/SaveButton';
 import { WordInput } from '~/components/newWord/WordInput';
 import { convertToRomaji } from '~/modules/word/convertToRomaji';
-import { getYahooAnalysisData } from '~/modules/word/getYahooAnalysisData';
 import { addNewWord } from '~/modules/prisma';
 import { useRecoilState } from 'recoil';
 import { categoriesAtom } from '~/atoms/atom';
+import { getKanaAndPardWithYahoo } from '~/modules/word/getKanaAndPartWithYahoo';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -19,7 +19,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const sentence = formData.get('sentence');
   const categoryId = formData.get('categoryId');
 
-  const { kana, part } = await getYahooAnalysisData(word as string);
+  const { kana, part } = await getKanaAndPardWithYahoo(word as string);
   const romajiWord = convertToRomaji(kana);
   const now = new Date();
 
@@ -41,6 +41,9 @@ export default function Index() {
   const [word, setWord] = useState<string>('');
   const [definition, setDefinition] = useState<string>('');
   const [sentence, setSentence] = useState<string>('');
+  const [sentenceKana, setSentenceKana] = useState<string>('');
+  const [sentenceRomaji, setSentenceRomaji] = useState<string>('');
+  const [sentenceTranslation, setSentenceTranslation] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [chosenCategoryId, setChosenCategoryId] = useState<string>('');
   const [categories] = useRecoilState(categoriesAtom);
@@ -58,9 +61,21 @@ export default function Index() {
         word={word}
         setDefinition={setDefinition}
         setSentence={setSentence}
+        setSentenceKana={setSentenceKana}
+        setSentenceRomaji={setSentenceRomaji}
+        setSentenceTranslation={setSentenceTranslation}
       />
       <DefinitionInput definition={definition} setDefinition={setDefinition} />
-      <EgSentenceInput sentence={sentence} setSentence={setSentence} />
+      <EgSentenceInput
+        sentence={sentence}
+        setSentence={setSentence}
+        sentenceKana={sentenceKana}
+        setSentenceKana={setSentenceKana}
+        sentenceRomaji={sentenceRomaji}
+        setSentenceRomaji={setSentenceRomaji}
+        sentenceTranslation={sentenceTranslation}
+        setSentenceTranslation={setSentenceTranslation}
+      />
       <SaveButton
         word={word}
         definition={definition}

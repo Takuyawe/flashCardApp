@@ -21,12 +21,5 @@ export const getYahooAnalysisData = async (text: string) => {
     body: JSON.stringify(reqData),
   });
 
-  const data = await response.json();
-
-  const result = data.result.tokens[0];
-
-  const kana = result[1];
-  const part = result[3];
-
-  return { kana, part };
+  return await response.json();
 };

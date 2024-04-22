@@ -1,57 +1,74 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect } from "react";
-
-type FetcherDataType = {
-  definitionResponse: { content: [{ text: string }] };
-  sentenceResponse: { content: [{ text: string }] };
-};
+import { useFetcher } from '@remix-run/react';
+import { useEffect } from 'react';
+import { action } from '~/routes/users.$userId.word.generate';
 
 type Props = {
   word: string;
   setDefinition: React.Dispatch<React.SetStateAction<string>>;
   setSentence: React.Dispatch<React.SetStateAction<string>>;
+  setSentenceKana: React.Dispatch<React.SetStateAction<string>>;
+  setSentenceRomaji: React.Dispatch<React.SetStateAction<string>>;
+  setSentenceTranslation: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const AIGenerationButton = ({
   word,
   setDefinition,
   setSentence,
+  setSentenceKana,
+  setSentenceRomaji,
+  setSentenceTranslation,
 }: Props) => {
-  const fetcher = useFetcher();
-  const generatedDefinitionAndSentence = [
-    (fetcher.data as FetcherDataType)?.definitionResponse.content[0].text,
-    (fetcher.data as FetcherDataType)?.sentenceResponse.content[0].text,
-  ];
+  const fetcher = useFetcher<typeof action>();
 
   useEffect(() => {
-    if (
-      !generatedDefinitionAndSentence[0] ||
-      !generatedDefinitionAndSentence[1]
-    )
-      return;
+    if (!fetcher.data || 'error' in fetcher.data) return;
 
-    setSentence(() => "");
-    setDefinition(() => "");
+    setDefinition(() => '');
+    setSentence(() => '');
+    setSentenceKana(() => '');
+    setSentenceRomaji(() => '');
+    setSentenceTranslation(() => '');
+
+    const {
+      definitionText,
+      sentence,
+      sentenceKana,
+      sentenceRomaji,
+      sentenceTranslation,
+    } = fetcher.data;
 
     const intervalId = setInterval(() => {
       setDefinition((prevState) => {
-        if (prevState.length < generatedDefinitionAndSentence[0].length)
-          return (
-            prevState + generatedDefinitionAndSentence[0][prevState.length]
-          );
+        if (prevState.length < definitionText.length)
+          return prevState + definitionText[prevState.length];
         return prevState;
       });
       setSentence((prevState) => {
-        if (prevState.length < generatedDefinitionAndSentence[1].length)
-          return (
-            prevState + generatedDefinitionAndSentence[1][prevState.length]
-          );
+        if (prevState.length < sentence.length)
+          return prevState + sentence[prevState.length];
+        return prevState;
+      });
+      setSentenceKana((prevState) => {
+        console.log(prevState);
+        if (prevState.length < sentenceKana.length)
+          return prevState + sentenceKana[prevState.length];
+        return prevState;
+      });
+      setSentenceRomaji((prevState) => {
+        if (prevState.length < sentenceRomaji.length)
+          return prevState + sentenceRomaji[prevState.length];
+        return prevState;
+      });
+      setSentenceTranslation((prevState) => {
+        if (prevState.length < sentenceTranslation.length)
+          return prevState + sentenceTranslation[prevState.length];
         return prevState;
       });
     }, 50);
 
     return () => clearInterval(intervalId);
-  }, [generatedDefinitionAndSentence[0]]);
+  }, []);
 
   return (
     <fetcher.Form action="generate" method="post">

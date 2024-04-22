@@ -1,19 +1,19 @@
-import { ActionFunctionArgs, json } from "@remix-run/node";
-import { Form, Link, useActionData } from "@remix-run/react";
-import { useState } from "react";
-import { signup } from "~/server/signup.server";
-import { ErrorMessage } from "~/components/login/ErrorMessage";
-import { AuthInput } from "~/components/login/AuthInput";
-import { createUserSession } from "~/server/session.server";
-import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import { signupSchema } from "~/zodSchema";
-import { getFormProps, Submission, useForm } from "@conform-to/react";
-import { FAILED_TO_SIGNUP } from "~/constants/Authentication";
+import { ActionFunctionArgs, json } from '@remix-run/node';
+import { Form, Link, useActionData } from '@remix-run/react';
+import { useState } from 'react';
+import { signup } from '~/server/signup.server';
+import { ErrorMessage } from '~/components/login/ErrorMessage';
+import { AuthInput } from '~/components/login/AuthInput';
+import { createUserSession } from '~/server/session.server';
+import { getZodConstraint, parseWithZod } from '@conform-to/zod';
+import { signupSchema } from '~/zodSchema';
+import { getFormProps, SubmissionResult, useForm } from '@conform-to/react';
+import { FAILED_TO_SIGNUP } from '~/constants/Authentication';
 // import { SuccessMessage } from '~/components/login/SuccessMessage';
 
 type ActionResponse = {
   message: string;
-  submission?: any;
+  submission?: SubmissionResult;
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -22,22 +22,22 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     schema: signupSchema,
   });
 
-  if (submission.status !== "success") {
+  if (submission.status !== 'success') {
     return json<ActionResponse>({
       message: FAILED_TO_SIGNUP,
       submission: submission.reply(),
     });
   }
 
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const name = formData.get('name') as string;
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
 
   const response = await signup(name, email, password);
 
   if (response.success && response.data) {
     const userId = response.data.id;
-    return createUserSession(userId, "/");
+    return createUserSession(userId, '/');
   } else {
     if (response.message)
       return json<ActionResponse>(
@@ -55,12 +55,12 @@ export default function SignUp() {
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: signupSchema });
     },
-    shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
+    shouldValidate: 'onBlur',
+    shouldRevalidate: 'onInput',
   });
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   return (
     <div className="mx-auto mt-10 h-auto min-h-2/3 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
@@ -98,8 +98,7 @@ export default function SignUp() {
             />
             <button
               type="submit"
-              className="h-10 w-60 bg-base-dark text-white rounded-md text-lg mt-4"
-            >
+              className="h-10 w-60 bg-base-dark text-white rounded-md text-lg mt-4">
               Sign Up
             </button>
           </div>

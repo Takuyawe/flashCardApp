@@ -1,19 +1,19 @@
-import { ActionFunctionArgs, json } from "@remix-run/node";
-import { Form, Link, useActionData } from "@remix-run/react";
-import { useState } from "react";
-import { login } from "~/server/login.server";
-import { ErrorMessage } from "~/components/login/ErrorMessage";
-import { AuthInput } from "~/components/login/AuthInput";
-import { createUserSession } from "~/server/session.server";
-import { loginSchema } from "~/zodSchema";
-import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import { useForm } from "@conform-to/react";
-import { FAILED_TO_LOGIN } from "~/constants/Authentication";
+import { ActionFunctionArgs, json } from '@remix-run/node';
+import { Form, Link, useActionData } from '@remix-run/react';
+import { useState } from 'react';
+import { login } from '~/server/login.server';
+import { ErrorMessage } from '~/components/login/ErrorMessage';
+import { AuthInput } from '~/components/login/AuthInput';
+import { createUserSession } from '~/server/session.server';
+import { loginSchema } from '~/zodSchema';
+import { getZodConstraint, parseWithZod } from '@conform-to/zod';
+import { getFormProps, SubmissionResult, useForm } from '@conform-to/react';
+import { FAILED_TO_LOGIN } from '~/constants/Authentication';
 // import { SuccessMessage } from '~/components/login/SuccessMessage';
 
 type ActionResponse = {
   message: string;
-  submission?: any;
+  submission?: SubmissionResult;
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -22,21 +22,21 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     schema: loginSchema,
   });
 
-  if (submission.status !== "success") {
+  if (submission.status !== 'success') {
     return json<ActionResponse>({
       message: FAILED_TO_LOGIN,
       submission: submission.reply(),
     });
   }
 
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
 
   const response = await login(email, password);
 
   if (response.success && response.data) {
     const userId = response.data.id;
-    return createUserSession(userId, "/");
+    return createUserSession(userId, '/');
   } else {
     if (response.message)
       return json<ActionResponse>(
@@ -54,18 +54,18 @@ export default function Login() {
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: loginSchema });
     },
-    shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
+    shouldValidate: 'onBlur',
+    shouldRevalidate: 'onInput',
   });
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   console.log(fields.password.errors);
 
   return (
     <div className="mx-auto mt-10 h-auto min-h-2/3 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">
       <div className="flex flex-col h-full items-center justify-start p-4">
         <span className="text-2xl">Sign In</span>
-        <Form method="post">
+        <Form method="post" {...getFormProps(form)}>
           <div className="flex flex-col mt-12 gap-y-6">
             {actionResponse?.message && (
               <ErrorMessage errorMessage={actionResponse.message} />
@@ -89,8 +89,7 @@ export default function Login() {
             />
             <button
               type="submit"
-              className="h-10 w-60 bg-base-dark text-white rounded-md text-lg mt-4"
-            >
+              className="h-10 w-60 bg-base-dark text-white rounded-md text-lg mt-4">
               Sign In
             </button>
           </div>

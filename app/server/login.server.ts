@@ -1,15 +1,7 @@
-import { getUserData } from "../modules/prisma";
-import {
-  LOGIN_AUTHENTICATOR_STRATEGY_NAME,
-  EMPTY_INPUT_FOR_LOGIN,
-  USER_NOT_FOUND,
-  WRONG_PASSWORD,
-} from "../constants/Authentication";
-import { AuthResponse, LoginResponse } from "../types";
-import { Authenticator } from "remix-auth";
-import { FormStrategy } from "remix-auth-form";
-import { sessionStorage } from "./session.server";
-import { comparePasswords } from "~/modules/comparePasswords";
+import { getUserData } from '../modules/prisma';
+import { USER_NOT_FOUND, WRONG_PASSWORD } from '../constants/Authentication';
+import { AuthResponse } from '../types';
+import { comparePasswords } from '~/modules/comparePasswords';
 
 // export const loginAuthenticator = new Authenticator<LoginResponse>(
 //   sessionStorage

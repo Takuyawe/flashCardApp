@@ -4,14 +4,11 @@ Things to look again:
 - conform
 
 TODO:
-- users.$userIdに、recoilでidを登録
-- category登録時に、ユーザーID使う
-- setting screen
-- logout
 - example sentence {hiragana, romaji, meaning}
 - word of the day
 - conform validation for adding a word
 - replace id with something else for route path
+- fix design and usage for selecting a category
 - forgotten password
 - auto suggestion for word input
 - word list screen

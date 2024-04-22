@@ -1,25 +1,14 @@
+import { ACCOUNT, QUIZ, WORD, WORD_LIST } from '~/constants/Path';
 import { CustomNavLink } from './CustomNavLink';
 
 export const BottomMenuBar = () => {
   return (
     <div className="bg-base-dark h-14 w-full flex items-center justify-around">
+      <CustomNavLink to={WORD} icon="ri-home-8-line" text="Home" />
+      <CustomNavLink to={QUIZ} icon="ri-questionnaire-line" text="Quiz" />
+      <CustomNavLink to={WORD_LIST} icon="ri-file-list-line" text="Word List" />
       <CustomNavLink
-        to="/users/clv0qs04i00006d6c18akraw9/word"
-        icon="ri-home-8-line"
-        text="Home"
-      />
-      <CustomNavLink
-        to="/users/clv0qs04i00006d6c18akraw9/quiz"
-        icon="ri-questionnaire-line"
-        text="Quiz"
-      />
-      <CustomNavLink
-        to="/users/clv0qs04i00006d6c18akraw9/word-list"
-        icon="ri-file-list-line"
-        text="Word List"
-      />
-      <CustomNavLink
-        to="/users/clv0qs04i00006d6c18akraw9/account/home"
+        to={ACCOUNT}
         icon="ri-account-circle-line"
         text="Account"
       />

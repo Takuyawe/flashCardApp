@@ -1,4 +1,7 @@
-import { NavLink } from "@remix-run/react";
+import { NavLink } from '@remix-run/react';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '~/atoms/atom';
+import { getMenuPath } from '~/modules/path/getMenuPath';
 
 type Props = {
   to: string;
@@ -7,11 +10,12 @@ type Props = {
 };
 
 export const CustomNavLink = ({ to, icon, text }: Props) => {
+  const [user, _] = useRecoilState(userAtom);
+
   return (
     <NavLink
-      to={to}
-      className={({ isActive }) => `flex-1 ${isActive ? "bg-gray-600" : ""}`}
-    >
+      to={getMenuPath(user?.id as string, to)}
+      className={({ isActive }) => `flex-1 ${isActive ? 'bg-gray-600' : ''}`}>
       <div className="flex flex-col justify-center items-center">
         <i className={`text-white ${icon} text-2xl`} />
         <span className="text-white text-xs">{text}</span>

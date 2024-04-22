@@ -38,6 +38,9 @@ model Word {
   definition      String
   part            String
   exampleSentence String   @map("example_sentence")
+  exampleSentenceKana String @map("example_sentence_kana")
+  exampleSentenceRomaji String @map("example_sentence_romaji")
+  exampleSentenceTranslation String @map("example_sentence_translation")
   createdAt       DateTime @map("created_at")
   updatedAt       DateTime @map("updated_at")
   category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)

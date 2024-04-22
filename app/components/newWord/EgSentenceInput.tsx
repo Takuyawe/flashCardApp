@@ -22,7 +22,11 @@ export const EgSentenceInput = ({
       </div>
       <textarea
         name="exampleSentence"
-        value={`${sentence}\n${sentenceKana}\n${sentenceRomaji}\n${sentenceTranslation}`}
+        value={
+          sentenceKana !== ''
+            ? `${sentence}\n${sentenceKana}\n${sentenceRomaji}\n${sentenceTranslation}`
+            : sentence
+        }
         onChange={(e) => setSentence(e.target.value)}
         placeholder="Write an example sentence"
         className="h-36 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-md"

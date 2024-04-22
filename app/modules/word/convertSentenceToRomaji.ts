@@ -1,5 +1,7 @@
 import { convertToRomaji } from './convertToRomaji';
 
 export const convertSentenceToRomaji = (text: string[]) => {
-  return convertToRomaji(text.join(' ')).replace(/\s+$/, '');
+  text.pop();
+  const sentenceRomaji = convertToRomaji(text.join(' '));
+  return sentenceRomaji + '.';
 };

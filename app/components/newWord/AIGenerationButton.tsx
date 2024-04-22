@@ -32,7 +32,7 @@ export const AIGenerationButton = ({
 
     const {
       definitionText,
-      sentenceText,
+      sentence,
       sentenceKana,
       sentenceRomaji,
       sentenceTranslation,
@@ -45,11 +45,12 @@ export const AIGenerationButton = ({
         return prevState;
       });
       setSentence((prevState) => {
-        if (prevState.length < sentenceText.length)
-          return prevState + sentenceText[prevState.length];
+        if (prevState.length < sentence.length)
+          return prevState + sentence[prevState.length];
         return prevState;
       });
       setSentenceKana((prevState) => {
+        console.log(prevState);
         if (prevState.length < sentenceKana.length)
           return prevState + sentenceKana[prevState.length];
         return prevState;
@@ -67,7 +68,7 @@ export const AIGenerationButton = ({
     }, 50);
 
     return () => clearInterval(intervalId);
-  }, [fetcher.data]);
+  }, []);
 
   return (
     <fetcher.Form action="generate" method="post">

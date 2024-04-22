@@ -44,7 +44,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     return json({
       definitionText,
-      sentenceText,
+      sentence,
       sentenceKana,
       sentenceRomaji,
       sentenceTranslation,

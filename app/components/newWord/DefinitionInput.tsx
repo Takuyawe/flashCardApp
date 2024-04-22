@@ -12,7 +12,10 @@ export const DefinitionInput = ({ definition, setDefinition }: Props) => {
       <input
         name="definition"
         value={definition}
-        onChange={(e) => setDefinition(e.target.value)}
+        onChange={(e) => {
+          console.log(e.target.value);
+          setDefinition(e.target.value);
+        }}
         placeholder="Write a definition"
         className="h-10 w-80 border-2 border-base-dark rounded-md pl-2 text-md"
       />

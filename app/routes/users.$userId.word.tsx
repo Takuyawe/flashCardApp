@@ -70,8 +70,11 @@ export default function Index() {
         sentence={sentence}
         setSentence={setSentence}
         sentenceKana={sentenceKana}
+        setSentenceKana={setSentenceKana}
         sentenceRomaji={sentenceRomaji}
+        setSentenceRomaji={setSentenceRomaji}
         sentenceTranslation={sentenceTranslation}
+        setSentenceTranslation={setSentenceTranslation}
       />
       <SaveButton
         word={word}

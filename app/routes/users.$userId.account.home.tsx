@@ -1,3 +1,5 @@
+import { Form } from '@remix-run/react';
+
 export default function Index() {
   return (
     <div className="flex flex-col h-full w-3/4 pl-6">
@@ -5,9 +7,11 @@ export default function Index() {
         <span className="text-white text-md pt-1">
           Sign out from your account
         </span>
-        <button className="bg-white h-5 w-20 text-sm rounded-md mb-2 ml-auto">
-          Sign Out
-        </button>
+        <Form method="post" action="signout" className="ml-auto  mb-2">
+          <button className="bg-white h-5 w-20 text-sm rounded-md">
+            Sign Out
+          </button>
+        </Form>
       </div>
     </div>
   );

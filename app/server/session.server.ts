@@ -1,12 +1,12 @@
 import { createCookieSessionStorage, redirect } from '@remix-run/node';
-import { SESSION_ID } from '../constants/Authentication';
+import { COOKIE_SESSION_NAME, SESSION_ID } from '../constants/Authentication';
 
 const sessionSecret: string | undefined = process.env.SESSION_SECRET;
 if (sessionSecret === undefined) throw new Error('SESSION_SECRET must be set');
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
-    name: '__session',
+    name: COOKIE_SESSION_NAME,
     httpOnly: true,
     path: '/',
     sameSite: 'lax',
@@ -25,6 +25,15 @@ export const createUserSession = async (
   return redirect(redirectPath, {
     headers: {
       'Set-Cookie': await sessionStorage.commitSession(session),
+    },
+  });
+};
+
+export const destroyUserSession = async () => {
+  const session = await sessionStorage.getSession();
+  return redirect('/', {
+    headers: {
+      'Set-Cookie': await sessionStorage.destroySession(session),
     },
   });
 };

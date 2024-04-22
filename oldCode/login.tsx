@@ -5,7 +5,7 @@ import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { authenticator } from '~/server/auth.server';
 import { SocialAccountButton } from '~/components/login/SocialAccountButton';
-import { convertTextToProvider } from '~/modules/convertTextToProvider';
+import { convertTextToProvider } from '~/modules/auth/convertTextToProvider';
 import { createSupabaseServerClient } from '~/server/supabase.server';
 import { AUTHENTICATOR_STRATEGY_NAME } from '~/constants/Authentication';
 

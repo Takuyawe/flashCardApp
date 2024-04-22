@@ -6,7 +6,7 @@ import {
   PRISMA_UNEXPECTED_ERROR,
 } from '../constants/Authentication';
 import { AuthResponse } from '../types';
-import { hashPassword } from '~/modules/hashPassword';
+import { hashPassword } from '~/modules/auth/hashPassword';
 
 // export const signupAuthenticator = new Authenticator<AuthResponse>(
 //   sessionStorage

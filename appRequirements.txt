@@ -11,6 +11,7 @@ TODO:
 - example sentence {hiragana, romaji, meaning}
 - word of the day
 - conform validation for adding a word
+- replace id with something else for route path
 - forgotten password
 - auto suggestion for word input
 - word list screen

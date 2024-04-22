@@ -1,4 +1,4 @@
-import { getUserData } from '../modules/prisma';
+import { getUserDataWithEmail } from '../modules/prisma';
 import { USER_NOT_FOUND, WRONG_PASSWORD } from '../constants/Authentication';
 import { AuthResponse } from '../types/auth';
 import { comparePasswords } from '~/modules/auth/comparePasswords';
@@ -20,7 +20,7 @@ import { comparePasswords } from '~/modules/auth/comparePasswords';
 type Login = (email: string, password: string) => Promise<AuthResponse>;
 
 export const login: Login = async (email, password) => {
-  const user = await getUserData(email);
+  const user = await getUserDataWithEmail(email);
 
   if (!user) return { success: false, message: USER_NOT_FOUND };
 

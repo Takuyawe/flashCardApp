@@ -2,17 +2,18 @@ language: English
 
 Things to look again:
 - conform
+- session
 
 TODO:
 - example sentence {hiragana, romaji, meaning}
-- word of the day
 - conform validation for adding a word
-- replace id with something else for route path
-- fix design and usage for selecting a category
-- forgotten password
 - auto suggestion for word input
 - word list screen
 - change categories from word list
+- word of the day
+- replace id with something else for route path
+- fix design and usage for selecting a category
+- forgotten password
 - quiz game
 
 

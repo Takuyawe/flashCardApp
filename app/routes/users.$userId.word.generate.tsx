@@ -1,10 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { ActionFunctionArgs, json } from '@remix-run/node';
-import {
-  CLAUDE_MODEL,
-  DEFINITION_INSTRUCTION,
-  SENTENCE_INSTRUCTION,
-} from '~/constants/AIInstruction';
+import { convertSentenceToRomaji } from '~/modules/word/convertSentenceToRomaji';
+import { createDefinitionWithAI } from '~/modules/word/createDefinitionWithAI';
+import { createSentenceWithAI } from '~/modules/word/createSentenceWithAI';
+import { getSentenceKanaWithYahoo } from '~/modules/word/getSentenceKanaWithYahoo';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const apiKey = process.env.CLAUDE_API;
@@ -15,46 +14,46 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const word = formData.get('word');
 
   // TODO: server side validation with conform
-  // TODO: try catch statement
 
-  const definitionResponse = await anthropic.messages.create({
-    model: CLAUDE_MODEL,
-    max_tokens: 100,
-    temperature: 1,
-    messages: [
-      {
-        role: 'user',
-        content: [
-          {
-            type: 'text',
-            text: DEFINITION_INSTRUCTION.BEGINNER.replace(
-              'word',
-              word as string
-            ),
-          },
-        ],
-      },
-    ],
-  });
+  try {
+    const definitionResponse = await createDefinitionWithAI(
+      anthropic,
+      word as string
+    );
 
-  const sentenceResponse = await anthropic.messages.create({
-    model: CLAUDE_MODEL,
-    max_tokens: 100,
-    temperature: 1,
-    messages: [
-      {
-        role: 'user',
-        content: [
-          {
-            type: 'text',
-            text: SENTENCE_INSTRUCTION.BEGINNER.replace('word', word as string),
-          },
-        ],
-      },
-    ],
-  });
+    const sentenceResponse = await createSentenceWithAI(
+      anthropic,
+      word as string
+    );
 
-  console.log(sentenceResponse);
+    if (!definitionResponse || !sentenceResponse)
+      return json({
+        error: 'Failed to generate definition and sentence',
+      });
 
-  return json({ definitionResponse, sentenceResponse });
+    const definitionText = definitionResponse?.content[0].text;
+
+    const sentenceText = sentenceResponse?.content[0].text.split('/');
+
+    const sentence = sentenceText[0].trim();
+    const sentenceTranslation = sentenceText[1].trim();
+    const { sentenceArr, sentenceKana } = await getSentenceKanaWithYahoo(
+      sentence
+    );
+    const sentenceRomaji = convertSentenceToRomaji(sentenceArr);
+
+    return json({
+      definitionText,
+      sentenceText,
+      sentenceKana,
+      sentenceRomaji,
+      sentenceTranslation,
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return json({
+        error: error.message,
+      });
+    }
+  }
 };

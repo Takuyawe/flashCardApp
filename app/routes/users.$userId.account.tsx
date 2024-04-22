@@ -9,7 +9,7 @@ export default function Layout() {
   const [user] = useRecoilState(userAtom);
 
   return (
-    <div className="h-body bg-base-dark border-t">
+    <div className="h-body bg-base-dark border-t overflow-hidden">
       <div className="h-full flex flex-col items-center">
         <span className="flex items-end justify-start pl-6 pb-2 h-24 w-full text-3xl text-white border-b">
           {user?.name}&apos;s Account

@@ -1,20 +1,20 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node';
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
-import "remixicon/fonts/remixicon.css";
-import stylesheet from "~/tailwind.css?url";
-import { Header } from "./components/Header";
-import { requireUserSession } from "./server/auth.server";
-import { redirect } from "remix-typedjson";
-import { RecoilRoot } from "recoil";
+} from '@remix-run/react';
+import 'remixicon/fonts/remixicon.css';
+import stylesheet from '~/tailwind.css?url';
+import { Header } from './components/Header';
+import { requireUserSession } from './server/auth.server';
+import { redirect } from 'remix-typedjson';
+import { RecoilRoot } from 'recoil';
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: stylesheet },
+  { rel: 'stylesheet', href: stylesheet },
 ];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -22,11 +22,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const userId = await requireUserSession(request);
 
   if (!userId) {
-    if (url.pathname !== "/login" && url.pathname !== "/signup")
-      return redirect("/login");
+    if (url.pathname !== '/login' && url.pathname !== '/signup')
+      return redirect('/login');
   } else {
-    if (url.pathname !== `/users/${userId}`)
-      return redirect(`/users/${userId}`);
+    if (url.pathname !== `/users/${userId}/word`)
+      return redirect(`/users/${userId}/word`);
   }
   return null;
 };

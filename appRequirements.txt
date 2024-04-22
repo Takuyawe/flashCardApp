@@ -9,6 +9,8 @@ TODO:
 - conform validation for adding a word
 - auto suggestion for word input
 - word list screen
+- recently added (show 5 and show more)
+- search bar (category and word) show 10 and show more
 - change categories from word list
 - word of the day
 - replace id with something else for route path

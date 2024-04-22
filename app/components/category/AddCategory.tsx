@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CategorySelect } from './CategorySelect';
 import { useFetcher } from '@remix-run/react';
-import { Categories } from '~/types';
+import { Categories } from '~/types/word';
 
 type Props = {
   categories: Categories;
@@ -48,7 +48,7 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
         <div className="flex justify-end w-full gap-x-3 mr-14">
           <button
             onClick={closeModal}
-            className="h-6 w-20 bg-white text-base-dark outline-double outline-base-dark rounded-xl text-md">
+            className="h-6 w-20 bg-white text-base-dark outline outline-base-dark rounded-xl text-md">
             Cancel
           </button>
 

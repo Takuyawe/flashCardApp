@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CategoryWithChildren } from '~/types';
+import { CategoryWithChildren } from '~/types/word';
 
 type Props = {
   category: CategoryWithChildren;

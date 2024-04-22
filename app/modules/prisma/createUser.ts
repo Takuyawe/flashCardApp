@@ -1,10 +1,9 @@
-import { User } from "@prisma/client";
 import {
   DUPLICATE_EMAIL,
   PRISMA_UNEXPECTED_ERROR,
-} from "~/constants/Authentication";
-import { prisma } from "~/lib/prisma";
-import { PrismaCreateUserResponse } from "~/types";
+} from '~/constants/Authentication';
+import { prisma } from '~/lib/prisma';
+import { PrismaCreateUserResponse } from '~/types/prisma';
 
 type CreateUser = (
   name: string,

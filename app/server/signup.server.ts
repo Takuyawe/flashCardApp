@@ -5,7 +5,7 @@ import {
   EMPTY_INPUT_FOR_SIGNUP,
   PRISMA_UNEXPECTED_ERROR,
 } from '../constants/Authentication';
-import { AuthResponse } from '../types';
+import { AuthResponse } from '../types/auth';
 import { hashPassword } from '~/modules/auth/hashPassword';
 
 // export const signupAuthenticator = new Authenticator<AuthResponse>(

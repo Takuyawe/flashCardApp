@@ -1,6 +1,6 @@
 import { getUserData } from '../modules/prisma';
 import { USER_NOT_FOUND, WRONG_PASSWORD } from '../constants/Authentication';
-import { AuthResponse } from '../types';
+import { AuthResponse } from '../types/auth';
 import { comparePasswords } from '~/modules/auth/comparePasswords';
 
 // export const loginAuthenticator = new Authenticator<LoginResponse>(

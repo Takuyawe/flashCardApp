@@ -1,5 +1,8 @@
 language: English
 
+Things to look again:
+- conform
+
 TODO:
 - users.$userIdに、recoilでidを登録
 - category登録時に、ユーザーID使う

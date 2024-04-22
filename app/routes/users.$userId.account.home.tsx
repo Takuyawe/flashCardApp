@@ -2,7 +2,7 @@ import { Form } from '@remix-run/react';
 
 export default function Index() {
   return (
-    <div className="flex flex-col justify-between border h-20 px-3">
+    <div className="flex flex-col justify-between border rounded-sm h-20 px-3">
       <span className="text-white text-md pt-1">
         Sign out from your account
       </span>

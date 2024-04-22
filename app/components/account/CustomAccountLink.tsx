@@ -10,7 +10,9 @@ export const CustomAccountLink = ({ to, text }: Props) => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex-1 text-center py-2 rounded-sm ${isActive ? 'bg-gray-600' : ''}`
+        `flex-1 text-center py-2 mx-2 rounded-sm ${
+          isActive ? 'bg-gray-600' : ''
+        }`
       }>
       <span className="text-white text-md">{text}</span>
     </NavLink>

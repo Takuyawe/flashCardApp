@@ -1,5 +1,4 @@
-import { ActionFunctionArgs, json, LoaderFunctionArgs } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { ActionFunctionArgs, json } from '@remix-run/node';
 import { useState } from 'react';
 import { AIGenerationButton } from '~/components/newWord/AIGenerationButton';
 import { CategorySelectContainer } from '~/components/newWord/CategorySelectContainer';
@@ -9,16 +8,9 @@ import { SaveButton } from '~/components/newWord/SaveButton';
 import { WordInput } from '~/components/newWord/WordInput';
 import { convertToRomaji } from '~/modules/word/convertToRomaji';
 import { getYahooAnalysisData } from '~/modules/word/getYahooAnalysisData';
-import { addNewWord, fetchCategories } from '~/modules/prisma';
-import { typedjson } from 'remix-typedjson';
-
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const userId = params.userId;
-  const categories = await fetchCategories(userId as string);
-  return typedjson({
-    categories,
-  });
-};
+import { addNewWord } from '~/modules/prisma';
+import { useRecoilState } from 'recoil';
+import { categoriesAtom } from '~/atoms/atom';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
@@ -51,7 +43,7 @@ export default function Index() {
   const [sentence, setSentence] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [chosenCategoryId, setChosenCategoryId] = useState<string>('');
-  const { categories } = useLoaderData<typeof loader>();
+  const [categories] = useRecoilState(categoriesAtom);
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-4">

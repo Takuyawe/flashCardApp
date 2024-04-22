@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const CustomNavLink = ({ to, icon, text }: Props) => {
-  const [user, _] = useRecoilState(userAtom);
+  const [user] = useRecoilState(userAtom);
 
   return (
     <NavLink

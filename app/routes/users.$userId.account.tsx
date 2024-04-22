@@ -6,7 +6,7 @@ import { ACCOUNT_HOME, ACCOUNT_SETTINGS } from '~/constants/Path';
 import { getMenuPath } from '~/modules/path/getMenuPath';
 
 export default function Layout() {
-  const [user, _] = useRecoilState(userAtom);
+  const [user] = useRecoilState(userAtom);
 
   return (
     <div className="h-body bg-base-dark border-t">

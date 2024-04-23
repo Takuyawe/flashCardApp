@@ -3,9 +3,10 @@ import { Outlet, useLoaderData } from '@remix-run/react';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { typedjson } from 'remix-typedjson';
-import { categoriesAtom, userAtom } from '~/atoms/atom';
+import { categoriesAtom, userAtom, wordsAtom } from '~/atoms/atom';
 import { BottomMenuBar } from '~/components/BottomMenuBar';
 import { fetchCategories, getUserDataWithId } from '~/modules/prisma';
+import { fetchWords } from '~/modules/prisma/fetchWords';
 import { UserAtom } from '~/types/atom';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -19,20 +20,23 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     email: user.email,
   };
   const categories = await fetchCategories(userId);
-  return typedjson({ user: userWithNameAndEmail, categories });
+  const words = await fetchWords(userId);
+  return typedjson({ user: userWithNameAndEmail, categories, words });
 };
 
 export default function Layout() {
   const loginResponse = useLoaderData<typeof loader>();
   const [, setUser] = useRecoilState(userAtom);
   const [, setCategories] = useRecoilState(categoriesAtom);
+  const [, setWords] = useRecoilState(wordsAtom);
 
   useEffect(() => {
     if (!loginResponse.user) return;
 
     setUser(loginResponse.user);
     setCategories(loginResponse.categories);
-  }, [loginResponse, setUser, setCategories]);
+    setWords(loginResponse.words);
+  }, [loginResponse, setUser, setCategories, setWords]);
 
   return (
     <>

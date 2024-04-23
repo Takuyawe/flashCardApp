@@ -3,12 +3,13 @@ import { addNewCategory } from '~/modules/prisma';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
+  const userId = formData.get('userId');
   const newCategory = formData.get('newCategory');
   const parentCategoryId = formData.get('parentCategoryId');
   const now = new Date();
 
   const response = addNewCategory(
-    'clv0qs04i00006d6c18akraw9',
+    userId as string,
     parentCategoryId !== '' ? (parentCategoryId as string) : null,
     newCategory as string,
     now

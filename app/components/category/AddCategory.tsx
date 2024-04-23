@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { CategorySelect } from './CategorySelect';
 import { useFetcher } from '@remix-run/react';
 import { Categories } from '~/types/word';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '~/atoms/atom';
 
 type Props = {
   categories: Categories;
@@ -12,6 +14,7 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
   const [newCategory, setNewCategory] = useState<string>('');
   const [parentCategory, setParentCategory] = useState<string>('');
   const [parentCategoryId, setParentCategoryId] = useState<string>('');
+  const [user] = useRecoilState(userAtom);
   const fetcher = useFetcher();
 
   return (
@@ -54,6 +57,7 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
 
           <fetcher.Form action="category" method="post">
             <input type="hidden" name="newCategory" value={newCategory} />
+            <input type="hidden" name="userId" value={user?.id} />
             <input
               type="hidden"
               name="parentCategoryId"

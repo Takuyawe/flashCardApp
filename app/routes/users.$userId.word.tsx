@@ -17,6 +17,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const word = formData.get('word');
   const definition = formData.get('definition');
   const sentence = formData.get('sentence');
+  const sentenceKana = formData.get('sentenceKana');
+  const sentenceRomaji = formData.get('sentenceRomaji');
+  const sentenceTranslation = formData.get('sentenceTranslation');
   const categoryId = formData.get('categoryId');
 
   const { kana, part } = await getKanaAndPardWithYahoo(word as string);
@@ -31,7 +34,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     romajiWord,
     part,
     sentence as string,
-    now
+    now,
+    sentenceKana as string,
+    sentenceRomaji as string,
+    sentenceTranslation as string
   );
 
   return json({ response });
@@ -80,6 +86,9 @@ export default function Index() {
         word={word}
         definition={definition}
         sentence={sentence}
+        sentenceKana={sentenceKana}
+        sentenceRomaji={sentenceRomaji}
+        sentenceTranslation={sentenceTranslation}
         categoryId={chosenCategoryId}
       />
     </div>

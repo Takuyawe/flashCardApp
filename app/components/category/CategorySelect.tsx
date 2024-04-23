@@ -45,7 +45,7 @@ export const CategorySelect = ({
           className={`absolute ${
             isCategoryAddingScreen
               ? 'top-44 left-7 min-h-48 max-h-96 w-5/6'
-              : 'top-40 left-12 min-h-60 max-h-96 w-2/3'
+              : 'top-36 left-12 min-h-60 max-h-96 w-2/3'
           } overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark`}>
           <div className="flex flex-col">
             <button

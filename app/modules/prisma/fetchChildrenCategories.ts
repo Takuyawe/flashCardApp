@@ -1,5 +1,5 @@
-import { prisma } from "~/lib/prisma";
-import { Categories } from "~/types";
+import { prisma } from '~/lib/prisma';
+import { Categories } from '~/types/word';
 
 export const fetchChildrenCategories = async (parentCategoryId: string) => {
   const childrenCategories: Categories = await prisma.category.findMany({

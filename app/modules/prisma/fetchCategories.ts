@@ -1,6 +1,6 @@
-import { prisma } from "~/lib/prisma";
-import { Categories } from "~/types";
-import { fetchChildrenCategories } from "./fetchChildrenCategories";
+import { prisma } from '~/lib/prisma';
+import { Categories } from '~/types/word';
+import { fetchChildrenCategories } from './fetchChildrenCategories';
 
 type FetchCategories = (userId: string) => Promise<Categories>;
 

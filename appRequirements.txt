@@ -16,6 +16,8 @@ TODO:
 - fix design and usage for selecting a category
 - forgotten password
 - quiz game
+- remove title
+- responsive design
 
 
 screen-flow

@@ -8,6 +8,7 @@ Things to look again:
 - session
 
 TODO:
+- change categories to map (words too)
 - conform validation for adding a word
 - word list screen
 - recently added (show 5 and show more)

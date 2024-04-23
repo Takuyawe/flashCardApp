@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal } from '../modal/Modal';
 import { AddCategory } from './AddCategory';
-import { Categories } from '~/types';
+import { Categories } from '~/types/word';
 
 type Props = {
   categories: Categories;

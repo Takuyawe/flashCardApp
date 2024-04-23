@@ -1,5 +1,6 @@
 import { useFetcher } from '@remix-run/react';
 import { useEffect } from 'react';
+import { generateWordLetterByLetter } from '~/modules/word/generateWordLetterByLetter';
 import { action } from '~/routes/users.$userId.word.generate';
 
 type Props = {
@@ -38,37 +39,12 @@ export const AIGenerationButton = ({
       sentenceTranslation,
     } = fetcher.data;
 
-    const intervalId = setInterval(() => {
-      setDefinition((prevState) => {
-        if (prevState.length < definitionText.length)
-          return prevState + definitionText[prevState.length];
-        return prevState;
-      });
-      setSentence((prevState) => {
-        if (prevState.length < sentence.length)
-          return prevState + sentence[prevState.length];
-        return prevState;
-      });
-      setSentenceKana((prevState) => {
-        console.log(prevState);
-        if (prevState.length < sentenceKana.length)
-          return prevState + sentenceKana[prevState.length];
-        return prevState;
-      });
-      setSentenceRomaji((prevState) => {
-        if (prevState.length < sentenceRomaji.length)
-          return prevState + sentenceRomaji[prevState.length];
-        return prevState;
-      });
-      setSentenceTranslation((prevState) => {
-        if (prevState.length < sentenceTranslation.length)
-          return prevState + sentenceTranslation[prevState.length];
-        return prevState;
-      });
-    }, 50);
-
-    return () => clearInterval(intervalId);
-  }, []);
+    generateWordLetterByLetter(definitionText, setDefinition);
+    generateWordLetterByLetter(sentence, setSentence);
+    generateWordLetterByLetter(sentenceKana, setSentenceKana);
+    generateWordLetterByLetter(sentenceRomaji, setSentenceRomaji);
+    generateWordLetterByLetter(sentenceTranslation, setSentenceTranslation);
+  }, [fetcher.data]);
 
   return (
     <fetcher.Form action="generate" method="post">

@@ -3,10 +3,10 @@ import { prisma } from '~/lib/prisma';
 
 type FetchWords = (categoryId: string) => Promise<Word[]>;
 
-export const fetchWords: FetchWords = async (categoryId) => {
+export const fetchWords: FetchWords = async (userId) => {
   const words: Word[] = await prisma.word.findMany({
     where: {
-      categoryId,
+      userId,
     },
   });
 

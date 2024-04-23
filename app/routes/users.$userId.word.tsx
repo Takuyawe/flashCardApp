@@ -9,7 +9,7 @@ import { WordInput } from '~/components/newWord/WordInput';
 import { convertToRomaji } from '~/modules/word/convertToRomaji';
 import { addNewWord } from '~/modules/prisma';
 import { useRecoilState } from 'recoil';
-import { categoriesAtom } from '~/atoms/atom';
+import { categoriesAtom, userAtom } from '~/atoms/atom';
 import { getKanaAndPardWithYahoo } from '~/modules/word/getKanaAndPartWithYahoo';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -20,6 +20,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const sentenceKana = formData.get('sentenceKana');
   const sentenceRomaji = formData.get('sentenceRomaji');
   const sentenceTranslation = formData.get('sentenceTranslation');
+  const userId = formData.get('userId');
   const categoryId = formData.get('categoryId');
 
   const { kana, part } = await getKanaAndPardWithYahoo(word as string);
@@ -29,6 +30,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const response = addNewWord(
     word as string,
     definition as string,
+    userId as string,
     categoryId as string,
     kana,
     romajiWord,
@@ -52,6 +54,7 @@ export default function Index() {
   const [sentenceTranslation, setSentenceTranslation] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [chosenCategoryId, setChosenCategoryId] = useState<string>('');
+  const [user] = useRecoilState(userAtom);
   const [categories] = useRecoilState(categoriesAtom);
 
   return (
@@ -89,6 +92,7 @@ export default function Index() {
         sentenceKana={sentenceKana}
         sentenceRomaji={sentenceRomaji}
         sentenceTranslation={sentenceTranslation}
+        userId={user?.id as string}
         categoryId={chosenCategoryId}
       />
     </div>

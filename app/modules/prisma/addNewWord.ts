@@ -3,6 +3,7 @@ import { prisma } from '~/lib/prisma';
 type AddNewWord = (
   word: string,
   definition: string,
+  userId: string,
   categoryId: string,
   kana: string,
   romaji: string,
@@ -17,6 +18,7 @@ type AddNewWord = (
 export const addNewWord: AddNewWord = async (
   word,
   definition,
+  userId,
   categoryId,
   kana,
   romaji,
@@ -31,6 +33,7 @@ export const addNewWord: AddNewWord = async (
     data: {
       name: word,
       definition,
+      userId,
       categoryId,
       kana,
       romaji,

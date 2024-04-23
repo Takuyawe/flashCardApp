@@ -9,6 +9,9 @@ export const fetchWords: FetchWords = async (userId) => {
     where: {
       userId,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 
   const wordsMap = new Map<string, Word>();

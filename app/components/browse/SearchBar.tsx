@@ -1,7 +1,7 @@
 export const SearchBar = () => {
   return (
     <div className="relative">
-      <i className="ri-search-line text-xl absolute left-1 top-1 opacity-75" />
+      <i className="ri-search-line text-xl absolute left-2 top-1 opacity-75" />
       <input
         name="search"
         placeholder="Search a word"

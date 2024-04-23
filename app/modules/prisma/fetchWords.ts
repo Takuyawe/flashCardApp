@@ -10,5 +10,9 @@ export const fetchWords: FetchWords = async (categoryId) => {
     },
   });
 
+  const wordsMap = new Map<string, Word>();
+  words.forEach((word) => wordsMap.set(word.name, word));
+  console.log(wordsMap);
+
   return words;
 };

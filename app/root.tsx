@@ -12,6 +12,7 @@ import { Header } from './components/Header';
 import { requireUserSession } from './server/auth.server';
 import { redirect } from 'remix-typedjson';
 import { RecoilRoot } from 'recoil';
+import { getMenuPath } from './modules/path/getMenuPath';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -25,8 +26,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     if (url.pathname !== '/login' && url.pathname !== '/signup')
       return redirect('/login');
   } else {
-    if (url.pathname !== `/users/${userId}/word`)
-      return redirect(`/users/${userId}/word`);
+    const wordPath = getMenuPath(userId, 'word');
+    const quizPath = getMenuPath(userId, 'quiz');
+    const browsePath = getMenuPath(userId, 'browse');
+    const accountPath = getMenuPath(userId, 'account');
+    if (
+      url.pathname !== wordPath &&
+      url.pathname !== quizPath &&
+      url.pathname !== browsePath &&
+      url.pathname !== accountPath
+    )
+      return redirect(wordPath);
   }
   return null;
 };

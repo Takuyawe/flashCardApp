@@ -7,6 +7,7 @@ type Props = {
   sentenceKana: string;
   sentenceRomaji: string;
   sentenceTranslation: string;
+  userId: string;
   categoryId: string;
 };
 
@@ -17,10 +18,12 @@ export const SaveButton = ({
   sentenceKana,
   sentenceRomaji,
   sentenceTranslation,
+  userId,
   categoryId,
 }: Props) => {
   return (
     <Form method="post">
+      <input type="hidden" name="userId" value={userId} />
       <input type="hidden" name="categoryId" value={categoryId} />
       <input type="hidden" name="word" value={word} />
       <input type="hidden" name="definition" value={definition} />

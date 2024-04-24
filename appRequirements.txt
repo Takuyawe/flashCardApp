@@ -1,5 +1,8 @@
 language: English
 
+word-list:
+
+
 Things to look again:
 - conform
 - session
@@ -9,6 +12,8 @@ TODO:
 - word list screen
 - recently added (show 5 and show more)
 - search bar (category and word) show 10 and show more
+- show message and redirect after word is added
+- disable save button when generating sentences
 - auto suggestion for word input
 - change categories from word list
 - word of the day

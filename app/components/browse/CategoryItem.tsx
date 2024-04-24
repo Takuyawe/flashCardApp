@@ -1,4 +1,8 @@
+import { Link } from '@remix-run/react';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '~/atoms/atom';
+import { getCategoryPath } from '~/modules/path/getCategoryPath';
 import { CategoryWithChildren } from '~/types/word';
 
 type Props = {
@@ -7,6 +11,7 @@ type Props = {
 
 export const CategoryItem = ({ category }: Props) => {
   const [isChildrenOpen, setIsChildrenOpen] = useState(true);
+  const [user] = useRecoilState(userAtom);
 
   return (
     <div className="flex flex-col">
@@ -23,7 +28,10 @@ export const CategoryItem = ({ category }: Props) => {
           )}
           <i className="ri-folder-fill text-bright-blue text-2xl" />
         </button>
-        <button>{category.name}</button>
+        <Link
+          to={getCategoryPath(user?.id as string, category.name, category.id)}>
+          {category.name}
+        </Link>
       </div>
       {isChildrenOpen &&
         category.childCategories &&

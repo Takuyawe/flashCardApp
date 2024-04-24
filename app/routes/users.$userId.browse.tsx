@@ -13,7 +13,7 @@ export default function Layout() {
     useState<CategoryWithChildren | null>(null);
 
   return (
-    <div className="h-body flex flex-col items-center justify-center gap-y-4 my-6">
+    <div className="h-body flex flex-col items-center justify-center gap-y-4 my-6 overflow-auto">
       <SearchBar />
       <RecentlyAddedWordsContainer words={words} />
       <CategoryPath categoryPath={['Taku', 'child']} />

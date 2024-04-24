@@ -12,7 +12,8 @@ export const WordCard = ({ word }: Props) => {
           <i className="ri-speak-fill text-lg" />
         </button>
         <span>
-          {word.name} / {word.definition}
+          {word.name} /{' '}
+          {word.definition.replaceAll('.', '').replaceAll(`"`, '')}
         </span>
         <button className="ml-auto">
           <i className="ri-delete-bin-line text-lg" />

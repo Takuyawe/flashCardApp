@@ -1,15 +1,29 @@
+import { Link } from '@remix-run/react';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '~/atoms/atom';
+import { getCategoryPath } from '~/modules/path/getCategoryPath';
+import { Categories } from '~/types/word';
+
 type Props = {
-  categoryPath: string[];
+  categories: Categories;
 };
 
-export const CategoryPath = ({ categoryPath }: Props) => {
+export const CategoryPath = ({ categories }: Props) => {
+  const [user] = useRecoilState(userAtom);
   return (
     <div className="flex w-72">
-      {categoryPath.map((category, index) => (
-        <div key={category} className="flex gap-x-1">
-          <i className="ri-folder-fill text-gray-500 text-md" />
-          <span className="text-base-dark">{category}</span>
-          {index !== categoryPath.length - 1 && (
+      {categories.map((category, index) => (
+        <div key={category.id} className="flex gap-x-1">
+          <Link
+            to={getCategoryPath(
+              user?.id as string,
+              category.name,
+              category.id
+            )}>
+            <i className="ri-folder-fill text-gray-500 text-md" />
+          </Link>
+          <span className="text-base-dark">{category.name}</span>
+          {index !== categories.length - 1 && (
             <i className="ri-arrow-right-s-line" />
           )}
         </div>

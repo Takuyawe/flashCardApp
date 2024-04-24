@@ -2,7 +2,7 @@ import { Link } from '@remix-run/react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '~/atoms/atom';
-import { getCategoryPath } from '~/modules/path/getCategoryPath';
+import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
 import { CategoryWithChildren } from '~/types/word';
 
 type Props = {
@@ -29,7 +29,11 @@ export const CategoryItem = ({ category }: Props) => {
           <i className="ri-folder-fill text-bright-blue text-2xl" />
         </button>
         <Link
-          to={getCategoryPath(user?.id as string, category.name, category.id)}>
+          to={getWordCategoryPath(
+            user?.id as string,
+            category.name,
+            category.id
+          )}>
           {category.name}
         </Link>
       </div>

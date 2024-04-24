@@ -1,10 +1,10 @@
 import { getUserPath } from './getUserPath';
 
-export const getCategoryPath = (
+export const getWordCategoryPath = (
   userId: string,
   category: string,
   categoryId: string
 ) => {
   const userPath = getUserPath(userId);
-  return `${userPath}/browse/${category}?categoryId=${categoryId}`;
+  return `${userPath}/browse/words/${category}?categoryId=${categoryId}`;
 };

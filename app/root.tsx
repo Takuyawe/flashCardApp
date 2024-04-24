@@ -13,6 +13,7 @@ import { requireUserSession } from './server/auth.server';
 import { redirect } from 'remix-typedjson';
 import { RecoilRoot } from 'recoil';
 import { getMenuPath } from './modules/path/getMenuPath';
+import { ACCOUNT, BROWSE, QUIZ, WORD } from './constants/Path';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -26,15 +27,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     if (url.pathname !== '/login' && url.pathname !== '/signup')
       return redirect('/login');
   } else {
-    const wordPath = getMenuPath(userId, 'word');
-    const quizPath = getMenuPath(userId, 'quiz');
-    const browsePath = getMenuPath(userId, 'browse');
-    const accountPath = getMenuPath(userId, 'account');
+    const wordPath = getMenuPath(userId, WORD);
+    const quizPath = getMenuPath(userId, QUIZ);
+    const browsePath = getMenuPath(userId, BROWSE);
+    const accountPath = getMenuPath(userId, ACCOUNT);
     if (
-      url.pathname !== wordPath &&
-      url.pathname !== quizPath &&
-      url.pathname !== browsePath &&
-      url.pathname !== accountPath
+      !url.pathname.includes(wordPath) &&
+      !url.pathname.includes(quizPath) &&
+      !url.pathname.includes(browsePath) &&
+      !url.pathname.includes(accountPath)
     )
       return redirect(wordPath);
   }

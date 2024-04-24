@@ -7,6 +7,7 @@ import { categoriesAtom, userAtom, wordsAtom } from '~/atoms/atom';
 import { BottomMenuBar } from '~/components/BottomMenuBar';
 import { fetchCategories, getUserDataWithId } from '~/modules/prisma';
 import { fetchWords } from '~/modules/prisma/fetchWords';
+import { convertWordObjectToMap } from '~/modules/word/convertWordObjectToMap';
 import { UserAtom } from '~/types/atom';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -25,18 +26,18 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 export default function Layout() {
-  const loginResponse = useLoaderData<typeof loader>();
+  const { user, categories, words } = useLoaderData<typeof loader>();
   const [, setUser] = useRecoilState(userAtom);
   const [, setCategories] = useRecoilState(categoriesAtom);
   const [, setWords] = useRecoilState(wordsAtom);
 
   useEffect(() => {
-    if (!loginResponse.user) return;
+    if (!user) return;
 
-    setUser(loginResponse.user);
-    setCategories(loginResponse.categories);
-    setWords(loginResponse.words);
-  }, [loginResponse, setUser, setCategories, setWords]);
+    setUser(user);
+    setCategories(categories);
+    setWords(convertWordObjectToMap(words));
+  }, [user, categories, words, setUser, setCategories, setWords]);
 
   return (
     <>

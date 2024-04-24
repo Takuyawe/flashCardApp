@@ -1,3 +1,4 @@
+import { Word } from '@prisma/client';
 import { atom } from 'recoil';
 import {
   CATEGORIES_ATOM_KEY,
@@ -19,5 +20,5 @@ export const categoriesAtom = atom<Categories>({
 
 export const wordsAtom = atom<WordsMap>({
   key: WORDS_ATOM_KEY,
-  default: new Map(),
+  default: new Map<string, Word>(),
 });

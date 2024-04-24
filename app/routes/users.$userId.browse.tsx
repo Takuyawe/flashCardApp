@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { wordsAtom } from '~/atoms/atom';
-import { RecentlyAddedWords } from '~/components/browse/RecentlyAddedWords';
+import { RecentlyAddedWordsContainer } from '~/components/browse/RecentlyAddedWordsContainer';
 import { SearchBar } from '~/components/browse/SearchBar';
 
 export default function Index() {
@@ -9,7 +9,7 @@ export default function Index() {
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-4">
       <SearchBar />
-      <RecentlyAddedWords words={words} />
+      <RecentlyAddedWordsContainer words={words} />
     </div>
   );
 }

@@ -6,5 +6,5 @@ export const getWordCategoryPath = (
   categoryId: string
 ) => {
   const userPath = getUserPath(userId);
-  return `${userPath}/browse/words/${category}?categoryId=${categoryId}`;
+  return `${userPath}/browse/${category}/words?categoryId=${categoryId}`;
 };

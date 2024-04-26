@@ -4,17 +4,19 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '~/atoms/atom';
 import { getCategoryPath } from '~/modules/path/getCategoryPath';
-import { Categories } from '~/types/word';
+import { Categories, CategoryWithChildren } from '~/types/word';
 
 type Props = {
   chosenCategoryId: string;
-  categories: Category[];
+  categories: CategoryWithChildren[];
 };
 
 export const CategoryPath = ({ chosenCategoryId, categories }: Props) => {
   const [user] = useRecoilState(userAtom);
   const [selfAndParentCategories, setSelfAndParentCategories] =
     useState<Categories>([]);
+
+  console.log(categories);
 
   return (
     <div className="flex w-72">

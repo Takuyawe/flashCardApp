@@ -7,7 +7,7 @@ import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
 import { CategoryWithChildren } from '~/types/word';
 
 type Props = {
-  category: Category;
+  category: CategoryWithChildren;
 };
 
 export const CategoryItem = ({ category }: Props) => {

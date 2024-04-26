@@ -1,7 +1,6 @@
 import { CategoriesMap } from '~/types/word';
 import { AddCategoryButton } from '../category/AddCategoryButton';
 import { CategorySelect } from '../category/CategorySelect';
-import { Categories } from '~/types';
 
 type Props = {
   category: string;

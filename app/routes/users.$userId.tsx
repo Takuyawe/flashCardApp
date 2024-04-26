@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { typedjson } from 'remix-typedjson';
 import { categoriesAtom, userAtom, wordsAtom } from '~/atoms/atom';
 import { BottomMenuBar } from '~/components/BottomMenuBar';
+import { convertCategoryObjectToMap } from '~/modules/category/convertCategoryObjectToMap';
 import { fetchCategories, getUserDataWithId } from '~/modules/prisma';
 import { fetchWords } from '~/modules/prisma/fetchWords';
 import { convertWordObjectToMap } from '~/modules/word/convertWordObjectToMap';
@@ -35,7 +36,7 @@ export default function Layout() {
     if (!user) return;
 
     setUser(user);
-    setCategories(categories);
+    setCategories(convertCategoryObjectToMap(categories));
     setWords(convertWordObjectToMap(words));
   }, [user, categories, words, setUser, setCategories, setWords]);
 

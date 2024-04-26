@@ -1,5 +1,5 @@
 import { Outlet } from '@remix-run/react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { categoriesAtom, wordsAtom } from '~/atoms/atom';
 import { CategoryPath } from '~/components/browse/CategoryPath';
@@ -10,14 +10,18 @@ import { CategoryWithChildren } from '~/types/word';
 export default function Layout() {
   const [words] = useRecoilState(wordsAtom);
   const [categories] = useRecoilState(categoriesAtom);
-  const [chosenCategory, setChosenCategory] =
-    useState<CategoryWithChildren | null>(null);
+  const [chosenCategoryId, setChosenCategoryId] = useState<string>('');
+
+  const categoriesPath = useMemo(() => {}, []);
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-4 my-6 overflow-auto">
       <SearchBar />
       <RecentlyAddedWordsContainer words={words} />
-      <CategoryPath categories={categories} />
+      {/* <CategoryPath
+        chosenCategoryId={chosenCategoryId}
+        categories={categories}
+      /> */}
       <Outlet />
     </div>
   );

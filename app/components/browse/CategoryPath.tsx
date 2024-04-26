@@ -1,15 +1,21 @@
+import { Category } from '@prisma/client';
 import { Link } from '@remix-run/react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '~/atoms/atom';
 import { getCategoryPath } from '~/modules/path/getCategoryPath';
 import { Categories } from '~/types/word';
 
 type Props = {
-  categories: Categories;
+  chosenCategoryId: string;
+  categories: Category[];
 };
 
-export const CategoryPath = ({ categories }: Props) => {
+export const CategoryPath = ({ chosenCategoryId, categories }: Props) => {
   const [user] = useRecoilState(userAtom);
+  const [selfAndParentCategories, setSelfAndParentCategories] =
+    useState<Categories>([]);
+
   return (
     <div className="flex w-72">
       {categories.map((category, index) => (

@@ -1,3 +1,4 @@
+import { Category } from '@prisma/client';
 import { Link } from '@remix-run/react';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -6,7 +7,7 @@ import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
 import { CategoryWithChildren } from '~/types/word';
 
 type Props = {
-  category: CategoryWithChildren;
+  category: Category;
 };
 
 export const CategoryItem = ({ category }: Props) => {

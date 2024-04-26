@@ -2,7 +2,7 @@ language: English
 
 category
 1. show all categories open and the path is username > at /browse
-2. click a folder -> move to the route /browse/words/categoryName and show words for the category, the path is username > category
+2. click a folder -> move to the route /browse/categoryName/words and show words for the category, the path is username > category
 3. click the folder in the path, and move to the route /browse/categoryName and show categories list, the path is username > category
 4. if clicked username in the path, and move to the route at /broswe
 

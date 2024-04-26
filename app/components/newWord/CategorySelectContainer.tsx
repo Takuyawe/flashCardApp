@@ -1,11 +1,12 @@
-import { AddCategoryButton } from "../category/AddCategoryButton";
-import { CategorySelect } from "../category/CategorySelect";
-import { Categories } from "~/types";
+import { CategoriesMap } from '~/types/word';
+import { AddCategoryButton } from '../category/AddCategoryButton';
+import { CategorySelect } from '../category/CategorySelect';
+import { Categories } from '~/types';
 
 type Props = {
   category: string;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
-  categories: Categories;
+  categories: CategoriesMap;
   setChosenCategoryId: React.Dispatch<React.SetStateAction<string>>;
 };
 

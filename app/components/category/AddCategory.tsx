@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { CategorySelect } from './CategorySelect';
 import { useFetcher } from '@remix-run/react';
-import { Categories } from '~/types/word';
+import { CategoriesMap } from '~/types/word';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '~/atoms/atom';
 
 type Props = {
-  categories: Categories;
+  categories: CategoriesMap;
   closeModal: () => void;
 };
 

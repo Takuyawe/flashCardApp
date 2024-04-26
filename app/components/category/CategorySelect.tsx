@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CategoryItem } from './CategoryItem';
-import { Categories } from '~/types/word';
+import { CategoriesMap } from '~/types/word';
+import { generateCategoriesList } from '~/modules/category/generateCategoriesList';
 
 type Props = {
   chosenCategory: string;
   setChosenCategory: React.Dispatch<React.SetStateAction<string>>;
   setChosenCategoryId: React.Dispatch<React.SetStateAction<string>>;
-  categories: Categories;
+  categories: CategoriesMap;
   isCategoryAddingScreen?: boolean;
 };
 
@@ -18,6 +19,10 @@ export const CategorySelect = ({
   isCategoryAddingScreen = false,
 }: Props) => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+
+  const categoriesList = useMemo(() => {
+    return generateCategoriesList(categories, null);
+  }, [categories]);
 
   return (
     <>
@@ -56,7 +61,7 @@ export const CategorySelect = ({
               className="bg-base-dark text-white text-sm rounded-sm mb-2 mx-auto px-3">
               Add a folder in the root directory
             </button>
-            {categories.map((category) => (
+            {categoriesList.map((category) => (
               <CategoryItem
                 key={category.id}
                 category={category}

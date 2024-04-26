@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Modal } from '../modal/Modal';
 import { AddCategory } from './AddCategory';
-import { Categories } from '~/types/word';
+import { CategoriesMap } from '~/types/word';
 
 type Props = {
-  categories: Categories;
+  categories: CategoriesMap;
 };
 
 export const AddCategoryButton = ({ categories }: Props) => {

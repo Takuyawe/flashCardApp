@@ -1,12 +1,12 @@
-import { useMemo, useState } from 'react';
-import { WordsMap } from '~/types/word';
-import { ShowMoreButton } from './ShowMoreButton';
-import { RecentlyAddedWord } from './RecentlyAddedWord';
+import { useMemo, useState } from "react";
+import { WordsMap } from "~/types/word";
+import { ShowMoreButton } from "./ShowMoreButton";
+import { RecentlyAddedWord } from "./RecentlyAddedWord";
+import { useRecoilState } from "recoil";
+import { wordsAtom } from "~/atoms/atom";
 
-type Props = {
-  words: WordsMap;
-};
-export const RecentlyAddedWordsContainer = ({ words }: Props) => {
+export const RecentlyAddedWordsContainer = () => {
+  const [words] = useRecoilState(wordsAtom);
   const [isOpen, setIsOpen] = useState(true);
   const [wordIndex, setWordIndex] = useState(1);
 
@@ -22,7 +22,8 @@ export const RecentlyAddedWordsContainer = ({ words }: Props) => {
     <div className="flex flex-col items-start w-72">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex gap-x-1 items-center">
+        className="flex gap-x-1 items-center"
+      >
         {isOpen ? (
           <i className="ri-arrow-down-s-line" />
         ) : (

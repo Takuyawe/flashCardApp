@@ -1,6 +1,7 @@
 import { Word } from "@prisma/client";
 import { useFetcher } from "@remix-run/react";
 import React from "react";
+import { action } from "~/routes/users.$userId.word.undo";
 
 type Props = {
   isWordUndone: boolean;
@@ -15,7 +16,7 @@ export const UndoButton = ({
   setIsUndoButtonOpen,
   newWord,
 }: Props) => {
-  const fetcher = useFetcher();
+  const fetcher = useFetcher<typeof action>();
 
   return (
     <div className="absolute top-0 h-20 w-40 bg-white border-x border-b border-base-dark rounded-md animate-slide-in-top">

@@ -1,11 +1,14 @@
 language: English
 
 TODO:
+- show message and redirect after word is added
+- delete word and show undo button
 - recently added words click
 - omit category path
+- fix design for overflow
+- remove show more if there are no available words to show
 - conform validation for adding a word
 - search bar (category and word) show 10 and show more
-- show message and redirect after word is added
 - disable save button when generating sentences
 - auto suggestion for word input
 - change categories from word list

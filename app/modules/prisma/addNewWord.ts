@@ -1,4 +1,5 @@
-import { prisma } from '~/lib/prisma';
+import { Word } from "@prisma/client";
+import { prisma } from "~/lib/prisma";
 
 type AddNewWord = (
   word: string,
@@ -13,7 +14,7 @@ type AddNewWord = (
   exampleSentenceKana?: string,
   exampleSentenceRomaji?: string,
   exampleSentenceTranslation?: string
-) => void;
+) => Promise<Word>;
 
 export const addNewWord: AddNewWord = async (
   word,
@@ -29,7 +30,7 @@ export const addNewWord: AddNewWord = async (
   exampleSentenceRomaji?,
   exampleSentenceTranslation?
 ) => {
-  const response = await prisma.word.create({
+  return await prisma.word.create({
     data: {
       name: word,
       definition,
@@ -39,15 +40,13 @@ export const addNewWord: AddNewWord = async (
       romaji,
       part,
       exampleSentence,
-      exampleSentenceKana: exampleSentenceKana ? exampleSentenceKana : '',
-      exampleSentenceRomaji: exampleSentenceRomaji ? exampleSentenceRomaji : '',
+      exampleSentenceKana: exampleSentenceKana ? exampleSentenceKana : "",
+      exampleSentenceRomaji: exampleSentenceRomaji ? exampleSentenceRomaji : "",
       exampleSentenceTranslation: exampleSentenceTranslation
         ? exampleSentenceTranslation
-        : '',
+        : "",
       createdAt: now,
       updatedAt: now,
     },
   });
-
-  return response;
 };

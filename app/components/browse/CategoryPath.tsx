@@ -10,7 +10,8 @@ import { CategoryWithChildren } from "~/types/word";
 export const CategoryPath = () => {
   const [user] = useRecoilState(userAtom);
   const [categories] = useRecoilState(categoriesAtom);
-  const [chosenCategoryId] = useRecoilState(chosenCategoryIdAtom);
+  const [chosenCategoryId, setChosenCategoryId] =
+    useRecoilState(chosenCategoryIdAtom);
 
   const categoriesPath = useMemo(() => {
     return getCategoriesPath(
@@ -23,7 +24,11 @@ export const CategoryPath = () => {
   return (
     <div className="flex w-72">
       <div className="flex gap-x-1">
-        <Link to={getBrowsePath(user?.id as string)} className="flex gap-x-1">
+        <Link
+          to={getBrowsePath(user?.id as string)}
+          className="flex gap-x-1"
+          onClick={() => setChosenCategoryId("")}
+        >
           <i className="ri-folder-fill text-gray-500 text-md" />
           <span className="text-base-dark">{user?.name}</span>
         </Link>
@@ -34,6 +39,7 @@ export const CategoryPath = () => {
           <Link
             to={getCategoryPath(user?.id as string, category.name, category.id)}
             className="flex gap-x-1"
+            onClick={() => setChosenCategoryId(category.id)}
           >
             <i className="ri-folder-fill text-gray-500 text-md" />
             <span className="text-base-dark">{category.name}</span>

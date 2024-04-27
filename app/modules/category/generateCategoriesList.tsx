@@ -1,4 +1,4 @@
-import { CategoriesMap, CategoryWithChildren } from '~/types/word';
+import { CategoriesMap, CategoryWithChildren } from "~/types/word";
 
 export const generateCategoriesList = (
   categories: CategoriesMap,

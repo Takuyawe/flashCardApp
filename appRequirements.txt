@@ -9,6 +9,7 @@ category
 
 
 TODO:
+- speak word
 - omit category path
 - conform validation for adding a word
 - search bar (category and word) show 10 and show more

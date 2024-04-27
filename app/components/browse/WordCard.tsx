@@ -1,4 +1,5 @@
-import { Word } from '@prisma/client';
+import { Word } from "@prisma/client";
+import { speakWord } from "~/modules/browse/speakWord";
 
 type Props = {
   word: Word;
@@ -8,12 +9,12 @@ export const WordCard = ({ word }: Props) => {
   return (
     <div className="h-32 w-72 rounded-lg border border-base-dark  px-2">
       <div className="flex items-center justify-start gap-x-1">
-        <button>
+        <button onClick={() => speakWord(word.name)}>
           <i className="ri-speak-fill text-lg" />
         </button>
         <span>
-          {word.name} /{' '}
-          {word.definition.replaceAll('.', '').replaceAll(`"`, '')}
+          {word.name} /{" "}
+          {word.definition.replaceAll(".", "").replaceAll(`"`, "")}
         </span>
         <button className="ml-auto">
           <i className="ri-delete-bin-line text-lg" />

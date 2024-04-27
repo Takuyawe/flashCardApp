@@ -1,18 +1,14 @@
 language: English
 
-category
-1. show all categories open and the path is username > at /browse
-2. click a folder -> move to the route /browse/categoryName/words and show words for the category, the path is username > category
-3. click the folder in the path, and move to the route /browse/categoryName and show categories list, the path is username > category
-4. if clicked username in the path, and move to the route at /broswe
-
-
-
 TODO:
+- show message and redirect after word is added
+- delete word and show undo button
+- recently added words click
 - omit category path
+- fix design for overflow
+- remove show more if there are no available words to show
 - conform validation for adding a word
 - search bar (category and word) show 10 and show more
-- show message and redirect after word is added
 - disable save button when generating sentences
 - auto suggestion for word input
 - change categories from word list

@@ -1,7 +1,9 @@
-export { addNewWord } from './addNewWord';
-export { addNewCategory } from './addNewCategory';
-export { getUserDataWithEmail } from './getUserDataWithEmail';
-export { getUserDataWithId } from './getUserDataWithId';
-export { fetchCategories } from './fetchCategories';
-export { fetchChildrenCategories } from './fetchChildrenCategories';
-export { createUser } from './createUser';
+export { addNewWord } from "./addNewWord";
+export { addNewCategory } from "./addNewCategory";
+export { getUserDataWithEmail } from "./getUserDataWithEmail";
+export { getUserDataWithId } from "./getUserDataWithId";
+export { fetchCategories } from "./fetchCategories";
+export { fetchChildrenCategories } from "./fetchChildrenCategories";
+export { createUser } from "./createUser";
+export { fetchWords } from "./fetchWords";
+export { deleteWord } from "./deleteWord";

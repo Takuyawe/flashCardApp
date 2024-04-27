@@ -8,10 +8,10 @@ import { wordsAtom } from "~/atoms/atom";
 export const RecentlyAddedWordsContainer = () => {
   const [words] = useRecoilState(wordsAtom);
   const [isOpen, setIsOpen] = useState(true);
-  const [wordIndex, setWordIndex] = useState(1);
+  const [wordIndex, setWordIndex] = useState(3);
 
   const handleShowMore = () => {
-    setWordIndex((prevState) => prevState + 1);
+    setWordIndex((prevState) => prevState + 3);
   };
 
   const recentlyAddedWords = useMemo(() => {

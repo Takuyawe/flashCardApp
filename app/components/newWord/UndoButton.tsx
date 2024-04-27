@@ -28,8 +28,11 @@ export const UndoButton = ({
           <fetcher.Form method="delete" action="undo">
             <input type="hidden" name="wordId" value={newWord.id} />
             <button
-              onClick={() => setIsUndoButtonOpen(false)}
-              className="bg-base-dark text-white rounded-md text-sm px-2"
+              onClick={() => {
+                setIsUndoButtonOpen(false);
+                setIsWordUndone(true);
+              }}
+              className="bg-base-dark text-white rounded-md text-sm py-1 px-2"
             >
               Undo
             </button>

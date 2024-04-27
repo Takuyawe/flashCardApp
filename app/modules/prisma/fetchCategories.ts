@@ -1,20 +1,18 @@
 import { prisma } from '~/lib/prisma';
-import { Categories } from '~/types/word';
-import { fetchChildrenCategories } from './fetchChildrenCategories';
+import { Categories, CategoriesMap, CategoryWithChildren } from '~/types/word';
 
-type FetchCategories = (userId: string) => Promise<Categories>;
+type FetchCategories = (userId: string) => Promise<CategoriesMap>;
 
 export const fetchCategories: FetchCategories = async (userId: string) => {
   const categories: Categories = await prisma.category.findMany({
     where: {
       userId: userId,
-      parentCategoryId: null,
     },
   });
 
-  for (const category of categories) {
-    category.childCategories = await fetchChildrenCategories(category.id);
-  }
+  const categoriesMap = new Map<string, CategoryWithChildren>(
+    categories.map((category) => [category.id, category])
+  );
 
-  return categories;
+  return categoriesMap;
 };

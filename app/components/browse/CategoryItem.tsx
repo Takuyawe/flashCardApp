@@ -1,9 +1,10 @@
-import { Link } from '@remix-run/react';
-import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { userAtom } from '~/atoms/atom';
-import { getCategoryPath } from '~/modules/path/getCategoryPath';
-import { CategoryWithChildren } from '~/types/word';
+import { Category } from "@prisma/client";
+import { Link } from "@remix-run/react";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { chosenCategoryIdAtom, userAtom } from "~/atoms/atom";
+import { getWordCategoryPath } from "~/modules/path/getWordCategoryPath";
+import { CategoryWithChildren } from "~/types/word";
 
 type Props = {
   category: CategoryWithChildren;
@@ -12,13 +13,15 @@ type Props = {
 export const CategoryItem = ({ category }: Props) => {
   const [isChildrenOpen, setIsChildrenOpen] = useState(true);
   const [user] = useRecoilState(userAtom);
+  const [, setChosenCategoryId] = useRecoilState(chosenCategoryIdAtom);
 
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-x-1">
         <button
           onClick={() => setIsChildrenOpen(!isChildrenOpen)}
-          className="flex items-center justify-center">
+          className="flex items-center justify-center"
+        >
           {category.childCategories &&
           category.childCategories.length > 0 &&
           !isChildrenOpen ? (
@@ -29,8 +32,15 @@ export const CategoryItem = ({ category }: Props) => {
           <i className="ri-folder-fill text-bright-blue text-2xl" />
         </button>
         <Link
-          to={getCategoryPath(user?.id as string, category.name, category.id)}>
-          {category.name}
+          to={getWordCategoryPath(
+            user?.id as string,
+            category.name,
+            category.id
+          )}
+        >
+          <button onClick={() => setChosenCategoryId(category.id)}>
+            {category.name}
+          </button>
         </Link>
       </div>
       {isChildrenOpen &&

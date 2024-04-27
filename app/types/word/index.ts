@@ -6,4 +6,6 @@ export interface CategoryWithChildren extends Category {
 
 export type Categories = CategoryWithChildren[];
 
+export type CategoriesMap = Map<string, CategoryWithChildren>;
+
 export type WordsMap = Map<string, Word>;

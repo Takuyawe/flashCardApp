@@ -1,7 +1,8 @@
 language: English
 
 TODO:
-- show message and redirect after word is added
+- show message and redirect after word is added (save button using fetcher return data)
+- type english word and translate and type japanese word
 - delete word and show undo button
 - recently added words click
 - omit category path

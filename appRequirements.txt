@@ -1,13 +1,14 @@
 language: English
 
 TODO:
-- type english word and translate and type japanese word
+- conform validation for adding a word
 - delete word and show undo button
+- type english word and translate and type japanese word
+- remove show more if there are no available words to show
+4/30
 - recently added words click
 - omit category path
 - fix design for overflow
-- remove show more if there are no available words to show
-- conform validation for adding a word
 - search bar (category and word) show 10 and show more
 - disable save button when generating sentences
 - auto suggestion for word input

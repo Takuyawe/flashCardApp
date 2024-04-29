@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { CategorySelect } from "./CategorySelect";
 import { useFetcher } from "@remix-run/react";
-import { CategoriesMap } from "~/types/word";
 import { useRecoilState } from "recoil";
 import { categoriesAtom, userAtom } from "~/atoms/atom";
 

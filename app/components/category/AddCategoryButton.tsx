@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Modal } from "../modal/Modal";
 import { AddCategory } from "./AddCategory";
-import { CategoriesMap } from "~/types/word";
-import { useRecoilState } from "recoil";
-import { categoriesAtom } from "~/atoms/atom";
 
 export const AddCategoryButton = () => {
   const [isOpen, setIsOpen] = useState(false);

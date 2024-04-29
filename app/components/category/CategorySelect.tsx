@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { CategoryItem } from "./CategoryItem";
-import { CategoriesMap } from "~/types/word";
 import { generateCategoriesList } from "~/modules/category/generateCategoriesList";
 import { useRecoilState } from "recoil";
 import { categoriesAtom, newWordFieldsAtom } from "~/atoms/atom";

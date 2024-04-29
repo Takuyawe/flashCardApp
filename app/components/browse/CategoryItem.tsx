@@ -1,4 +1,3 @@
-import { Category } from "@prisma/client";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import { useRecoilState } from "recoil";

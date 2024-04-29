@@ -3,10 +3,11 @@ import { atom } from "recoil";
 import {
   CATEGORIES_ATOM_KEY,
   CHOSEN_CATEGORY_ID_ATOM_KEY,
+  NEW_WORD_FIELDS_KEY,
   USER_ATOM_KEY,
   WORDS_ATOM_KEY,
 } from "~/constants/Atom";
-import { UserAtom } from "~/types/atom";
+import { NewWordFieldsAtom, UserAtom } from "~/types/atom";
 import { Categories, CategoriesMap, WordsMap } from "~/types/word";
 
 export const userAtom = atom<UserAtom | null>({
@@ -27,4 +28,18 @@ export const chosenCategoryIdAtom = atom<string>({
 export const wordsAtom = atom<WordsMap>({
   key: WORDS_ATOM_KEY,
   default: new Map<string, Word>(),
+});
+
+export const newWordFieldsAtom = atom<NewWordFieldsAtom>({
+  key: NEW_WORD_FIELDS_KEY,
+  default: {
+    word: "",
+    definition: "",
+    sentence: "",
+    sentenceKana: "",
+    sentenceRomaji: "",
+    sentenceTranslation: "",
+    category: "",
+    chosenCategoryId: "",
+  },
 });

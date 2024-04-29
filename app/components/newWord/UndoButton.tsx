@@ -29,7 +29,6 @@ export const UndoButton = ({
             <input type="hidden" name="wordId" value={newWord.id} />
             <button
               onClick={() => {
-                setIsUndoButtonOpen(false);
                 setIsWordUndone(true);
               }}
               className="bg-base-dark text-white rounded-md text-sm py-1 px-2"

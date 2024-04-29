@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { CategorySelect } from './CategorySelect';
-import { useFetcher } from '@remix-run/react';
-import { CategoriesMap } from '~/types/word';
-import { useRecoilState } from 'recoil';
-import { userAtom } from '~/atoms/atom';
+import { useState } from "react";
+import { CategorySelect } from "./CategorySelect";
+import { useFetcher } from "@remix-run/react";
+import { CategoriesMap } from "~/types/word";
+import { useRecoilState } from "recoil";
+import { categoriesAtom, userAtom } from "~/atoms/atom";
 
 type Props = {
-  categories: CategoriesMap;
   closeModal: () => void;
 };
 
-export const AddCategory = ({ categories, closeModal }: Props) => {
-  const [newCategory, setNewCategory] = useState<string>('');
-  const [parentCategory, setParentCategory] = useState<string>('');
-  const [parentCategoryId, setParentCategoryId] = useState<string>('');
+export const AddCategory = ({ closeModal }: Props) => {
+  const [newCategory, setNewCategory] = useState<string>("");
+  const [parentCategory, setParentCategory] = useState<string>("");
+  const [parentCategoryId, setParentCategoryId] = useState<string>("");
   const [user] = useRecoilState(userAtom);
+  const [categories] = useRecoilState(categoriesAtom);
   const fetcher = useFetcher();
 
   return (
@@ -38,20 +38,15 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
               Parent Category
             </label>
             <div className="flex h-10 w-72">
-              <CategorySelect
-                chosenCategory={parentCategory}
-                setChosenCategory={setParentCategory}
-                categories={categories}
-                setChosenCategoryId={setParentCategoryId}
-                isCategoryAddingScreen
-              />
+              <CategorySelect isCategoryAddingScreen />
             </div>
           </div>
         </div>
         <div className="flex justify-end w-full gap-x-3 mr-14">
           <button
             onClick={closeModal}
-            className="h-6 w-20 bg-white text-base-dark ring-1 ring-base-dark rounded-xl text-md">
+            className="h-6 w-20 bg-white text-base-dark ring-1 ring-base-dark rounded-xl text-md"
+          >
             Cancel
           </button>
 
@@ -65,7 +60,8 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
             />
             <button
               type="submit"
-              className="h-6 w-20 bg-base-dark text-white rounded-xl text-md">
+              className="h-6 w-20 bg-base-dark text-white rounded-xl text-md"
+            >
               Add
             </button>
           </fetcher.Form>

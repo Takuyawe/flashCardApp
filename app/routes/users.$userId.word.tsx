@@ -9,7 +9,7 @@ import { WordInput } from "~/components/newWord/WordInput";
 import { convertToRomaji } from "~/modules/word/convertToRomaji";
 import { addNewWord } from "~/modules/prisma";
 import { useRecoilState } from "recoil";
-import { categoriesAtom, userAtom } from "~/atoms/atom";
+import { categoriesAtom, newWordFieldsAtom, userAtom } from "~/atoms/atom";
 import { getKanaAndPardWithYahoo } from "~/modules/word/getKanaAndPartWithYahoo";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import { UndoButton } from "~/components/newWord/UndoButton";
@@ -54,20 +54,22 @@ export default function Index() {
   const [newWord, setNewWord] = useState<Word>(data?.newWord);
   const [isUndoButtonOpen, setIsUndoButtonOpen] = useState<boolean>(false);
   const [isWordUndone, setIsWordUndone] = useState<boolean>(false);
-  const [word, setWord] = useState<string>("");
-  const [definition, setDefinition] = useState<string>("");
-  const [sentence, setSentence] = useState<string>("");
-  const [sentenceKana, setSentenceKana] = useState<string>("");
-  const [sentenceRomaji, setSentenceRomaji] = useState<string>("");
-  const [sentenceTranslation, setSentenceTranslation] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [chosenCategoryId, setChosenCategoryId] = useState<string>("");
+  const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
   const [user] = useRecoilState(userAtom);
-  const [categories] = useRecoilState(categoriesAtom);
 
   useEffect(() => {
     if (!data) return;
     if (data.newWord) {
+      setNewWordFields({
+        word: "",
+        definition: "",
+        sentence: "",
+        sentenceKana: "",
+        sentenceRomaji: "",
+        sentenceTranslation: "",
+        category: "",
+        chosenCategoryId: "",
+      });
       setIsUndoButtonOpen(true);
       setNewWord(data.newWord);
     }
@@ -83,42 +85,12 @@ export default function Index() {
           newWord={newWord}
         />
       )}
-      <CategorySelectContainer
-        category={category}
-        setCategory={setCategory}
-        categories={categories}
-        setChosenCategoryId={setChosenCategoryId}
-      />
-      <WordInput word={word} setWord={setWord} />
-      <AIGenerationButton
-        word={word}
-        setDefinition={setDefinition}
-        setSentence={setSentence}
-        setSentenceKana={setSentenceKana}
-        setSentenceRomaji={setSentenceRomaji}
-        setSentenceTranslation={setSentenceTranslation}
-      />
-      <DefinitionInput definition={definition} setDefinition={setDefinition} />
-      <EgSentenceInput
-        sentence={sentence}
-        setSentence={setSentence}
-        sentenceKana={sentenceKana}
-        setSentenceKana={setSentenceKana}
-        sentenceRomaji={sentenceRomaji}
-        setSentenceRomaji={setSentenceRomaji}
-        sentenceTranslation={sentenceTranslation}
-        setSentenceTranslation={setSentenceTranslation}
-      />
-      <SaveButton
-        word={word}
-        definition={definition}
-        sentence={sentence}
-        sentenceKana={sentenceKana}
-        sentenceRomaji={sentenceRomaji}
-        sentenceTranslation={sentenceTranslation}
-        userId={user?.id as string}
-        categoryId={chosenCategoryId}
-      />
+      <CategorySelectContainer />
+      <WordInput />
+      <AIGenerationButton />
+      <DefinitionInput />
+      <EgSentenceInput />
+      <SaveButton userId={user?.id as string} />
     </div>
   );
 }

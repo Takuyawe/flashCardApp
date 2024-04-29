@@ -1,16 +1,24 @@
+import { newWordFieldsAtom } from "~/atoms/atom";
+import { NewWordFieldsAtom } from "~/types/atom";
+
 type GenerateWordLetterByLetter = (
   text: string,
-  setter: React.Dispatch<React.SetStateAction<string>>
+  fieldName: keyof NewWordFieldsAtom,
+  setter: (updater: (prevState: NewWordFieldsAtom) => NewWordFieldsAtom) => void
 ) => void;
 
 export const generateWordLetterByLetter: GenerateWordLetterByLetter = (
   text,
+  fieldName,
   setter
 ) => {
+  let currentIndex = 0;
   const intervalId = setInterval(() => {
     setter((prevState) => {
-      if (prevState.length < text.length) {
-        return prevState + text[prevState.length];
+      if (currentIndex < text.length) {
+        const newText = prevState[fieldName] + text[currentIndex];
+        currentIndex++;
+        return { ...prevState, [fieldName]: newText };
       } else {
         clearInterval(intervalId);
         return prevState;

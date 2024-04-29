@@ -1,39 +1,39 @@
-import { Form } from '@remix-run/react';
+import { Form } from "@remix-run/react";
+import { useRecoilState } from "recoil";
+import { newWordFieldsAtom } from "~/atoms/atom";
 
 type Props = {
-  word: string;
-  definition: string;
-  sentence: string;
-  sentenceKana: string;
-  sentenceRomaji: string;
-  sentenceTranslation: string;
   userId: string;
-  categoryId: string;
 };
 
-export const SaveButton = ({
-  word,
-  definition,
-  sentence,
-  sentenceKana,
-  sentenceRomaji,
-  sentenceTranslation,
-  userId,
-  categoryId,
-}: Props) => {
+export const SaveButton = ({ userId }: Props) => {
+  const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
+
   return (
     <Form method="post">
       <input type="hidden" name="userId" value={userId} />
-      <input type="hidden" name="categoryId" value={categoryId} />
-      <input type="hidden" name="word" value={word} />
-      <input type="hidden" name="definition" value={definition} />
-      <input type="hidden" name="sentence" value={sentence} />
-      <input type="hidden" name="sentenceKana" value={sentenceKana} />
-      <input type="hidden" name="sentenceRomaji" value={sentenceRomaji} />
+      <input
+        type="hidden"
+        name="categoryId"
+        value={newWordFields.chosenCategoryId}
+      />
+      <input type="hidden" name="word" value={newWordFields.word} />
+      <input type="hidden" name="definition" value={newWordFields.definition} />
+      <input type="hidden" name="sentence" value={newWordFields.sentence} />
+      <input
+        type="hidden"
+        name="sentenceKana"
+        value={newWordFields.sentenceKana}
+      />
+      <input
+        type="hidden"
+        name="sentenceRomaji"
+        value={newWordFields.sentenceRomaji}
+      />
       <input
         type="hidden"
         name="sentenceTranslation"
-        value={sentenceTranslation}
+        value={newWordFields.sentenceTranslation}
       />
       <button className="h-10 w-72 bg-base-dark text-white rounded-3xl text-xl">
         Save

@@ -35,7 +35,7 @@ export const SaveButton = ({ userId }: Props) => {
         name="sentenceTranslation"
         value={newWordFields.sentenceTranslation}
       />
-      <button className="h-10 w-72 bg-base-dark text-white rounded-3xl text-xl">
+      <button className="h-8 w-72 bg-base-dark text-white rounded-3xl text-lg">
         Save
       </button>
     </Form>

@@ -7,9 +7,9 @@ export const WordInput = () => {
   const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
 
   return (
-    <div className="grid place-items-center h-32 w-80 rounded-3xl border-2 border-base-dark shadow-sm">
+    <div className="grid place-items-center h-28 w-80 rounded-3xl border-2 border-base-dark shadow-sm">
       <input
-        className="w-3/4 text-center outline-none text-3xl"
+        className="w-3/4 text-center outline-none text-2xl"
         type="text"
         value={newWordFields.word}
         onChange={(e) =>

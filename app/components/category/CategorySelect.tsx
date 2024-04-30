@@ -19,7 +19,7 @@ export const CategorySelect = ({ isCategoryAddingScreen }: Props) => {
 
   return (
     <>
-      <div className="flex-1 h-10 border-2 border-base-dark rounded-md pl-2 text-lg">
+      <div className="flex-1 h-8 border-2 border-base-dark rounded-md pl-2 text-md">
         <div className="flex h-full justify-between items-center">
           {newWordFields.category !== '' ? (
             <span>{newWordFields.category}</span>
@@ -29,11 +29,11 @@ export const CategorySelect = ({ isCategoryAddingScreen }: Props) => {
 
           <button
             onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-            className="h-10 w-10">
+            className="h-8 w-8">
             {isCategoriesOpen ? (
-              <i className="ri-arrow-down-s-line text-3xl" />
+              <i className="ri-arrow-down-s-line text-2xl" />
             ) : (
-              <i className="ri-arrow-up-s-line text-3xl" />
+              <i className="ri-arrow-up-s-line text-2xl" />
             )}
           </button>
         </div>

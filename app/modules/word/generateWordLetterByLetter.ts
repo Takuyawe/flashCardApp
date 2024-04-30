@@ -1,5 +1,4 @@
-import { newWordFieldsAtom } from "~/atoms/atom";
-import { NewWordFieldsAtom } from "~/types/atom";
+import { NewWordFieldsAtom } from '~/types/atom';
 
 type GenerateWordLetterByLetter = (
   text: string,

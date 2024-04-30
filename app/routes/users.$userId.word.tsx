@@ -20,6 +20,7 @@ import { parseWithZod } from '@conform-to/zod';
 import { newWordSchema } from '~/zodSchema/newWord';
 import { FAILED_TO_ADD_WORD } from '~/constants/NewWord';
 import { AnimatePresence } from 'framer-motion';
+import { EnWordTranslation } from '~/components/newWord/EnWordTranslation';
 
 type ActionResponse = {
   message?: string;
@@ -125,6 +126,7 @@ export default function Index() {
         </div>
       )}
       <CategorySelectContainer />
+      <EnWordTranslation />
       <WordInput />
       <AIGenerationButton />
       <DefinitionInput />

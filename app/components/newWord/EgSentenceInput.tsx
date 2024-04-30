@@ -7,7 +7,7 @@ export const EgSentenceInput = () => {
   return (
     <div className="flex flex-col items-center gap-y-1">
       <div className="flex w-full justify-between">
-        <label className="text-sm" htmlFor="egSentence">
+        <label className="text-xs" htmlFor="egSentence">
           Example Sentences <span className="text-bright-red">*</span>
         </label>
       </div>
@@ -18,7 +18,7 @@ export const EgSentenceInput = () => {
           setNewWordFields({ ...newWordFields, sentence: e.target.value })
         }
         placeholder="Write an example sentence"
-        className="h-10 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-md"
+        className="h-8 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-sm"
       />
       <input
         name="exampleSentenceKana"
@@ -27,7 +27,7 @@ export const EgSentenceInput = () => {
           setNewWordFields({ ...newWordFields, sentenceKana: e.target.value })
         }
         placeholder="Sentence kana (optional)"
-        className="h-10 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-md"
+        className="h-8 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-sm"
       />
       <input
         name="exampleSentenceRomaji"
@@ -36,7 +36,7 @@ export const EgSentenceInput = () => {
           setNewWordFields({ ...newWordFields, sentenceRomaji: e.target.value })
         }
         placeholder="Sentence romaji (optional)"
-        className="h-10 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-md"
+        className="h-8 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-sm"
       />
       <input
         name="exampleSentenceTranslation"
@@ -48,7 +48,7 @@ export const EgSentenceInput = () => {
           })
         }
         placeholder="Sentence translation (optional)"
-        className="h-10 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-md"
+        className="h-8 w-80 border-2 border-base-dark rounded-md pl-2 pt-1 text-sm"
       />
     </div>
   );

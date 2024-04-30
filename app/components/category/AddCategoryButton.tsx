@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Modal } from "../modal/Modal";
-import { AddCategory } from "./AddCategory";
+import { useState } from 'react';
+import { Modal } from '../modal/Modal';
+import { AddCategory } from './AddCategory';
 
 export const AddCategoryButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,9 +13,8 @@ export const AddCategoryButton = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="h-10 w-10 rounded-md border-2 border-base-dark"
-      >
-        <i className="ri-add-line text-3xl" />
+        className="grid place-content-center h-8 w-8 rounded-md border-2 border-base-dark">
+        <i className="ri-add-line text-2xl" />
       </button>
       <Modal isOpen={isOpen}>
         <AddCategory closeModal={closeModal} />

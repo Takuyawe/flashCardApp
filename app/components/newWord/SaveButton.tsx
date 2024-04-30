@@ -4,9 +4,10 @@ import { newWordFieldsAtom } from '~/atoms/atom';
 
 type Props = {
   userId: string;
+  isGenerating: boolean;
 };
 
-export const SaveButton = ({ userId }: Props) => {
+export const SaveButton = ({ userId, isGenerating }: Props) => {
   const [newWordFields] = useRecoilState(newWordFieldsAtom);
 
   return (
@@ -35,8 +36,18 @@ export const SaveButton = ({ userId }: Props) => {
         name="sentenceTranslation"
         value={newWordFields.sentenceTranslation}
       />
-      <button className="h-8 w-72 bg-base-dark text-white rounded-3xl text-lg">
-        Save
+      <button
+        type="submit"
+        disabled={isGenerating}
+        className="h-8 w-72 bg-base-dark text-white rounded-3xl text-lg">
+        {isGenerating ? (
+          <span className="flex items-center justify-center gap-x-2">
+            <i className="ri-loader-2-line text-xl animate-spin" />
+            Wait for a second ...
+          </span>
+        ) : (
+          'Save'
+        )}
       </button>
     </Form>
   );

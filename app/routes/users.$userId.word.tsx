@@ -82,6 +82,7 @@ export default function Index() {
   const [newWord, setNewWord] = useState<Word>(actionResponse?.newWord);
   const [isUndoButtonOpen, setIsUndoButtonOpen] = useState<boolean>(false);
   const [isWordUndone, setIsWordUndone] = useState<boolean>(false);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [, setNewWordFields] = useRecoilState(newWordFieldsAtom);
   const [user] = useRecoilState(userAtom);
 
@@ -128,10 +129,13 @@ export default function Index() {
       <CategorySelectContainer />
       <EnWordTranslation />
       <WordInput />
-      <AIGenerationButton />
+      <AIGenerationButton
+        isGenerating={isGenerating}
+        setIsGenerating={setIsGenerating}
+      />
       <DefinitionInput />
       <EgSentenceInput />
-      <SaveButton userId={user?.id as string} />
+      <SaveButton userId={user?.id as string} isGenerating={isGenerating} />
     </div>
   );
 }

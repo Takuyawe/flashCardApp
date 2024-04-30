@@ -1,6 +1,5 @@
-import { CategoriesMap } from "~/types/word";
-import { AddCategoryButton } from "../category/AddCategoryButton";
-import { CategorySelect } from "../category/CategorySelect";
+import { AddCategoryButton } from '../category/AddCategoryButton';
+import { CategorySelect } from '../category/CategorySelect';
 
 export const CategorySelectContainer = () => {
   return (

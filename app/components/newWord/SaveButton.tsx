@@ -1,13 +1,13 @@
-import { Form } from "@remix-run/react";
-import { useRecoilState } from "recoil";
-import { newWordFieldsAtom } from "~/atoms/atom";
+import { Form } from '@remix-run/react';
+import { useRecoilState } from 'recoil';
+import { newWordFieldsAtom } from '~/atoms/atom';
 
 type Props = {
   userId: string;
 };
 
 export const SaveButton = ({ userId }: Props) => {
-  const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
+  const [newWordFields] = useRecoilState(newWordFieldsAtom);
 
   return (
     <Form method="post">

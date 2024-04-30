@@ -1,19 +1,17 @@
-import { useState } from "react";
-import { CategorySelect } from "./CategorySelect";
-import { useFetcher } from "@remix-run/react";
-import { useRecoilState } from "recoil";
-import { categoriesAtom, userAtom } from "~/atoms/atom";
+import { useState } from 'react';
+import { CategorySelect } from './CategorySelect';
+import { useFetcher } from '@remix-run/react';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '~/atoms/atom';
 
 type Props = {
   closeModal: () => void;
 };
 
 export const AddCategory = ({ closeModal }: Props) => {
-  const [newCategory, setNewCategory] = useState<string>("");
-  const [parentCategory, setParentCategory] = useState<string>("");
-  const [parentCategoryId, setParentCategoryId] = useState<string>("");
+  const [newCategory, setNewCategory] = useState<string>('');
+  const [parentCategoryId] = useState<string>('');
   const [user] = useRecoilState(userAtom);
-  const [categories] = useRecoilState(categoriesAtom);
   const fetcher = useFetcher();
 
   return (
@@ -44,8 +42,7 @@ export const AddCategory = ({ closeModal }: Props) => {
         <div className="flex justify-end w-full gap-x-3 mr-14">
           <button
             onClick={closeModal}
-            className="h-6 w-20 bg-white text-base-dark ring-1 ring-base-dark rounded-xl text-md"
-          >
+            className="h-6 w-20 bg-white text-base-dark ring-1 ring-base-dark rounded-xl text-md">
             Cancel
           </button>
 
@@ -59,8 +56,7 @@ export const AddCategory = ({ closeModal }: Props) => {
             />
             <button
               type="submit"
-              className="h-6 w-20 bg-base-dark text-white rounded-xl text-md"
-            >
+              className="h-6 w-20 bg-base-dark text-white rounded-xl text-md">
               Add
             </button>
           </fetcher.Form>

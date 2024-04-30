@@ -1,124 +1,137 @@
-import { ActionFunctionArgs, json } from "@remix-run/node";
-import { useEffect, useState } from "react";
-import { AIGenerationButton } from "~/components/newWord/AIGenerationButton";
-import { CategorySelectContainer } from "~/components/newWord/CategorySelectContainer";
-import { DefinitionInput } from "~/components/newWord/DefinitionInput";
-import { EgSentenceInput } from "~/components/newWord/EgSentenceInput";
-import { SaveButton } from "~/components/newWord/SaveButton";
-import { WordInput } from "~/components/newWord/WordInput";
-import { convertToRomaji } from "~/modules/word/convertToRomaji";
-import { addNewWord } from "~/modules/prisma";
-import { useRecoilState } from "recoil";
-import { categoriesAtom, userAtom } from "~/atoms/atom";
-import { getKanaAndPardWithYahoo } from "~/modules/word/getKanaAndPartWithYahoo";
-import { useActionData, useLoaderData } from "@remix-run/react";
-import { UndoButton } from "~/components/newWord/UndoButton";
-import { Word } from "@prisma/client";
-import { typedjson } from "remix-typedjson";
+import { ActionFunctionArgs } from '@remix-run/node';
+import { useEffect, useState } from 'react';
+import { AIGenerationButton } from '~/components/newWord/AIGenerationButton';
+import { CategorySelectContainer } from '~/components/newWord/CategorySelectContainer';
+import { DefinitionInput } from '~/components/newWord/DefinitionInput';
+import { EgSentenceInput } from '~/components/newWord/EgSentenceInput';
+import { SaveButton } from '~/components/newWord/SaveButton';
+import { WordInput } from '~/components/newWord/WordInput';
+import { convertToRomaji } from '~/modules/word/convertToRomaji';
+import { addNewWord } from '~/modules/prisma';
+import { useRecoilState } from 'recoil';
+import { newWordFieldsAtom, userAtom } from '~/atoms/atom';
+import { getKanaAndPardWithYahoo } from '~/modules/word/getKanaAndPartWithYahoo';
+import { useActionData } from '@remix-run/react';
+import { UndoButton } from '~/components/newWord/UndoButton';
+import { Word } from '@prisma/client';
+import { typedjson } from 'remix-typedjson';
+import { SubmissionResult } from '@conform-to/react';
+import { parseWithZod } from '@conform-to/zod';
+import { newWordSchema } from '~/zodSchema/newWord';
+import { FAILED_TO_ADD_WORD } from '~/constants/NewWord';
+import { AnimatePresence } from 'framer-motion';
+import { EnWordTranslation } from '~/components/newWord/EnWordTranslation';
+
+type ActionResponse = {
+  message?: string;
+  newWord?: Word;
+  submission?: SubmissionResult;
+};
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const word = formData.get("word");
-  const definition = formData.get("definition");
-  const sentence = formData.get("sentence");
-  const sentenceKana = formData.get("sentenceKana");
-  const sentenceRomaji = formData.get("sentenceRomaji");
-  const sentenceTranslation = formData.get("sentenceTranslation");
-  const userId = formData.get("userId");
-  const categoryId = formData.get("categoryId");
+  const submission = parseWithZod(formData, {
+    schema: newWordSchema,
+  });
+  if (submission.status !== 'success') {
+    return typedjson<ActionResponse>({
+      message: FAILED_TO_ADD_WORD,
+      submission: submission.reply(),
+    });
+  }
+  const word = formData.get('word');
+  const definition = formData.get('definition');
+  const sentence = formData.get('sentence');
+  const sentenceKana = formData.get('sentenceKana');
+  const sentenceRomaji = formData.get('sentenceRomaji');
+  const sentenceTranslation = formData.get('sentenceTranslation');
+  const userId = formData.get('userId');
+  const categoryId = formData.get('categoryId');
 
   const { kana, part } = await getKanaAndPardWithYahoo(word as string);
   const romajiWord = convertToRomaji(kana);
   const now = new Date();
 
-  const newWord = await addNewWord(
-    word as string,
-    definition as string,
-    userId as string,
-    categoryId as string,
-    kana,
-    romajiWord,
-    part,
-    sentence as string,
-    now,
-    sentenceKana as string,
-    sentenceRomaji as string,
-    sentenceTranslation as string
-  );
-
-  return typedjson({ newWord });
+  try {
+    const newWord = await addNewWord(
+      word as string,
+      definition as string,
+      userId as string,
+      categoryId as string,
+      kana,
+      romajiWord,
+      part,
+      sentence as string,
+      now,
+      sentenceKana as string,
+      sentenceRomaji as string,
+      sentenceTranslation as string
+    );
+    return typedjson<ActionResponse>({
+      newWord,
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return typedjson<ActionResponse>({ message: error.message });
+    }
+  }
 };
 
 export default function Index() {
-  const data = useActionData<typeof action>();
-  const [newWord, setNewWord] = useState<Word>(data?.newWord);
+  const actionResponse = useActionData<typeof action>();
+  const [newWord, setNewWord] = useState<Word>(actionResponse?.newWord);
   const [isUndoButtonOpen, setIsUndoButtonOpen] = useState<boolean>(false);
   const [isWordUndone, setIsWordUndone] = useState<boolean>(false);
-  const [word, setWord] = useState<string>("");
-  const [definition, setDefinition] = useState<string>("");
-  const [sentence, setSentence] = useState<string>("");
-  const [sentenceKana, setSentenceKana] = useState<string>("");
-  const [sentenceRomaji, setSentenceRomaji] = useState<string>("");
-  const [sentenceTranslation, setSentenceTranslation] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [chosenCategoryId, setChosenCategoryId] = useState<string>("");
+  const [, setNewWordFields] = useRecoilState(newWordFieldsAtom);
   const [user] = useRecoilState(userAtom);
-  const [categories] = useRecoilState(categoriesAtom);
 
   useEffect(() => {
-    if (!data) return;
-    if (data.newWord) {
+    if (!actionResponse) return;
+    if (actionResponse.newWord) {
+      setNewWordFields({
+        word: '',
+        definition: '',
+        sentence: '',
+        sentenceKana: '',
+        sentenceRomaji: '',
+        sentenceTranslation: '',
+        category: '',
+        chosenCategoryId: '',
+      });
       setIsUndoButtonOpen(true);
-      setNewWord(data.newWord);
+      setNewWord(actionResponse.newWord);
     }
-  }, [data]);
+
+    setInterval(() => {
+      setIsWordUndone(false);
+      setIsUndoButtonOpen(false);
+    }, 7000);
+  }, [actionResponse, setNewWordFields]);
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-4">
-      {isUndoButtonOpen && (
-        <UndoButton
-          isWordUndone={isWordUndone}
-          setIsWordUndone={setIsWordUndone}
-          setIsUndoButtonOpen={setIsUndoButtonOpen}
-          newWord={newWord}
-        />
+      <AnimatePresence>
+        {isUndoButtonOpen && (
+          <UndoButton
+            isWordUndone={isWordUndone}
+            setIsWordUndone={setIsWordUndone}
+            setIsUndoButtonOpen={setIsUndoButtonOpen}
+            newWord={newWord}
+          />
+        )}
+      </AnimatePresence>
+      {actionResponse?.message && (
+        <div className="grid place-items-center text-bright-red text-lg h-8 w-80 rounded-sm border border-base-dark">
+          {actionResponse.message}
+        </div>
       )}
-      <CategorySelectContainer
-        category={category}
-        setCategory={setCategory}
-        categories={categories}
-        setChosenCategoryId={setChosenCategoryId}
-      />
-      <WordInput word={word} setWord={setWord} />
-      <AIGenerationButton
-        word={word}
-        setDefinition={setDefinition}
-        setSentence={setSentence}
-        setSentenceKana={setSentenceKana}
-        setSentenceRomaji={setSentenceRomaji}
-        setSentenceTranslation={setSentenceTranslation}
-      />
-      <DefinitionInput definition={definition} setDefinition={setDefinition} />
-      <EgSentenceInput
-        sentence={sentence}
-        setSentence={setSentence}
-        sentenceKana={sentenceKana}
-        setSentenceKana={setSentenceKana}
-        sentenceRomaji={sentenceRomaji}
-        setSentenceRomaji={setSentenceRomaji}
-        sentenceTranslation={sentenceTranslation}
-        setSentenceTranslation={setSentenceTranslation}
-      />
-      <SaveButton
-        word={word}
-        definition={definition}
-        sentence={sentence}
-        sentenceKana={sentenceKana}
-        sentenceRomaji={sentenceRomaji}
-        sentenceTranslation={sentenceTranslation}
-        userId={user?.id as string}
-        categoryId={chosenCategoryId}
-      />
+      <CategorySelectContainer />
+      <EnWordTranslation />
+      <WordInput />
+      <AIGenerationButton />
+      <DefinitionInput />
+      <EgSentenceInput />
+      <SaveButton userId={user?.id as string} />
     </div>
   );
 }

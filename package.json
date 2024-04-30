@@ -22,6 +22,8 @@
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.5",
     "bcryptjs": "^2.4.3",
+    "deepl-node": "^1.13.0",
+    "framer-motion": "^11.1.7",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -6,7 +6,7 @@ import { ErrorMessage } from '~/components/auth/ErrorMessage';
 import { AuthInput } from '~/components/auth/AuthInput';
 import { createUserSession } from '~/server/session.server';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
-import { signupSchema } from '~/zodSchema';
+import { signupSchema } from '~/zodSchema/auth';
 import { getFormProps, SubmissionResult, useForm } from '@conform-to/react';
 import { FAILED_TO_SIGNUP } from '~/constants/Authentication';
 // import { SuccessMessage } from '~/components/login/SuccessMessage';

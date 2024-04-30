@@ -1,13 +1,8 @@
 import { useState } from 'react';
 import { Modal } from '../modal/Modal';
 import { AddCategory } from './AddCategory';
-import { CategoriesMap } from '~/types/word';
 
-type Props = {
-  categories: CategoriesMap;
-};
-
-export const AddCategoryButton = ({ categories }: Props) => {
+export const AddCategoryButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -18,11 +13,11 @@ export const AddCategoryButton = ({ categories }: Props) => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="h-10 w-10 rounded-md border-2 border-base-dark">
-        <i className="ri-add-line text-3xl" />
+        className="grid place-content-center h-8 w-8 rounded-md border-2 border-base-dark">
+        <i className="ri-add-line text-2xl" />
       </button>
       <Modal isOpen={isOpen}>
-        <AddCategory categories={categories} closeModal={closeModal} />
+        <AddCategory closeModal={closeModal} />
       </Modal>
     </>
   );

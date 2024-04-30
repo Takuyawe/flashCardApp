@@ -1,5 +1,5 @@
-import { Word } from "@prisma/client";
-import { prisma } from "~/lib/prisma";
+import { Word } from '@prisma/client';
+import { prisma } from '~/lib/prisma';
 
 type AddNewWord = (
   word: string,
@@ -14,7 +14,7 @@ type AddNewWord = (
   exampleSentenceKana?: string,
   exampleSentenceRomaji?: string,
   exampleSentenceTranslation?: string
-) => Promise<Word>;
+) => Promise<Word | undefined>;
 
 export const addNewWord: AddNewWord = async (
   word,
@@ -30,23 +30,31 @@ export const addNewWord: AddNewWord = async (
   exampleSentenceRomaji?,
   exampleSentenceTranslation?
 ) => {
-  return await prisma.word.create({
-    data: {
-      name: word,
-      definition,
-      userId,
-      categoryId,
-      kana,
-      romaji,
-      part,
-      exampleSentence,
-      exampleSentenceKana: exampleSentenceKana ? exampleSentenceKana : "",
-      exampleSentenceRomaji: exampleSentenceRomaji ? exampleSentenceRomaji : "",
-      exampleSentenceTranslation: exampleSentenceTranslation
-        ? exampleSentenceTranslation
-        : "",
-      createdAt: now,
-      updatedAt: now,
-    },
-  });
+  try {
+    return await prisma.word.create({
+      data: {
+        name: word,
+        definition,
+        userId,
+        categoryId,
+        kana,
+        romaji,
+        part,
+        exampleSentence,
+        exampleSentenceKana: exampleSentenceKana ? exampleSentenceKana : '',
+        exampleSentenceRomaji: exampleSentenceRomaji
+          ? exampleSentenceRomaji
+          : '',
+        exampleSentenceTranslation: exampleSentenceTranslation
+          ? exampleSentenceTranslation
+          : '',
+        createdAt: now,
+        updatedAt: now,
+      },
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
 };

@@ -1,35 +1,25 @@
 import { useFetcher } from '@remix-run/react';
 import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { newWordFieldsAtom } from '~/atoms/atom';
 import { generateWordLetterByLetter } from '~/modules/word/generateWordLetterByLetter';
 import { action } from '~/routes/users.$userId.word.generate';
 
-type Props = {
-  word: string;
-  setDefinition: React.Dispatch<React.SetStateAction<string>>;
-  setSentence: React.Dispatch<React.SetStateAction<string>>;
-  setSentenceKana: React.Dispatch<React.SetStateAction<string>>;
-  setSentenceRomaji: React.Dispatch<React.SetStateAction<string>>;
-  setSentenceTranslation: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export const AIGenerationButton = ({
-  word,
-  setDefinition,
-  setSentence,
-  setSentenceKana,
-  setSentenceRomaji,
-  setSentenceTranslation,
-}: Props) => {
+export const AIGenerationButton = () => {
+  const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
   const fetcher = useFetcher<typeof action>();
 
   useEffect(() => {
     if (!fetcher.data || 'error' in fetcher.data) return;
 
-    setDefinition(() => '');
-    setSentence(() => '');
-    setSentenceKana(() => '');
-    setSentenceRomaji(() => '');
-    setSentenceTranslation(() => '');
+    setNewWordFields((prevState) => ({
+      ...prevState,
+      definition: '',
+      sentence: '',
+      sentenceKana: '',
+      sentenceRomaji: '',
+      sentenceTranslation: '',
+    }));
 
     const {
       definitionText,
@@ -39,17 +29,25 @@ export const AIGenerationButton = ({
       sentenceTranslation,
     } = fetcher.data;
 
-    generateWordLetterByLetter(definitionText, setDefinition);
-    generateWordLetterByLetter(sentence, setSentence);
-    generateWordLetterByLetter(sentenceKana, setSentenceKana);
-    generateWordLetterByLetter(sentenceRomaji, setSentenceRomaji);
-    generateWordLetterByLetter(sentenceTranslation, setSentenceTranslation);
-  }, [fetcher.data]);
+    generateWordLetterByLetter(definitionText, 'definition', setNewWordFields);
+    generateWordLetterByLetter(sentence, 'sentence', setNewWordFields);
+    generateWordLetterByLetter(sentenceKana, 'sentenceKana', setNewWordFields);
+    generateWordLetterByLetter(
+      sentenceRomaji,
+      'sentenceRomaji',
+      setNewWordFields
+    );
+    generateWordLetterByLetter(
+      sentenceTranslation,
+      'sentenceTranslation',
+      setNewWordFields
+    );
+  }, [fetcher.data, setNewWordFields]);
 
   return (
     <fetcher.Form action="generate" method="post">
-      <input type="hidden" name="word" value={word} />
-      <button className="h-10 w-80 bg-base-dark text-white rounded-md text-md">
+      <input type="hidden" name="word" value={newWordFields.word} />
+      <button className="h-8 w-80 bg-base-dark text-white rounded-md text-sm">
         Generate Definition & Sentence
       </button>
     </fetcher.Form>

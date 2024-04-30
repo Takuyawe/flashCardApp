@@ -5,7 +5,7 @@ import { login } from '~/server/login.server';
 import { ErrorMessage } from '~/components/auth/ErrorMessage';
 import { AuthInput } from '~/components/auth/AuthInput';
 import { createUserSession } from '~/server/session.server';
-import { loginSchema } from '~/zodSchema';
+import { loginSchema } from '~/zodSchema/auth';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { getFormProps, SubmissionResult, useForm } from '@conform-to/react';
 import { FAILED_TO_LOGIN } from '~/constants/Authentication';
@@ -59,7 +59,6 @@ export default function Login() {
   });
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  console.log(fields.password.errors);
 
   return (
     <div className="mx-auto mt-10 h-auto min-h-2/3 w-3/4 border border-base-dark shadow-lg rounded-lg animate-fade-in">

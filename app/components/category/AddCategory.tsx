@@ -1,19 +1,16 @@
 import { useState } from 'react';
 import { CategorySelect } from './CategorySelect';
 import { useFetcher } from '@remix-run/react';
-import { CategoriesMap } from '~/types/word';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '~/atoms/atom';
 
 type Props = {
-  categories: CategoriesMap;
   closeModal: () => void;
 };
 
-export const AddCategory = ({ categories, closeModal }: Props) => {
+export const AddCategory = ({ closeModal }: Props) => {
   const [newCategory, setNewCategory] = useState<string>('');
-  const [parentCategory, setParentCategory] = useState<string>('');
-  const [parentCategoryId, setParentCategoryId] = useState<string>('');
+  const [parentCategoryId] = useState<string>('');
   const [user] = useRecoilState(userAtom);
   const fetcher = useFetcher();
 
@@ -38,13 +35,7 @@ export const AddCategory = ({ categories, closeModal }: Props) => {
               Parent Category
             </label>
             <div className="flex h-10 w-72">
-              <CategorySelect
-                chosenCategory={parentCategory}
-                setChosenCategory={setParentCategory}
-                categories={categories}
-                setChosenCategoryId={setParentCategoryId}
-                isCategoryAddingScreen
-              />
+              <CategorySelect isCategoryAddingScreen />
             </div>
           </div>
         </div>

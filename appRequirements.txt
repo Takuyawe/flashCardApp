@@ -4,10 +4,10 @@ TODO:
 - recently added words click
 - search bar (category and word) show 10 and show more
 - in browse tab, focus at the top
+- word of the day
 5/1
 - auto suggestion for word input
 - change categories from word list
-- word of the day
 - fix add category
 - omit category path
 - fix design and usage for selecting a category

@@ -1,8 +1,19 @@
+import { parseWithZod } from '@conform-to/zod';
 import { ActionFunctionArgs, json } from '@remix-run/node';
 import { Translator } from 'deepl-node';
+import { WORD_REQUIRED_ERROR } from '~/constants/NewWord';
+import { translateSchema } from '~/zodSchema/newWord';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: translateSchema,
+  });
+  if (submission.status !== 'success') {
+    return json({
+      error: WORD_REQUIRED_ERROR,
+    });
+  }
   const word = formData.get('enWord') as string;
   const authKey = process.env.DEEPL_API as string;
   const translator = new Translator(authKey);

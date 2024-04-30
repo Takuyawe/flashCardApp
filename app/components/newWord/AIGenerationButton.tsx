@@ -57,7 +57,13 @@ export const AIGenerationButton = ({
     <fetcher.Form
       action="generate"
       method="post"
-      onSubmit={() => setIsGenerating(true)}>
+      onSubmit={(e) => {
+        if (newWordFields.word === '') {
+          e.preventDefault();
+          return;
+        }
+        setIsGenerating(true);
+      }}>
       <input type="hidden" name="word" value={newWordFields.word} />
       <button
         type="submit"

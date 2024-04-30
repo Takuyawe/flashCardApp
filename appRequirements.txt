@@ -4,7 +4,6 @@ TODO:
 - recently added words click
 - search bar (category and word) show 10 and show more
 - in browse tab, focus at the top
-- generate sentences conform validation
 5/1
 - auto suggestion for word input
 - change categories from word list

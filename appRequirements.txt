@@ -1,19 +1,19 @@
 language: English
 
 TODO:
-- if kanji, add kana to word card in browse
 - recently added words click
-- omit category path
-- fix design for overflow
+- in browse tab, focus at the top
 - search bar (category and word) show 10 and show more
 - disable save button when generating sentences
 - auto suggestion for word input
 - change categories from word list
 - word of the day
-- replace id with something else for route path
+- fix add category
+- omit category path
 - fix design and usage for selecting a category
 - forgotten password
 - quiz game
+- replace id with something else for route path
 - remove title
 - responsive design
 

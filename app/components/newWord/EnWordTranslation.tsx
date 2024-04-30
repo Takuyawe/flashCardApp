@@ -24,11 +24,11 @@ export const EnWordTranslation = () => {
 
   return (
     <fetcher.Form method="post" action="translate">
-      <div className="flex gap-x-1">
+      <div className="flex gap-x-2 w-80">
         <input
           name="enWord"
           placeholder="Write an English word for translation"
-          className="h-8 w-72 border-2 border-base-dark rounded-md pl-2 pt-1 text-sm"
+          className="h-8 flex-1 border-2 border-base-dark rounded-md pl-2 pt-1 text-sm"
         />
         <button
           type="submit"

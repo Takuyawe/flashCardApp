@@ -102,7 +102,7 @@ export default function Index() {
       setNewWord(actionResponse.newWord);
     }
 
-    setInterval(() => {
+    setTimeout(() => {
       setIsWordUndone(false);
       setIsUndoButtonOpen(false);
     }, 7000);

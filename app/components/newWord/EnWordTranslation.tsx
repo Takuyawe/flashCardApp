@@ -6,7 +6,7 @@ import { generateWordLetterByLetter } from '~/modules/word/generateWordLetterByL
 import { action } from '~/routes/users.$userId.word.translate';
 
 export const EnWordTranslation = () => {
-  const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
+  const [, setNewWordFields] = useRecoilState(newWordFieldsAtom);
   const fetcher = useFetcher<typeof action>();
 
   useEffect(() => {

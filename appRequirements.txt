@@ -1,9 +1,6 @@
 language: English
 
 TODO:
-- type english word and translate and type japanese word
-- replace tailwindcss animation with framer motion
-4/30
 - if kanji, add kana to word card in browse
 - recently added words click
 - omit category path

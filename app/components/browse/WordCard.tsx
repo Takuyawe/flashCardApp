@@ -10,13 +10,13 @@ export const WordCard = ({ word }: Props) => {
   const fetcher = useFetcher();
 
   return (
-    <div className="h-32 w-72 rounded-lg border border-base-dark  px-2">
+    <div className="min-h-32 h-auto w-72 rounded-lg border border-base-dark px-2 py-2">
       <div className="flex items-center justify-start gap-x-1">
         <button onClick={() => speakWord(word.name)}>
           <i className="ri-speak-fill text-lg" />
         </button>
-        <span>
-          {word.name} /{' '}
+        <span className="text-sm">
+          {word.name} / ({word.kana}) /{' '}
           {word.definition.replaceAll('.', '').replaceAll(`"`, '')}
         </span>
         <fetcher.Form method="delete" action="delete" className="ml-auto">
@@ -27,7 +27,7 @@ export const WordCard = ({ word }: Props) => {
         </fetcher.Form>
       </div>
       <div className="flex flex-col">
-        <span className="text-sm">Example sentence</span>
+        <span className="text-xs">Example sentence</span>
         <div className="w-1/2 border-t border-base-dark " />
         <div className="flex flex-col gap-y-1">
           <span className="text-xs">{word.exampleSentence}</span>

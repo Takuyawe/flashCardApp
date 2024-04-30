@@ -15,7 +15,7 @@ export const fetchWords: FetchWords = async (userId) => {
   });
 
   const wordsMap = new Map<string, Word>();
-  words.forEach((word) => wordsMap.set(word.id, word));
+  words.forEach((word) => wordsMap.set(word.name, word));
 
   return wordsMap;
 };

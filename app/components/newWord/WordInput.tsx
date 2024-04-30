@@ -1,7 +1,7 @@
 // TODO: word is 10 characters max
 
-import { useRecoilState } from "recoil";
-import { newWordFieldsAtom } from "~/atoms/atom";
+import { useRecoilState } from 'recoil';
+import { newWordFieldsAtom } from '~/atoms/atom';
 
 export const WordInput = () => {
   const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);

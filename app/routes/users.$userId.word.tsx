@@ -15,9 +15,28 @@ import { useActionData } from '@remix-run/react';
 import { UndoButton } from '~/components/newWord/UndoButton';
 import { Word } from '@prisma/client';
 import { typedjson } from 'remix-typedjson';
+import { SubmissionResult } from '@conform-to/react';
+import { parseWithZod } from '@conform-to/zod';
+import { newWordSchema } from '~/zodSchema/newWord';
+import { FAILED_TO_ADD_WORD } from '~/constants/NewWord';
+
+type ActionResponse = {
+  message?: string;
+  newWord?: Word;
+  submission?: SubmissionResult;
+};
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: newWordSchema,
+  });
+  if (submission.status !== 'success') {
+    return typedjson<ActionResponse>({
+      message: FAILED_TO_ADD_WORD,
+      submission: submission.reply(),
+    });
+  }
   const word = formData.get('word');
   const definition = formData.get('definition');
   const sentence = formData.get('sentence');
@@ -31,35 +50,42 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const romajiWord = convertToRomaji(kana);
   const now = new Date();
 
-  const newWord = await addNewWord(
-    word as string,
-    definition as string,
-    userId as string,
-    categoryId as string,
-    kana,
-    romajiWord,
-    part,
-    sentence as string,
-    now,
-    sentenceKana as string,
-    sentenceRomaji as string,
-    sentenceTranslation as string
-  );
-
-  return typedjson({ newWord });
+  try {
+    const newWord = await addNewWord(
+      word as string,
+      definition as string,
+      userId as string,
+      categoryId as string,
+      kana,
+      romajiWord,
+      part,
+      sentence as string,
+      now,
+      sentenceKana as string,
+      sentenceRomaji as string,
+      sentenceTranslation as string
+    );
+    return typedjson<ActionResponse>({
+      newWord,
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return typedjson<ActionResponse>({ message: error.message });
+    }
+  }
 };
 
 export default function Index() {
-  const data = useActionData<typeof action>();
-  const [newWord, setNewWord] = useState<Word>(data?.newWord);
+  const actionResponse = useActionData<typeof action>();
+  const [newWord, setNewWord] = useState<Word>(actionResponse?.newWord);
   const [isUndoButtonOpen, setIsUndoButtonOpen] = useState<boolean>(false);
   const [isWordUndone, setIsWordUndone] = useState<boolean>(false);
   const [, setNewWordFields] = useRecoilState(newWordFieldsAtom);
   const [user] = useRecoilState(userAtom);
 
   useEffect(() => {
-    if (!data) return;
-    if (data.newWord) {
+    if (!actionResponse) return;
+    if (actionResponse.newWord) {
       setNewWordFields({
         word: '',
         definition: '',
@@ -71,9 +97,9 @@ export default function Index() {
         chosenCategoryId: '',
       });
       setIsUndoButtonOpen(true);
-      setNewWord(data.newWord);
+      setNewWord(actionResponse.newWord);
     }
-  }, [data, setNewWordFields]);
+  }, [actionResponse, setNewWordFields]);
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-4">
@@ -84,6 +110,11 @@ export default function Index() {
           setIsUndoButtonOpen={setIsUndoButtonOpen}
           newWord={newWord}
         />
+      )}
+      {actionResponse?.message && (
+        <div className="grid place-items-center text-bright-red text-lg h-8 w-80 rounded-sm border border-base-dark">
+          {actionResponse.message}
+        </div>
       )}
       <CategorySelectContainer />
       <WordInput />

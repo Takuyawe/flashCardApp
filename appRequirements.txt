@@ -5,6 +5,7 @@ TODO:
 - delete word and show undo button
 - type english word and translate and type japanese word
 - remove show more if there are no available words to show
+- close undo component after 5 seconds
 4/30
 - recently added words click
 - omit category path

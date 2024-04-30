@@ -1,5 +1,5 @@
-import { useRecoilState } from "recoil";
-import { newWordFieldsAtom } from "~/atoms/atom";
+import { useRecoilState } from 'recoil';
+import { newWordFieldsAtom } from '~/atoms/atom';
 
 export const EgSentenceInput = () => {
   const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
@@ -8,7 +8,7 @@ export const EgSentenceInput = () => {
     <div className="flex flex-col items-center gap-y-1">
       <div className="flex w-full justify-between">
         <label className="text-sm" htmlFor="egSentence">
-          Example Sentences
+          Example Sentences <span className="text-bright-red">*</span>
         </label>
       </div>
       <input

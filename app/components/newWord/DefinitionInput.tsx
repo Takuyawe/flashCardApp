@@ -1,5 +1,5 @@
-import { useRecoilState } from "recoil";
-import { newWordFieldsAtom } from "~/atoms/atom";
+import { useRecoilState } from 'recoil';
+import { newWordFieldsAtom } from '~/atoms/atom';
 
 export const DefinitionInput = () => {
   const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
@@ -7,7 +7,7 @@ export const DefinitionInput = () => {
   return (
     <div className="flex flex-col gap-y-1">
       <label className="text-sm" htmlFor="definition">
-        Definition
+        Definition <span className="text-bright-red">*</span>
       </label>
       <input
         name="definition"

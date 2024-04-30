@@ -1,11 +1,8 @@
 language: English
 
 TODO:
-- conform validation for adding a word
-- delete word and show undo button
 - type english word and translate and type japanese word
-- remove show more if there are no available words to show
-- close undo component after 5 seconds
+- replace tailwindcss animation with framer motion
 4/30
 - recently added words click
 - omit category path

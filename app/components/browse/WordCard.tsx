@@ -1,11 +1,14 @@
-import { Word } from "@prisma/client";
-import { speakWord } from "~/modules/browse/speakWord";
+import { Word } from '@prisma/client';
+import { useFetcher } from '@remix-run/react';
+import { speakWord } from '~/modules/browse/speakWord';
 
 type Props = {
   word: Word;
 };
 
 export const WordCard = ({ word }: Props) => {
+  const fetcher = useFetcher();
+
   return (
     <div className="h-32 w-72 rounded-lg border border-base-dark  px-2">
       <div className="flex items-center justify-start gap-x-1">
@@ -13,12 +16,15 @@ export const WordCard = ({ word }: Props) => {
           <i className="ri-speak-fill text-lg" />
         </button>
         <span>
-          {word.name} /{" "}
-          {word.definition.replaceAll(".", "").replaceAll(`"`, "")}
+          {word.name} /{' '}
+          {word.definition.replaceAll('.', '').replaceAll(`"`, '')}
         </span>
-        <button className="ml-auto">
-          <i className="ri-delete-bin-line text-lg" />
-        </button>
+        <fetcher.Form method="delete" action="delete" className="ml-auto">
+          <input type="hidden" name="wordId" value={word.id} />
+          <button type="submit">
+            <i className="ri-delete-bin-line text-lg" />
+          </button>
+        </fetcher.Form>
       </div>
       <div className="flex flex-col">
         <span className="text-sm">Example sentence</span>

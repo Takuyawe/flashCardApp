@@ -19,6 +19,7 @@ import { SubmissionResult } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { newWordSchema } from '~/zodSchema/newWord';
 import { FAILED_TO_ADD_WORD } from '~/constants/NewWord';
+import { AnimatePresence } from 'framer-motion';
 
 type ActionResponse = {
   message?: string;
@@ -99,18 +100,25 @@ export default function Index() {
       setIsUndoButtonOpen(true);
       setNewWord(actionResponse.newWord);
     }
+
+    setInterval(() => {
+      setIsWordUndone(false);
+      setIsUndoButtonOpen(false);
+    }, 7000);
   }, [actionResponse, setNewWordFields]);
 
   return (
     <div className="h-body flex flex-col items-center justify-center gap-y-4">
-      {isUndoButtonOpen && (
-        <UndoButton
-          isWordUndone={isWordUndone}
-          setIsWordUndone={setIsWordUndone}
-          setIsUndoButtonOpen={setIsUndoButtonOpen}
-          newWord={newWord}
-        />
-      )}
+      <AnimatePresence>
+        {isUndoButtonOpen && (
+          <UndoButton
+            isWordUndone={isWordUndone}
+            setIsWordUndone={setIsWordUndone}
+            setIsUndoButtonOpen={setIsUndoButtonOpen}
+            newWord={newWord}
+          />
+        )}
+      </AnimatePresence>
       {actionResponse?.message && (
         <div className="grid place-items-center text-bright-red text-lg h-8 w-80 rounded-sm border border-base-dark">
           {actionResponse.message}

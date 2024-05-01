@@ -29,7 +29,7 @@ export const WordCard = ({ word }: Props) => {
       <div className="flex flex-col">
         <span className="text-xs">Example sentence</span>
         <div className="w-1/2 border-t border-base-dark " />
-        <div className="flex flex-col gap-y-1">
+        <div className="flex flex-col gap-y-1 mt-1">
           <span className="text-xs">{word.exampleSentence}</span>
           <span className="text-xs">{word.exampleSentenceKana}</span>
           <span className="text-xs">{word.exampleSentenceRomaji}</span>

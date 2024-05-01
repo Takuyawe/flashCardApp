@@ -16,9 +16,9 @@ Checking-the-answers
 - add to category
 
 TODO:
-- delete category
 - change categories from browse
 - move word to another category
+5/2
 - quiz game
 - fix design and usage for selecting a category
 - fix add category

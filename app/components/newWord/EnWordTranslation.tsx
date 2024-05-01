@@ -35,7 +35,7 @@ export const EnWordTranslation = () => {
       }}>
       <div className="flex gap-x-2 w-80">
         <input
-          name="enWord"
+          name="word"
           value={word}
           onChange={(e) => setWord(e.target.value)}
           placeholder="Write an English word for translation"

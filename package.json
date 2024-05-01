@@ -25,6 +25,7 @@
     "deepl-node": "^1.13.0",
     "framer-motion": "^11.1.7",
     "isbot": "^4.1.0",
+    "random-words": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",

@@ -14,7 +14,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       error: WORD_REQUIRED_ERROR,
     });
   }
-  const word = formData.get('enWord') as string;
+  const word = formData.get('word') as string;
   const authKey = process.env.DEEPL_API as string;
   const translator = new Translator(authKey);
 

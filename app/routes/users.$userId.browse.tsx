@@ -5,7 +5,7 @@ import { SearchBar } from '~/components/browse/SearchBar';
 
 export default function Layout() {
   return (
-    <div className="h-body flex flex-col items-center justify-center gap-y-4 my-6 pb-12 overflow-auto">
+    <div className="h-body flex flex-col items-center justify-center gap-y-4 my-6 pb-12">
       <SearchBar />
       <RecentlyAddedWordsContainer />
       <CategoryPath />

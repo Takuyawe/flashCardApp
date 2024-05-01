@@ -2,7 +2,6 @@ language: English
 
 TODO:
 - in browse tab, focus at the top
-- word of the day
 5/1
 - auto suggestion for word input
 - change categories from word list

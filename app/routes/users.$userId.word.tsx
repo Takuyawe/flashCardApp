@@ -21,6 +21,7 @@ import { newWordSchema } from '~/zodSchema/newWord';
 import { FAILED_TO_ADD_WORD } from '~/constants/NewWord';
 import { AnimatePresence } from 'framer-motion';
 import { EnWordTranslation } from '~/components/newWord/EnWordTranslation';
+import { WordOfToday } from '~/components/newWord/WordOfToday';
 
 type ActionResponse = {
   message?: string;
@@ -126,6 +127,7 @@ export default function Index() {
           {actionResponse.message}
         </div>
       )}
+      <WordOfToday />
       <CategorySelectContainer />
       <EnWordTranslation />
       <WordInput />

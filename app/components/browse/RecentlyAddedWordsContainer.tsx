@@ -29,11 +29,14 @@ export const RecentlyAddedWordsContainer = () => {
         )}
         <span className="">Recently Added</span>
       </button>
-      {isOpen &&
-        recentlyAddedWords.map((word) => (
-          <RecentlyAddedWord key={word.id} word={word} />
-        ))}
-      <ShowMoreButton onClick={handleShowMore} />
+      {isOpen && (
+        <>
+          {recentlyAddedWords.map((word) => (
+            <RecentlyAddedWord key={word.id} word={word} />
+          ))}
+          <ShowMoreButton onClick={handleShowMore} />
+        </>
+      )}
     </div>
   );
 };

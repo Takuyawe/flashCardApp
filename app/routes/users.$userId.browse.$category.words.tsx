@@ -32,7 +32,7 @@ export default function Category() {
   }, [categoryId, words, wordId]);
 
   return (
-    <div className="flex-1 flex flex-col gap-y-3">
+    <div className="flex-1 flex flex-col gap-y-3 overflow-auto">
       {wordsByCategory.map((word) => (
         <WordCard key={word.id} word={word} />
       ))}

@@ -8,6 +8,7 @@ import { AnimatePresence } from 'framer-motion';
 export const SearchBar = () => {
   const [words] = useRecoilState(wordsAtom);
   const [text, setText] = useState<string>('');
+  const [isResultBoxOpen, setIsResultBoxOpen] = useState<boolean>(false);
 
   const searchMatchedWords = useMemo(() => {
     const matchedWords = [];
@@ -20,7 +21,7 @@ export const SearchBar = () => {
       }
     }
     return matchedWords;
-  }, [text]);
+  }, [text, words]);
 
   return (
     <div className="relative">
@@ -29,7 +30,12 @@ export const SearchBar = () => {
         <input
           name="search"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value !== '') {
+              setIsResultBoxOpen(true);
+            }
+            setText(e.target.value);
+          }}
           placeholder="Search a word"
           className="h-9 w-72 border-2 border-base-dark rounded-md pl-8 text-md"
         />
@@ -38,7 +44,12 @@ export const SearchBar = () => {
         </button>
       </div>
       <AnimatePresence>
-        {text && <SearchResults searchMatchedWords={searchMatchedWords} />}
+        {text && isResultBoxOpen && (
+          <SearchResults
+            searchMatchedWords={searchMatchedWords}
+            setIsResultBoxOpen={setIsResultBoxOpen}
+          />
+        )}
       </AnimatePresence>
     </div>
   );

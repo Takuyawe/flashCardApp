@@ -5,6 +5,6 @@ export const convertWordObjectToMap = (
   words: Record<string, Word>
 ): WordsMap => {
   return new Map<string, Word>(
-    Object.values(words).map((word) => [word.name, word] as [string, Word])
+    Object.values(words).map((word) => [word.id, word] as [string, Word])
   );
 };

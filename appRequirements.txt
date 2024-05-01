@@ -16,7 +16,6 @@ Checking-the-answers
 - add to category
 
 TODO:
-- line under each category
 - delete category
 - change categories from browse
 - move word to another category

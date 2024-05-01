@@ -1,11 +1,11 @@
-import { Link } from "@remix-run/react";
-import { useMemo } from "react";
-import { useRecoilState } from "recoil";
-import { categoriesAtom, chosenCategoryIdAtom, userAtom } from "~/atoms/atom";
-import { getCategoriesPath } from "~/modules/category/getCategoriesPath";
-import { getBrowsePath } from "~/modules/path/getBrowsePath";
-import { getCategoryPath } from "~/modules/path/getCategoryPath";
-import { CategoryWithChildren } from "~/types/word";
+import { Link } from '@remix-run/react';
+import { useMemo } from 'react';
+import { useRecoilState } from 'recoil';
+import { categoriesAtom, chosenCategoryIdAtom, userAtom } from '~/atoms/atom';
+import { getCategoriesPath } from '~/modules/category/getCategoriesPath';
+import { getBrowsePath } from '~/modules/path/getBrowsePath';
+import { getCategoryPathWithCategoryId } from '~/modules/path/getCategoryPathWithCategoryId';
+import { CategoryWithChildren } from '~/types/word';
 
 export const CategoryPath = () => {
   const [user] = useRecoilState(userAtom);
@@ -27,8 +27,7 @@ export const CategoryPath = () => {
         <Link
           to={getBrowsePath(user?.id as string)}
           className="flex gap-x-1"
-          onClick={() => setChosenCategoryId("")}
-        >
+          onClick={() => setChosenCategoryId('')}>
           <i className="ri-folder-fill text-gray-500 text-md" />
           <span className="text-base-dark">{user?.name}</span>
         </Link>
@@ -37,10 +36,13 @@ export const CategoryPath = () => {
       {categoriesPath.map((category, index) => (
         <div key={category.id} className="flex gap-x-1">
           <Link
-            to={getCategoryPath(user?.id as string, category.name, category.id)}
+            to={getCategoryPathWithCategoryId(
+              user?.id as string,
+              category.name,
+              category.id
+            )}
             className="flex gap-x-1"
-            onClick={() => setChosenCategoryId(category.id)}
-          >
+            onClick={() => setChosenCategoryId(category.id)}>
             <i className="ri-folder-fill text-gray-500 text-md" />
             <span className="text-base-dark">{category.name}</span>
           </Link>

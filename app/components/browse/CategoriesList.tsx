@@ -14,7 +14,7 @@ export const CategoriesList = ({ categories, parentCategoryId }: Props) => {
   }, [categories, parentCategoryId]);
 
   return (
-    <div className="flex flex-col w-72">
+    <div className="flex flex-col gap-y-1 w-72">
       {categoriesList.map((category) => (
         <CategoryItem key={category.id} category={category} />
       ))}

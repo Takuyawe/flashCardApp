@@ -1,10 +1,6 @@
 import { getUserPath } from './getUserPath';
 
-export const getCategoryPath = (
-  userId: string,
-  category: string,
-  categoryId: string
-) => {
+export const getCategoryPath = (userId: string, category: string) => {
   const userPath = getUserPath(userId);
-  return `${userPath}/browse/${category}?categoryId=${categoryId}`;
+  return `${userPath}/browse/${category}`;
 };

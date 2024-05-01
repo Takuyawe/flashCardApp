@@ -20,8 +20,10 @@ export const SearchResults = ({
   const [, setChosenCategoryId] = useRecoilState(chosenCategoryIdAtom);
   return (
     <motion.div
-      initial={{ y: -10 }}
-      animate={{ y: 0 }}
+      initial={{ y: -10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -10, opacity: 0 }}
+      transition={{ duration: 0.2 }}
       className="absolute top-10 min-h-10 h-auto max-h-1/3 w-72 bg-white border border-base-dark rounded-md overflow-auto">
       <div className="flex flex-col gap-y-2 mx-2 my-2">
         {searchMatchedWords.length === 0 ? (

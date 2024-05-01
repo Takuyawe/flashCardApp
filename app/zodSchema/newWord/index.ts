@@ -22,3 +22,9 @@ export const newWordSchema = z.object({
   sentence: sentenceSchema,
   categoryId: categorySchema,
 });
+export const generateAISchema = z.object({
+  word: wordSchema,
+});
+export const translateSchema = z.object({
+  word: wordSchema,
+});

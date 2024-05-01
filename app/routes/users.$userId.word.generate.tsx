@@ -1,19 +1,28 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { parseWithZod } from '@conform-to/zod';
 import { ActionFunctionArgs, json } from '@remix-run/node';
+import { WORD_REQUIRED_ERROR } from '~/constants/NewWord';
 import { convertSentenceToRomaji } from '~/modules/word/convertSentenceToRomaji';
 import { createDefinitionWithAI } from '~/modules/word/createDefinitionWithAI';
 import { createSentenceWithAI } from '~/modules/word/createSentenceWithAI';
 import { getSentenceKanaWithYahoo } from '~/modules/word/getSentenceKanaWithYahoo';
+import { generateAISchema } from '~/zodSchema/newWord';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, {
+    schema: generateAISchema,
+  });
+  if (submission.status !== 'success') {
+    return json({
+      error: WORD_REQUIRED_ERROR,
+    });
+  }
+  const word = formData.get('word');
   const apiKey = process.env.CLAUDE_API;
   const anthropic = new Anthropic({
     apiKey: apiKey,
   });
-  const formData = await request.formData();
-  const word = formData.get('word');
-
-  // TODO: server side validation with conform
 
   try {
     const definitionResponse = await createDefinitionWithAI(

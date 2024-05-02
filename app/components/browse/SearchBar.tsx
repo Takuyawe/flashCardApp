@@ -46,6 +46,7 @@ export const SearchBar = () => {
       <AnimatePresence>
         {text && isResultBoxOpen && (
           <SearchResults
+            setText={setText}
             searchMatchedWords={searchMatchedWords}
             setIsResultBoxOpen={setIsResultBoxOpen}
           />

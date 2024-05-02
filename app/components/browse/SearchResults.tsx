@@ -7,11 +7,13 @@ import { getCategoryName } from '~/modules/category/getCategoryName';
 import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
 
 type Props = {
+  setText: React.Dispatch<React.SetStateAction<string>>;
   searchMatchedWords: Word[];
   setIsResultBoxOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const SearchResults = ({
+  setText,
   searchMatchedWords,
   setIsResultBoxOpen,
 }: Props) => {
@@ -40,6 +42,7 @@ export const SearchResults = ({
               onClick={() => {
                 setIsResultBoxOpen(false);
                 setChosenCategoryId(word.categoryId);
+                setText(word.name);
               }}
               key={word.id}
               className="flex gap-x-2">

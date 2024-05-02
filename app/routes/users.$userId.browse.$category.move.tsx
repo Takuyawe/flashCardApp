@@ -9,5 +9,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const response = await moveCategory(currentCategoryId, targetCategoryId);
 
+  console.log(response);
+
   return response;
 };

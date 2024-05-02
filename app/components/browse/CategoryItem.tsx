@@ -1,8 +1,6 @@
-import { Link } from '@remix-run/react';
 import { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { chosenCategoryIdAtom, userAtom } from '~/atoms/atom';
-import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
 import { CategoryWithChildren } from '~/types/word';
 import { Modal } from '../modal/Modal';
 import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
@@ -40,24 +38,16 @@ export const CategoryItem = ({ category }: Props) => {
             <i className="ri-arrow-down-s-line text-2xl" />
           )}
         </button>
-        <Link
-          to={getWordCategoryPath(
-            user?.id as string,
-            category.name,
-            category.id
-          )}
-          className="border-b w-full">
-          <DndProvider options={HTML5toTouch}>
-            <DraggableFolder
-              category={category}
-              setChosenCategoryId={setChosenCategoryId}
-            />
-            <CustomDragLayer />
-          </DndProvider>
-        </Link>
+        <DndProvider options={HTML5toTouch}>
+          <DraggableFolder
+            category={category}
+            setChosenCategoryId={setChosenCategoryId}
+          />
+          <CustomDragLayer />
+        </DndProvider>
         <button
           onClick={() => setIsDeleteConfirmationDialogOpen(true)}
-          className="transform -translate-x-7">
+          className="transform -translate-x-7 ml-auto">
           <i className="ri-delete-bin-line" />
         </button>
         {isDeleteConfirmationDialogOpen && (

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 export const CategorySelectBox = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [categories] = useRecoilState(categoriesAtom);
-  const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
+  const [newWordFields] = useRecoilState(newWordFieldsAtom);
 
   const categoriesList = useMemo(() => {
     return generateCategoriesList(categories, null);

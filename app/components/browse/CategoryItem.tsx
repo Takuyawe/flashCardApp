@@ -45,11 +45,14 @@ export const CategoryItem = ({ category }: Props) => {
           />
           <CustomDragLayer />
         </DndProvider>
-        <button
-          onClick={() => setIsDeleteConfirmationDialogOpen(true)}
-          className="transform -translate-x-7 ml-auto">
-          <i className="ri-delete-bin-line" />
-        </button>
+        {category.parentCategoryId !== null && (
+          <button
+            onClick={() => setIsDeleteConfirmationDialogOpen(true)}
+            className="transform -translate-x-7 ml-auto">
+            <i className="ri-delete-bin-line" />
+          </button>
+        )}
+
         {isDeleteConfirmationDialogOpen && (
           <Modal isOpen={isDeleteConfirmationDialogOpen}>
             <DeleteConfirmationDialog

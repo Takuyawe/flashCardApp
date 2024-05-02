@@ -16,7 +16,6 @@ Checking-the-answers
 - add to category
 
 TODO:
-- do not show bin icon if its root
 - root category cannot move
 - fix design and usage for selecting a category
 - fix add category

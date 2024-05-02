@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { newWordFieldsAtom } from '~/atoms/atom';
 import { CategoryWithChildren } from '~/types/word';
@@ -11,6 +11,15 @@ type Props = {
 export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
   const [newWordFields, setNewWordFields] = useRecoilState(newWordFieldsAtom);
   const [isChildrenOpen, setIsChildrenOpen] = useState(true);
+  const [isAddingCategory, setIsAddingCategory] = useState<boolean>(false);
+  const [newCategoryName, setNewCategoryName] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isAddingCategory) return;
+
+    inputRef.current?.focus();
+  }, [isAddingCategory]);
 
   return (
     <div className="flex flex-col">
@@ -41,7 +50,30 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
           <i className="ri-folder-fill text-bright-blue text-lg" />
           <span className="text-sm">{category.name}</span>
         </button>
+        <button
+          onClick={() => setIsAddingCategory(true)}
+          className="transform -translate-x-10">
+          <i className="ri-add-line text-lg" />
+        </button>
       </div>
+      {isAddingCategory && (
+        <div className="flex gap-x-1 items-center my-1 ml-12 opacity-50">
+          <i className="ri-folder-fill text-bright-blue text-lg" />
+          <input
+            onBlur={() => {
+              setIsAddingCategory(false);
+              if (newCategoryName === '') return;
+
+              console.log('hey');
+            }}
+            ref={inputRef}
+            value={newCategoryName}
+            onChange={(e) => setNewCategoryName(e.target.value)}
+            type="text"
+            className="border-b h-4 px-2 text-xs"
+          />
+        </div>
+      )}
       {isChildrenOpen &&
         category.childCategories &&
         category.childCategories.length > 0 && (

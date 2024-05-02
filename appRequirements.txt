@@ -16,10 +16,10 @@ Checking-the-answers
 - add to category
 
 TODO:
-- able to search by kana and definition
 - change categories from browse
 - move word to another category
 5/2
+- limit search result words
 - quiz game
 - fix design and usage for selecting a category
 - fix add category

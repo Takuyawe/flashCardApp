@@ -16,9 +16,7 @@ Checking-the-answers
 - add to category
 
 TODO:
-- click search result and put the same word in the search bar
 - able to search by kana and definition
-- display word and definition
 - change categories from browse
 - move word to another category
 5/2

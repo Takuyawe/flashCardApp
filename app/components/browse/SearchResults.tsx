@@ -48,7 +48,7 @@ export const SearchResults = ({
               className="flex gap-x-2">
               <i className="ri-file-list-line" />
               <span className="flex-1 text-sm text-start pb-1 border-b">
-                {word.name}
+                {word.name} / {word.definition}
               </span>
             </Link>
           ))

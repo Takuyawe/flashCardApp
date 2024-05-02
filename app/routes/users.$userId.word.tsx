@@ -1,7 +1,6 @@
 import { ActionFunctionArgs } from '@remix-run/node';
 import { useEffect, useState } from 'react';
 import { AIGenerationButton } from '~/components/newWord/AIGenerationButton';
-import { CategorySelectContainer } from '~/components/newWord/CategorySelectContainer';
 import { DefinitionInput } from '~/components/newWord/DefinitionInput';
 import { EgSentenceInput } from '~/components/newWord/EgSentenceInput';
 import { SaveButton } from '~/components/newWord/SaveButton';
@@ -22,6 +21,7 @@ import { FAILED_TO_ADD_WORD } from '~/constants/NewWord';
 import { AnimatePresence } from 'framer-motion';
 import { EnWordTranslation } from '~/components/newWord/EnWordTranslation';
 import { WordOfToday } from '~/components/newWord/WordOfToday';
+import { CategorySelectBox } from '~/components/newWord/CategorySelectBox';
 
 type ActionResponse = {
   message?: string;
@@ -128,7 +128,7 @@ export default function Index() {
         </div>
       )}
       <WordOfToday />
-      <CategorySelectContainer />
+      <CategorySelectBox />
       <EnWordTranslation />
       <WordInput />
       <AIGenerationButton

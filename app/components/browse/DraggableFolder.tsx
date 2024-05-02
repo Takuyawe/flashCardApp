@@ -25,7 +25,7 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
   const [currentCategoryName, setCurrentCategoryName] = useState<string>('');
   const [targetCategoryId, setTargetCategoryId] = useState<string>('');
   const [targetCategoryName, setTargetCategoryName] = useState<string>('');
-  const [{ isDragging }, drag, preview] = useDrag(() => ({
+  const [, drag, preview] = useDrag(() => ({
     type: 'folder',
     item: {
       id: category.id,

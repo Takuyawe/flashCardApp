@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CategorySelect } from './CategorySelect';
+import { CategorySelect } from '../newWord/CategorySelect';
 import { useFetcher } from '@remix-run/react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '~/atoms/atom';

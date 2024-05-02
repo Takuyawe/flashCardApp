@@ -1,4 +1,4 @@
-import { createUser } from '../modules/prisma';
+import { addNewCategory, createUser } from '../modules/prisma';
 import {
   AUTH_UNEXPECTED_ERROR,
   DUPLICATE_EMAIL,
@@ -36,13 +36,22 @@ export const signup: SignUp = async (name, email, password) => {
   const hashedPassword = await hashPassword(password);
 
   try {
-    const response = await createUser(name, email, hashedPassword, new Date());
-    if (response.message === DUPLICATE_EMAIL) {
+    const now = new Date();
+    const { data, message } = await createUser(
+      name,
+      email,
+      hashedPassword,
+      now
+    );
+    if (message === DUPLICATE_EMAIL) {
       return { success: false, message: DUPLICATE_EMAIL };
-    } else if (response.message === PRISMA_UNEXPECTED_ERROR) {
-      return { success: false, message: response.message };
-    } else {
-      return { success: true, data: response.data };
+    } else if (message === PRISMA_UNEXPECTED_ERROR) {
+      return { success: false, message };
+    }
+
+    if (data) {
+      await addNewCategory(data.id, null, data.name, now);
+      return { success: true, data };
     }
   } catch (error: unknown) {
     if (error instanceof Error) {

@@ -16,26 +16,29 @@ Checking-the-answers
 - add to category
 
 TODO:
-- show error if moving categoris fail
-5/2
-- quiz game
+- do not show bin icon if its root
+- root category cannot move
 - fix design and usage for selecting a category
 - fix add category
 - omit category path
-- fix yahoo api mistranslation
-- forgotten password
-- replace id with something else for route path
-- auto suggestion for word input
+- close button and close all folders
+5/7
 - rename category
 - browse word edit
+- quiz game
+- forgotten password
+- auto suggestion for word input
 - user level feature
 - remove title
 - responsive design
 
 SUB_TODO:
+- replace id with something else for route path
+- fix yahoo api mistranslation
 - limit search result words
 - move word to another category
 - undo moving category
+- show error if moving categoris fail
 
 
 screen-flow

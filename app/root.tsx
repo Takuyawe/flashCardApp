@@ -51,7 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="h-dvh">
+      <body className="h-dvh overflow-hidden">
         <header>
           <Header />
         </header>

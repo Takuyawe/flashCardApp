@@ -27,7 +27,11 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
   const [targetCategoryName, setTargetCategoryName] = useState<string>('');
   const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: 'folder',
-    item: { id: category.id, name: category.name },
+    item: {
+      id: category.id,
+      name: category.name,
+      parentCategoryId: category.parentCategoryId,
+    },
     canDrag: () => !isMoveCategoryConfirmationDialogOpen,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -36,12 +40,13 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
 
   const [, drop] = useDrop({
     accept: 'folder',
-    drop(item: { id: string; name: string }, monitor) {
+    drop(item: Partial<CategoryWithChildren>, monitor) {
       if (monitor.isOver()) {
-        if (item.id === category.id) return;
+        if (item.id === category.id || item.parentCategoryId === category.id)
+          return;
 
-        setCurrentCategoryId(() => item.id);
-        setCurrentCategoryName(() => item.name);
+        setCurrentCategoryId(() => item.id as string);
+        setCurrentCategoryName(() => item.name as string);
         setTargetCategoryId(() => category.id);
         setTargetCategoryName(() => category.name);
         setIsMoveCategoryConfirmationDialogOpen(true);

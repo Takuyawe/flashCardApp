@@ -1,11 +1,13 @@
-import { Link } from '@remix-run/react';
 import { useCallback, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { chosenCategoryIdAtom, userAtom } from '~/atoms/atom';
-import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
 import { CategoryWithChildren } from '~/types/word';
 import { Modal } from '../modal/Modal';
 import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
+import { DraggableFolder } from './DraggableFolder';
+import { DndProvider } from 'react-dnd-multi-backend';
+import { HTML5toTouch } from 'rdndmb-html5-to-touch';
+import CustomDragLayer from './CustomDragLayer';
 
 type Props = {
   category: CategoryWithChildren;
@@ -31,26 +33,21 @@ export const CategoryItem = ({ category }: Props) => {
           {category.childCategories &&
           category.childCategories.length > 0 &&
           !isChildrenOpen ? (
-            <i className="ri-arrow-right-s-line text-lg" />
+            <i className="ri-arrow-right-s-line text-2xl" />
           ) : (
-            <i className="ri-arrow-down-s-line text-lg" />
+            <i className="ri-arrow-down-s-line text-2xl" />
           )}
-          <i className="ri-folder-fill text-bright-blue text-xl" />
         </button>
-        <Link
-          to={getWordCategoryPath(
-            user?.id as string,
-            category.name,
-            category.id
-          )}
-          className="border-b pb-1 w-full">
-          <button onClick={() => setChosenCategoryId(category.id)}>
-            {category.name}
-          </button>
-        </Link>
+        <DndProvider options={HTML5toTouch}>
+          <DraggableFolder
+            category={category}
+            setChosenCategoryId={setChosenCategoryId}
+          />
+          <CustomDragLayer />
+        </DndProvider>
         <button
           onClick={() => setIsDeleteConfirmationDialogOpen(true)}
-          className="transform -translate-x-7">
+          className="transform -translate-x-7 ml-auto">
           <i className="ri-delete-bin-line" />
         </button>
         {isDeleteConfirmationDialogOpen && (

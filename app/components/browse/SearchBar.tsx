@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { wordsAtom } from '~/atoms/atom';
 import { searchWithKMP } from '~/modules/browse/searchWithKMP';
 import { AnimatePresence } from 'framer-motion';
+import { Word } from '@prisma/client';
 
 export const SearchBar = () => {
   const [words] = useRecoilState(wordsAtom);
@@ -11,12 +12,26 @@ export const SearchBar = () => {
   const [isResultBoxOpen, setIsResultBoxOpen] = useState<boolean>(false);
 
   const searchMatchedWords = useMemo(() => {
-    const matchedWords = [];
+    const matchedWords = new Map<string, Word>();
     if (text) {
       for (const word of words.values()) {
         const result = searchWithKMP(word.name, text);
         if (result !== -1) {
-          matchedWords.push(word);
+          matchedWords.set(word.id, word);
+        }
+      }
+      for (const word of words.values()) {
+        if (matchedWords.has(word.id)) continue;
+        const result = searchWithKMP(word.definition, text);
+        if (result !== -1) {
+          matchedWords.set(word.id, word);
+        }
+      }
+      for (const word of words.values()) {
+        if (matchedWords.has(word.id)) continue;
+        const result = searchWithKMP(word.kana, text);
+        if (result !== -1) {
+          matchedWords.set(word.id, word);
         }
       }
     }
@@ -46,6 +61,7 @@ export const SearchBar = () => {
       <AnimatePresence>
         {text && isResultBoxOpen && (
           <SearchResults
+            setText={setText}
             searchMatchedWords={searchMatchedWords}
             setIsResultBoxOpen={setIsResultBoxOpen}
           />

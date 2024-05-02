@@ -8,3 +8,4 @@ export { createUser } from './createUser';
 export { fetchWords } from './fetchWords';
 export { deleteWord } from './deleteWord';
 export { deleteCategory } from './deleteCategory';
+export { moveCategory } from './moveCategory';

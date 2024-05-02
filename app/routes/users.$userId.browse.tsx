@@ -2,9 +2,6 @@ import { Outlet } from '@remix-run/react';
 import { CategoryPath } from '~/components/browse/CategoryPath';
 import { RecentlyAddedWordsContainer } from '~/components/browse/RecentlyAddedWordsContainer';
 import { SearchBar } from '~/components/browse/SearchBar';
-import { DndProvider } from 'react-dnd';
-import { TouchBackend } from 'react-dnd-touch-backend';
-import { DND_PROVIDER_OPTIONS } from '~/constants/DndProvider';
 
 export default function Layout() {
   return (
@@ -12,9 +9,7 @@ export default function Layout() {
       <SearchBar />
       <RecentlyAddedWordsContainer />
       <CategoryPath />
-      <DndProvider backend={TouchBackend} options={DND_PROVIDER_OPTIONS}>
-        <Outlet />
-      </DndProvider>
+      <Outlet />
     </div>
   );
 }

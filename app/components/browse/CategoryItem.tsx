@@ -6,6 +6,10 @@ import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
 import { CategoryWithChildren } from '~/types/word';
 import { Modal } from '../modal/Modal';
 import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
+import { DraggableFolder } from './DraggableFolder';
+import { DndProvider } from 'react-dnd-multi-backend';
+import { HTML5toTouch } from 'rdndmb-html5-to-touch';
+import CustomDragLayer from './CustomDragLayer';
 
 type Props = {
   category: CategoryWithChildren;
@@ -31,11 +35,10 @@ export const CategoryItem = ({ category }: Props) => {
           {category.childCategories &&
           category.childCategories.length > 0 &&
           !isChildrenOpen ? (
-            <i className="ri-arrow-right-s-line text-lg" />
+            <i className="ri-arrow-right-s-line text-2xl" />
           ) : (
-            <i className="ri-arrow-down-s-line text-lg" />
+            <i className="ri-arrow-down-s-line text-2xl" />
           )}
-          <i className="ri-folder-fill text-bright-blue text-xl" />
         </button>
         <Link
           to={getWordCategoryPath(
@@ -43,10 +46,14 @@ export const CategoryItem = ({ category }: Props) => {
             category.name,
             category.id
           )}
-          className="border-b pb-1 w-full">
-          <button onClick={() => setChosenCategoryId(category.id)}>
-            {category.name}
-          </button>
+          className="border-b w-full">
+          <DndProvider options={HTML5toTouch}>
+            <DraggableFolder
+              category={category}
+              setChosenCategoryId={setChosenCategoryId}
+            />
+            <CustomDragLayer />
+          </DndProvider>
         </Link>
         <button
           onClick={() => setIsDeleteConfirmationDialogOpen(true)}

@@ -16,8 +16,9 @@ Checking-the-answers
 - add to category
 
 TODO:
-- add category
-- root category cannot move
+- edit category name
+- disable root category to add word
+- disable Taku in browse
 - fix design and usage for selecting a category
 - fix add category
 - omit category path

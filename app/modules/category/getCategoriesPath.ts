@@ -1,16 +1,21 @@
-import { CategoriesMap, CategoryWithChildren } from "~/types/word";
+import { Categories, CategoriesMap } from "~/types/word";
 
 export const getCategoriesPath = (
-  categoriesPath: CategoryWithChildren[],
+  categoriesPath: Categories,
   categories: CategoriesMap,
-  categoryId: string | null
+  categoryId: string
 ) => {
-  if (categoryId === null) return categoriesPath;
-
   categories.forEach((category) => {
     if (category.id === categoryId) {
+      if (category.parentCategoryId === null) {
+        return categoriesPath;
+      }
       categoriesPath.unshift(category);
-      getCategoriesPath(categoriesPath, categories, category.parentCategoryId);
+      getCategoriesPath(
+        categoriesPath,
+        categories,
+        category.parentCategoryId as string
+      );
     }
   });
   return categoriesPath;

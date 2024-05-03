@@ -2,22 +2,22 @@ import { PRISMA_UNEXPECTED_ERROR } from "~/constants/Authentication";
 import { prisma } from "~/lib/prisma";
 import { PrismaResponse } from "~/types/prisma";
 
-type MoveCategory = (
-  currentCategoryId: string,
-  targetCategoryId: string
+type EditCategoryName = (
+  categoryId: string,
+  newCategoryName: string
 ) => Promise<PrismaResponse>;
 
-export const moveCategory: MoveCategory = async (
-  currentCategoryId,
-  targetCategoryId
+export const editCategoryName: EditCategoryName = async (
+  categoryId,
+  newCategoryName
 ) => {
   try {
     const data = await prisma.category.update({
       where: {
-        id: currentCategoryId,
+        id: categoryId,
       },
       data: {
-        parentCategoryId: targetCategoryId,
+        name: newCategoryName,
       },
     });
     return { data };

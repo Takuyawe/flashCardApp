@@ -16,15 +16,13 @@ Checking-the-answers
 - add to category
 
 TODO:
-- edit category name
-- disable root category to add word
-- disable Taku in browse
-- fix design and usage for selecting a category
-- fix add category
+- kana for word of today and translation
+- edit category name for browse
+- add category from browse too
 - omit category path
 - close button and close all folders
-5/7
-- rename category
+- search categories (browse too)
+- recently added categories for new word
 - browse word edit
 - quiz game
 - forgotten password

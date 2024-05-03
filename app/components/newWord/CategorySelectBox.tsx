@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
-import { CategoryItem } from './CategoryItem';
-import { generateCategoriesList } from '~/modules/category/generateCategoriesList';
-import { useRecoilState } from 'recoil';
-import { categoriesAtom, newWordFieldsAtom } from '~/atoms/atom';
-import { motion } from 'framer-motion';
+import { useMemo, useState } from "react";
+import { CategoryItem } from "./CategoryItem";
+import { generateCategoriesList } from "~/modules/category/generateCategoriesList";
+import { useRecoilState } from "recoil";
+import { categoriesAtom, newWordFieldsAtom } from "~/atoms/atom";
+import { motion } from "framer-motion";
 
 export const CategorySelectBox = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -22,7 +22,7 @@ export const CategorySelectBox = () => {
       <div className="flex w-80 justify-stretch gap-x-2">
         <div className="flex-1 h-8 border-2 border-base-dark rounded-md pl-2 text-md">
           <div className="flex h-full justify-between items-center">
-            {newWordFields.category !== '' ? (
+            {newWordFields.category !== "" ? (
               <span>{newWordFields.category}</span>
             ) : (
               <span className="opacity-40">Choose a category</span>
@@ -30,7 +30,8 @@ export const CategorySelectBox = () => {
 
             <button
               onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-              className="h-8 w-8">
+              className="h-8 w-8"
+            >
               {isCategoriesOpen ? (
                 <i className="ri-arrow-down-s-line text-2xl" />
               ) : (
@@ -41,17 +42,18 @@ export const CategorySelectBox = () => {
         </div>
         {isCategoriesOpen && (
           <motion.div
-            // add animation
-            className="absolute top-44 left-1/2 transform -translate-x-1/2 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark">
-            <div className="flex flex-col pr-3">
-              {categoriesList.map((category) => (
-                <CategoryItem
-                  key={category.id}
-                  category={category}
-                  setIsCategoriesOpen={setIsCategoriesOpen}
-                />
-              ))}
-            </div>
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.1 }}
+            className="absolute top-44 left-1/2 transform -translate-x-1/2 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark"
+          >
+            {categoriesList.map((category) => (
+              <CategoryItem
+                key={category.id}
+                category={category}
+                setIsCategoriesOpen={setIsCategoriesOpen}
+              />
+            ))}
           </motion.div>
         )}
       </div>

@@ -49,7 +49,6 @@ export const CategoryItem = ({ category }: Props) => {
           <div className="flex gap-x-1">
             <i className="ri-folder-fill text-bright-blue text-xl" />
             <input
-              autoFocus
               className="text-md w-32 pl-1"
               type="text"
               value={editingText}

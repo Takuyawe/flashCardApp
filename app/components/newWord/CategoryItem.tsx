@@ -24,13 +24,6 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
   const [newCategoryName, setNewCategoryName] = useState<string>("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editingText, setEditingText] = useState<string>(category.name);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!isAddingCategory) return;
-
-    inputRef.current?.focus();
-  }, [isAddingCategory]);
 
   return (
     <div className="flex flex-col">
@@ -145,7 +138,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
               setNewCategoryName("");
               setIsChildrenOpen(true);
             }}
-            ref={inputRef}
+            autoFocus
             value={newCategoryName}
             name="newCategoryName"
             onChange={(e) => setNewCategoryName(e.target.value)}

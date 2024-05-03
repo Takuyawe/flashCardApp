@@ -1,5 +1,5 @@
 import { useFetcher, useLocation } from "@remix-run/react";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { newWordFieldsAtom, userAtom } from "~/atoms/atom";
 import { getAddCategoryActionPath } from "~/modules/path/getAddCategoryActionPath";
@@ -57,7 +57,10 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 type="text"
                 value={editingText}
                 onChange={(e) => setEditingText(e.target.value)}
-                onBlur={() => setIsEditing(false)}
+                onBlur={() => {
+                  setIsEditing(false);
+                  setEditingText(category.name);
+                }}
               />
             </div>
           ) : (
@@ -138,6 +141,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 action: getAddCategoryActionPath(location.pathname),
               });
               setNewCategoryName("");
+              setIsChildrenOpen(true);
             }}
             ref={inputRef}
             value={newCategoryName}

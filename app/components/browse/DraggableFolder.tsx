@@ -62,7 +62,7 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
     <div ref={(node) => drag(drop(node))} className="w-full">
       <Link
         to={getWordCategoryPath(user?.id as string, category.name, category.id)}
-        className="flex gap-x-1 border-b w-full"
+        className="flex gap-x-1 w-full"
         onClick={(e) => {
           if (category.parentCategoryId === null) {
             e.preventDefault();

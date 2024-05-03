@@ -57,6 +57,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 type="text"
                 value={editingText}
                 onChange={(e) => setEditingText(e.target.value)}
+                onBlur={() => setIsEditing(false)}
               />
             </div>
           ) : (
@@ -79,31 +80,35 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
             </button>
           )}
           <div className="flex gap-x-1 ml-auto">
-            {category.parentCategoryId !== null && isEditing ? (
-              <button
-                className="opacity-50"
-                onClick={() => {
-                  if (editingText === "" || editingText === category.name)
-                    return;
-                  const formData = new FormData();
-                  formData.append("categoryId", category.id as string);
-                  formData.append("newCategoryName", editingText);
-                  editCategoryFetcher.submit(formData, {
-                    method: "post",
-                    action: getEditCategoryActionPath(location.pathname),
-                  });
-                  setIsEditing(false);
-                }}
-              >
-                <i className="ri-send-plane-2-fill text-md" />
-              </button>
+            {category.parentCategoryId !== null ? (
+              isEditing ? (
+                <button
+                  className="opacity-50"
+                  onClick={() => {
+                    if (editingText === "" || editingText === category.name)
+                      return;
+                    const formData = new FormData();
+                    formData.append("categoryId", category.id as string);
+                    formData.append("newCategoryName", editingText);
+                    editCategoryFetcher.submit(formData, {
+                      method: "post",
+                      action: getEditCategoryActionPath(location.pathname),
+                    });
+                    setIsEditing(false);
+                  }}
+                >
+                  <i className="ri-send-plane-2-fill text-md" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsEditing(!isEditing)}
+                  className="opacity-50"
+                >
+                  <i className="ri-pencil-fill text-lg" />
+                </button>
+              )
             ) : (
-              <button
-                onClick={() => setIsEditing(!isEditing)}
-                className="opacity-50"
-              >
-                <i className="ri-pencil-fill text-lg" />
-              </button>
+              <></>
             )}
             <button
               onClick={() => setIsAddingCategory(true)}

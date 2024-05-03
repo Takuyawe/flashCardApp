@@ -1,14 +1,14 @@
-import { useMemo, useState } from 'react';
-import { SearchResults } from './SearchResults';
-import { useRecoilState } from 'recoil';
-import { wordsAtom } from '~/atoms/atom';
-import { searchWithKMP } from '~/modules/browse/searchWithKMP';
-import { AnimatePresence } from 'framer-motion';
-import { Word } from '@prisma/client';
+import { useMemo, useState } from "react";
+import { SearchResults } from "./SearchResults";
+import { useRecoilState } from "recoil";
+import { wordsAtom } from "~/atoms/atom";
+import { searchWithKMP } from "~/modules/browse/searchWithKMP";
+import { AnimatePresence } from "framer-motion";
+import { Word } from "@prisma/client";
 
 export const SearchBar = () => {
   const [words] = useRecoilState(wordsAtom);
-  const [text, setText] = useState<string>('');
+  const [text, setText] = useState<string>("");
   const [isResultBoxOpen, setIsResultBoxOpen] = useState<boolean>(false);
 
   const searchMatchedWords = useMemo(() => {
@@ -22,7 +22,10 @@ export const SearchBar = () => {
       }
       for (const word of words.values()) {
         if (matchedWords.has(word.id)) continue;
-        const result = searchWithKMP(word.definition, text);
+        const result = searchWithKMP(
+          word.definition.toLowerCase(),
+          text.toLowerCase()
+        );
         if (result !== -1) {
           matchedWords.set(word.id, word);
         }
@@ -46,7 +49,7 @@ export const SearchBar = () => {
           name="search"
           value={text}
           onChange={(e) => {
-            if (e.target.value !== '') {
+            if (e.target.value !== "") {
               setIsResultBoxOpen(true);
             }
             setText(e.target.value);
@@ -54,7 +57,7 @@ export const SearchBar = () => {
           placeholder="Search a word"
           className="h-9 w-72 border-2 border-base-dark rounded-md pl-8 text-md"
         />
-        <button onClick={() => setText('')}>
+        <button onClick={() => setText("")}>
           <i className="ri-close-line text-xl absolute right-2 top-1 opacity-75" />
         </button>
       </div>

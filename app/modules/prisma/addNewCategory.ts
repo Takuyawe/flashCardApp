@@ -1,11 +1,12 @@
-import { prisma } from "~/lib/prisma";
+import { Category } from '@prisma/client';
+import { prisma } from '~/lib/prisma';
 
 type AddNewCategory = (
   userId: string,
   parentCategoryId: string | null,
   name: string,
   now: Date
-) => void;
+) => Promise<Category>;
 
 export const addNewCategory: AddNewCategory = async (
   userId,
@@ -13,7 +14,7 @@ export const addNewCategory: AddNewCategory = async (
   name,
   now
 ) => {
-  const response = await prisma.category.create({
+  return await prisma.category.create({
     data: {
       userId: userId,
       parentCategoryId: parentCategoryId,
@@ -22,5 +23,4 @@ export const addNewCategory: AddNewCategory = async (
       updatedAt: now,
     },
   });
-  return response;
 };

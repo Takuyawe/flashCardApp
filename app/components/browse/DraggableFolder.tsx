@@ -1,13 +1,13 @@
-import { useDrag, useDrop } from 'react-dnd';
-import { CategoryWithChildren } from '~/types/word';
-import { getEmptyImage } from 'react-dnd-html5-backend';
-import { useEffect, useState } from 'react';
-import { MoveCategoryConfirmationDialog } from './MoveCategoryConfirmationDialog';
-import { Modal } from '../modal/Modal';
-import { Link } from '@remix-run/react';
-import { getWordCategoryPath } from '~/modules/path/getWordCategoryPath';
-import { useRecoilState } from 'recoil';
-import { userAtom } from '~/atoms/atom';
+import { useDrag, useDrop } from "react-dnd";
+import { CategoryWithChildren } from "~/types/word";
+import { getEmptyImage } from "react-dnd-html5-backend";
+import { useEffect, useState } from "react";
+import { MoveCategoryConfirmationDialog } from "./MoveCategoryConfirmationDialog";
+import { Modal } from "../modal/Modal";
+import { Link } from "@remix-run/react";
+import { getWordCategoryPath } from "~/modules/path/getWordCategoryPath";
+import { useRecoilState } from "recoil";
+import { userAtom } from "~/atoms/atom";
 
 type Props = {
   category: CategoryWithChildren;
@@ -21,13 +21,17 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
     isMoveCategoryConfirmationDialogOpen,
     setIsMoveCategoryConfirmationDialogOpen,
   ] = useState<boolean>(false);
-  const [currentCategoryId, setCurrentCategoryId] = useState<string>('');
-  const [currentCategoryName, setCurrentCategoryName] = useState<string>('');
-  const [targetCategoryId, setTargetCategoryId] = useState<string>('');
-  const [targetCategoryName, setTargetCategoryName] = useState<string>('');
-  const [{ isDragging }, drag, preview] = useDrag(() => ({
-    type: 'folder',
-    item: { id: category.id, name: category.name },
+  const [currentCategoryId, setCurrentCategoryId] = useState<string>("");
+  const [currentCategoryName, setCurrentCategoryName] = useState<string>("");
+  const [targetCategoryId, setTargetCategoryId] = useState<string>("");
+  const [targetCategoryName, setTargetCategoryName] = useState<string>("");
+  const [, drag, preview] = useDrag(() => ({
+    type: "folder",
+    item: {
+      id: category.id,
+      name: category.name,
+      parentCategoryId: category.parentCategoryId,
+    },
     canDrag: () => !isMoveCategoryConfirmationDialogOpen,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -35,13 +39,14 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
   }));
 
   const [, drop] = useDrop({
-    accept: 'folder',
-    drop(item: { id: string; name: string }, monitor) {
+    accept: "folder",
+    drop(item: Partial<CategoryWithChildren>, monitor) {
       if (monitor.isOver()) {
-        if (item.id === category.id) return;
+        if (item.id === category.id || item.parentCategoryId === category.id)
+          return;
 
-        setCurrentCategoryId(() => item.id);
-        setCurrentCategoryName(() => item.name);
+        setCurrentCategoryId(() => item.id as string);
+        setCurrentCategoryName(() => item.name as string);
         setTargetCategoryId(() => category.id);
         setTargetCategoryName(() => category.name);
         setIsMoveCategoryConfirmationDialogOpen(true);
@@ -57,11 +62,18 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
     <div ref={(node) => drag(drop(node))} className="w-full">
       <Link
         to={getWordCategoryPath(user?.id as string, category.name, category.id)}
-        className="flex gap-x-1 border-b w-full">
+        className="flex gap-x-1 border-b w-full"
+        onClick={(e) => {
+          if (category.parentCategoryId === null) {
+            e.preventDefault();
+            return;
+          } else {
+            setChosenCategoryId(category.id);
+          }
+        }}
+      >
         <i className="ri-folder-fill text-bright-blue text-xl" />
-        <button onClick={() => setChosenCategoryId(category.id)}>
-          {category.name}
-        </button>
+        <span>{category.name}</span>
       </Link>
       {isMoveCategoryConfirmationDialogOpen && (
         <Modal isOpen={isMoveCategoryConfirmationDialogOpen}>

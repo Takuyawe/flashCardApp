@@ -76,8 +76,10 @@ export const CategoryItem = ({ category }: Props) => {
               <button
                 className="opacity-50"
                 onClick={() => {
-                  if (editingText === "" || editingText === category.name)
+                  if (editingText === "" || editingText === category.name) {
+                    setIsEditing(false);
                     return;
+                  }
                   const formData = new FormData();
                   formData.append("categoryId", category.id as string);
                   formData.append("newCategoryName", editingText);

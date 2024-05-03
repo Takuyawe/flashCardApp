@@ -16,6 +16,7 @@ Checking-the-answers
 - add to category
 
 TODO:
+- add category
 - root category cannot move
 - fix design and usage for selecting a category
 - fix add category

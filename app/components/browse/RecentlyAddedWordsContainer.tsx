@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react';
-import { ShowMoreButton } from './ShowMoreButton';
-import { RecentlyAddedWord } from './RecentlyAddedWord';
-import { useRecoilState } from 'recoil';
-import { wordsAtom } from '~/atoms/atom';
+import { useMemo, useState } from "react";
+import { ShowMoreButton } from "./ShowMoreButton";
+import { RecentlyAddedWord } from "./RecentlyAddedWord";
+import { useRecoilState } from "recoil";
+import { wordsAtom } from "~/atoms/atom";
 
 export const RecentlyAddedWordsContainer = () => {
   const [words] = useRecoilState(wordsAtom);
@@ -21,13 +21,14 @@ export const RecentlyAddedWordsContainer = () => {
     <div className="flex flex-col items-start w-72">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex gap-x-1 items-center">
+        className="flex gap-x-1 items-center"
+      >
         {isOpen ? (
           <i className="ri-arrow-down-s-line" />
         ) : (
           <i className="ri-arrow-right-s-line" />
         )}
-        <span className="">Recently Added</span>
+        <span className="">Recently added words</span>
       </button>
       {isOpen && (
         <>

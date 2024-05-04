@@ -45,7 +45,7 @@ export const CategorySelectBox = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.1 }}
-            className="absolute top-44 left-1/2 transform -translate-x-1/2 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark"
+            className="absolute z-10 top-44 left-1/2 transform -translate-x-1/2 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark"
           >
             {categoriesList.map((category) => (
               <CategoryItem

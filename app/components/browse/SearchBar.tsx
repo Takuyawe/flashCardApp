@@ -57,9 +57,11 @@ export const SearchBar = () => {
           placeholder="Search a word"
           className="h-9 w-72 border-2 border-base-dark rounded-md pl-8 text-md"
         />
-        <button onClick={() => setText("")}>
-          <i className="ri-close-line text-xl absolute right-2 top-1 opacity-75" />
-        </button>
+        {text && (
+          <button onClick={() => setText("")}>
+            <i className="ri-close-line text-xl absolute right-2 top-1 opacity-75" />
+          </button>
+        )}
       </div>
       <AnimatePresence>
         {text && isResultBoxOpen && (

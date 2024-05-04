@@ -16,11 +16,10 @@ Checking-the-answers
 - add to category
 
 TODO:
-- omit category path
-- close button and close all folders
-- search categories (browse too)
+- search categories for browse
 - recently added categories for new word
 - browse word edit
+- replace claude with deepl for definition
 - quiz game
 - forgotten password
 - auto suggestion for word input
@@ -33,6 +32,7 @@ SUB_TODO:
 - fix yahoo api mistranslation
 - limit search result words
 - move word to another category
+- undo deleteing word
 - undo moving category
 - show error if moving categoris fail
 

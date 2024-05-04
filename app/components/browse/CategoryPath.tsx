@@ -22,7 +22,7 @@ export const CategoryPath = () => {
   }, [categories, chosenCategoryId]);
 
   return (
-    <div className="flex w-72">
+    <div className="flex w-72 flex-wrap gap-y-1">
       <div className="flex gap-x-1">
         <Link
           to={getBrowsePath(user?.id as string)}

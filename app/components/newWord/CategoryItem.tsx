@@ -103,10 +103,18 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 </button>
               )
             ) : (
-              <></>
+              <button
+                onClick={() => setIsChildrenOpen(false)}
+                className="opacity-50"
+              >
+                <i className="ri-folder-reduce-line text-lg" />
+              </button>
             )}
             <button
-              onClick={() => setIsAddingCategory(true)}
+              onClick={() => {
+                setIsChildrenOpen(true);
+                setIsAddingCategory(true);
+              }}
               className="opacity-50"
             >
               <i className="ri-add-line text-lg" />

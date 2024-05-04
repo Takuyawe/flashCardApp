@@ -16,9 +16,6 @@ Checking-the-answers
 - add to category
 
 TODO:
-- kana for word of today and translation
-- edit category name for browse
-- add category from browse too
 - omit category path
 - close button and close all folders
 - search categories (browse too)

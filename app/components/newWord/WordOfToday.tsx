@@ -1,11 +1,11 @@
-import { useFetcher } from '@remix-run/react';
-import { motion } from 'framer-motion';
-import { generate } from 'random-words';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { newWordFieldsAtom } from '~/atoms/atom';
-import { generateWordLetterByLetter } from '~/modules/word/generateWordLetterByLetter';
-import { action } from '~/routes/users.$userId.word.translate';
+import { useFetcher } from "@remix-run/react";
+import { motion } from "framer-motion";
+import { generate } from "random-words";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { newWordFieldsAtom } from "~/atoms/atom";
+import { generateWordLetterByLetter } from "~/modules/word/generateWordLetterByLetter";
+import { action } from "~/routes/users.$userId.word.translate";
 
 export const WordOfToday = () => {
   const [, setNewWordFields] = useRecoilState(newWordFieldsAtom);
@@ -13,16 +13,17 @@ export const WordOfToday = () => {
   const [word, setWord] = useState<string>();
 
   useEffect(() => {
-    if (!fetcher.data || 'error' in fetcher.data) return;
+    if (!fetcher.data || "error" in fetcher.data) return;
     setNewWordFields((prevState) => ({
       ...prevState,
-      word: '',
+      word: "",
+      kana: "",
     }));
 
-    const { text } = fetcher.data;
-    console.log('text', text);
+    const { text, kana } = fetcher.data;
 
-    generateWordLetterByLetter(text, 'word', setNewWordFields);
+    generateWordLetterByLetter(text, "word", setNewWordFields);
+    generateWordLetterByLetter(kana, "kana", setNewWordFields);
   }, [fetcher.data, setNewWordFields]);
 
   return (
@@ -35,7 +36,8 @@ export const WordOfToday = () => {
           setWord(word);
         }}
         whileTap={{ y: 2 }}
-        className="bg-gradient-to-r from-base-dark via-light-dark to-base-dark text-white px-2 py-1 rounded-lg">
+        className="bg-gradient-to-r from-base-dark via-light-dark to-base-dark text-white px-2 py-1 rounded-lg"
+      >
         Word of Today
       </motion.button>
     </fetcher.Form>

@@ -2,6 +2,7 @@ import { useFetcher, useLocation } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { newWordFieldsAtom, userAtom } from "~/atoms/atom";
+import { ADD_CATEGORY, EDIT_CATEGORY_NAME } from "~/constants/ActionPath";
 import { getAddCategoryActionPath } from "~/modules/path/getAddCategoryActionPath";
 import { getEditCategoryActionPath } from "~/modules/path/getEditCategoryActionPath";
 import { CategoryWithChildren } from "~/types/word";
@@ -50,10 +51,6 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 type="text"
                 value={editingText}
                 onChange={(e) => setEditingText(e.target.value)}
-                onBlur={() => {
-                  setIsEditing(false);
-                  setEditingText(category.name);
-                }}
               />
             </div>
           ) : (
@@ -90,7 +87,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                     formData.append("newCategoryName", editingText);
                     editCategoryFetcher.submit(formData, {
                       method: "post",
-                      action: getEditCategoryActionPath(location.pathname),
+                      action: EDIT_CATEGORY_NAME,
                     });
                     setIsEditing(false);
                   }}
@@ -99,7 +96,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 </button>
               ) : (
                 <button
-                  onClick={() => setIsEditing(!isEditing)}
+                  onClick={() => setIsEditing(true)}
                   className="opacity-50"
                 >
                   <i className="ri-pencil-fill text-lg" />
@@ -133,7 +130,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
               formData.append("parentCategoryId", category.id);
               addCategoryFetcher.submit(formData, {
                 method: "post",
-                action: getAddCategoryActionPath(location.pathname),
+                action: ADD_CATEGORY,
               });
               setNewCategoryName("");
               setIsChildrenOpen(true);

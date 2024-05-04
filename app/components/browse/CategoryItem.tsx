@@ -9,6 +9,7 @@ import { DndProvider } from "react-dnd-multi-backend";
 import { HTML5toTouch } from "rdndmb-html5-to-touch";
 import CustomDragLayer from "./CustomDragLayer";
 import { useFetcher, useLocation } from "@remix-run/react";
+import { ADD_CATEGORY, EDIT_CATEGORY_NAME } from "~/constants/ActionPath";
 
 type Props = {
   category: CategoryWithChildren;
@@ -49,14 +50,11 @@ export const CategoryItem = ({ category }: Props) => {
           <div className="flex gap-x-1">
             <i className="ri-folder-fill text-bright-blue text-xl" />
             <input
+              autoFocus
               className="text-md w-32 pl-1"
               type="text"
               value={editingText}
               onChange={(e) => setEditingText(e.target.value)}
-              onBlur={() => {
-                setIsEditing(false);
-                setEditingText(category.name);
-              }}
             />
           </div>
         ) : (
@@ -71,7 +69,6 @@ export const CategoryItem = ({ category }: Props) => {
         <div className="flex gap-x-1 ml-auto">
           {category.parentCategoryId !== null ? (
             isEditing ? (
-              // modify
               <button
                 className="opacity-50"
                 onClick={() => {
@@ -84,6 +81,7 @@ export const CategoryItem = ({ category }: Props) => {
                   formData.append("newCategoryName", editingText);
                   editCategoryFetcher.submit(formData, {
                     method: "post",
+                    action: EDIT_CATEGORY_NAME,
                   });
                   setIsEditing(false);
                 }}
@@ -128,7 +126,6 @@ export const CategoryItem = ({ category }: Props) => {
         )}
       </div>
       {isAddingCategory && (
-        // modify
         <div className="flex gap-x-1 items-center mt-1 ml-12 opacity-50">
           <i className="ri-folder-fill text-bright-blue text-xl" />
           <input
@@ -144,6 +141,7 @@ export const CategoryItem = ({ category }: Props) => {
               formData.append("parentCategoryId", category.id);
               addCategoryFetcher.submit(formData, {
                 method: "post",
+                action: ADD_CATEGORY,
               });
               setNewCategoryName("");
               setIsChildrenOpen(true);

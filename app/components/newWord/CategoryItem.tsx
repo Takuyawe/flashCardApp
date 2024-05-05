@@ -2,6 +2,7 @@ import { useFetcher, useLocation } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { newWordFieldsAtom, userAtom } from "~/atoms/atom";
+import { ADD_CATEGORY, EDIT_CATEGORY_NAME } from "~/constants/ActionPath";
 import { getAddCategoryActionPath } from "~/modules/path/getAddCategoryActionPath";
 import { getEditCategoryActionPath } from "~/modules/path/getEditCategoryActionPath";
 import { CategoryWithChildren } from "~/types/word";
@@ -24,13 +25,6 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
   const [newCategoryName, setNewCategoryName] = useState<string>("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editingText, setEditingText] = useState<string>(category.name);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!isAddingCategory) return;
-
-    inputRef.current?.focus();
-  }, [isAddingCategory]);
 
   return (
     <div className="flex flex-col">
@@ -57,16 +51,11 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 type="text"
                 value={editingText}
                 onChange={(e) => setEditingText(e.target.value)}
-                onBlur={() => {
-                  setIsEditing(false);
-                  setEditingText(category.name);
-                }}
               />
             </div>
           ) : (
             <button
               onClick={() => {
-                if (category.parentCategoryId === null) return;
                 setIsCategoriesOpen(false);
                 setNewWordFields((prevState) => ({
                   ...prevState,
@@ -74,7 +63,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                   chosenCategoryId: category.id,
                 }));
               }}
-              className={`flex gap-x-1 items-center text-start pl-1 rounded-sm ${
+              className={`flex gap-x-1 items-center text-start pl-1 pr-2 rounded-sm ${
                 newWordFields.category === category.name && "bg-light-blue"
               }`}
             >
@@ -97,7 +86,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                     formData.append("newCategoryName", editingText);
                     editCategoryFetcher.submit(formData, {
                       method: "post",
-                      action: getEditCategoryActionPath(location.pathname),
+                      action: EDIT_CATEGORY_NAME,
                     });
                     setIsEditing(false);
                   }}
@@ -106,17 +95,25 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 </button>
               ) : (
                 <button
-                  onClick={() => setIsEditing(!isEditing)}
+                  onClick={() => setIsEditing(true)}
                   className="opacity-50"
                 >
                   <i className="ri-pencil-fill text-lg" />
                 </button>
               )
             ) : (
-              <></>
+              <button
+                onClick={() => setIsChildrenOpen(false)}
+                className="opacity-50"
+              >
+                <i className="ri-folder-reduce-line text-lg" />
+              </button>
             )}
             <button
-              onClick={() => setIsAddingCategory(true)}
+              onClick={() => {
+                setIsChildrenOpen(true);
+                setIsAddingCategory(true);
+              }}
               className="opacity-50"
             >
               <i className="ri-add-line text-lg" />
@@ -140,12 +137,12 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
               formData.append("parentCategoryId", category.id);
               addCategoryFetcher.submit(formData, {
                 method: "post",
-                action: getAddCategoryActionPath(location.pathname),
+                action: ADD_CATEGORY,
               });
               setNewCategoryName("");
               setIsChildrenOpen(true);
             }}
-            ref={inputRef}
+            autoFocus
             value={newCategoryName}
             name="newCategoryName"
             onChange={(e) => setNewCategoryName(e.target.value)}

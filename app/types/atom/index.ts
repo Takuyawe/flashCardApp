@@ -4,6 +4,7 @@ export type UserAtom = Pick<User, "id" | "email" | "name">;
 
 export type NewWordFieldsAtom = {
   word: string;
+  kana: string;
   definition: string;
   sentence: string;
   sentenceKana: string;

@@ -39,6 +39,7 @@
     "remix-auth": "^3.6.0",
     "remix-auth-form": "^1.4.0",
     "remixicon": "^4.2.0",
+    "string-similarity-js": "^2.1.4",
     "wanakana": "^5.3.1"
   },
   "devDependencies": {

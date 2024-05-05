@@ -1,45 +1,55 @@
 import { useMemo, useState } from "react";
 import { SearchResults } from "./SearchResults";
 import { useRecoilState } from "recoil";
-import { wordsAtom } from "~/atoms/atom";
-import { searchWithKMP } from "~/modules/browse/searchWithKMP";
+import { categoriesAtom, wordsAtom } from "~/atoms/atom";
 import { AnimatePresence } from "framer-motion";
-import { Word } from "@prisma/client";
+import { stringSimilarity } from "string-similarity-js";
 
 export const SearchBar = () => {
   const [words] = useRecoilState(wordsAtom);
+  const [categories] = useRecoilState(categoriesAtom);
   const [text, setText] = useState<string>("");
   const [isResultBoxOpen, setIsResultBoxOpen] = useState<boolean>(false);
 
   const searchMatchedWords = useMemo(() => {
-    const matchedWords = new Map<string, Word>();
+    const matchedWordsArr = [];
     if (text) {
       for (const word of words.values()) {
-        const result = searchWithKMP(word.name, text);
-        if (result !== -1) {
-          matchedWords.set(word.id, word);
-        }
-      }
-      for (const word of words.values()) {
-        if (matchedWords.has(word.id)) continue;
-        const result = searchWithKMP(
-          word.definition.toLowerCase(),
-          text.toLowerCase()
-        );
-        if (result !== -1) {
-          matchedWords.set(word.id, word);
-        }
-      }
-      for (const word of words.values()) {
-        if (matchedWords.has(word.id)) continue;
-        const result = searchWithKMP(word.kana, text);
-        if (result !== -1) {
-          matchedWords.set(word.id, word);
+        for (const attribute of [word.name, word.definition, word.kana]) {
+          const matchedDegree = stringSimilarity(attribute, text, 1);
+          if (matchedDegree > 0.25) {
+            matchedWordsArr.push({ word, matchedDegree });
+            break;
+          }
         }
       }
     }
-    return matchedWords;
+    const sortedMatchedWordsArr = matchedWordsArr
+      .sort((a, b) => b.matchedDegree - a.matchedDegree)
+      .map((item) => item.word)
+      .splice(0, 5);
+    return new Map(sortedMatchedWordsArr.map((word) => [word.id, word]));
   }, [text, words]);
+
+  const searchMatchedCategories = useMemo(() => {
+    const matchedCategoriesArr = [];
+    if (text) {
+      for (const category of categories.values()) {
+        const matchedDegree = stringSimilarity(category.name, text, 1);
+        if (matchedDegree > 0.5) {
+          matchedCategoriesArr.push({ category, matchedDegree });
+        }
+      }
+    }
+
+    const sortedMatchedCategoriesArr = matchedCategoriesArr
+      .sort((a, b) => b.matchedDegree - a.matchedDegree)
+      .map((item) => item.category)
+      .splice(0, 5);
+    return new Map(
+      sortedMatchedCategoriesArr.map((category) => [category.id, category])
+    );
+  }, [text, categories]);
 
   return (
     <div className="relative">
@@ -57,15 +67,18 @@ export const SearchBar = () => {
           placeholder="Search a word"
           className="h-9 w-72 border-2 border-base-dark rounded-md pl-8 text-md"
         />
-        <button onClick={() => setText("")}>
-          <i className="ri-close-line text-xl absolute right-2 top-1 opacity-75" />
-        </button>
+        {text && (
+          <button onClick={() => setText("")}>
+            <i className="ri-close-line text-xl absolute right-2 top-1 opacity-75" />
+          </button>
+        )}
       </div>
       <AnimatePresence>
         {text && isResultBoxOpen && (
           <SearchResults
             setText={setText}
             searchMatchedWords={searchMatchedWords}
+            searchMatchedCategories={searchMatchedCategories}
             setIsResultBoxOpen={setIsResultBoxOpen}
           />
         )}

@@ -16,17 +16,13 @@ Checking-the-answers
 - add to category
 
 TODO:
-- kana for word of today and translation
-- edit category name for browse
-- add category from browse too
-- omit category path
-- close button and close all folders
-- search categories (browse too)
-- recently added categories for new word
 - browse word edit
+- click category path and show the only selected category
+- replace claude with deepl for definition
 - quiz game
+- generate random word based on category name
 - forgotten password
-- auto suggestion for word input
+- auto suggestion for word input and show word and definition
 - user level feature
 - remove title
 - responsive design
@@ -36,6 +32,7 @@ SUB_TODO:
 - fix yahoo api mistranslation
 - limit search result words
 - move word to another category
+- undo deleteing word
 - undo moving category
 - show error if moving categoris fail
 

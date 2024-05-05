@@ -4,6 +4,7 @@ import { generateCategoriesList } from "~/modules/category/generateCategoriesLis
 import { useRecoilState } from "recoil";
 import { categoriesAtom, newWordFieldsAtom } from "~/atoms/atom";
 import { motion } from "framer-motion";
+import { RecentlyAddedCategories } from "./RecentlyAddedCategories";
 
 export const CategorySelectBox = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -12,6 +13,10 @@ export const CategorySelectBox = () => {
 
   const categoriesList = useMemo(() => {
     return generateCategoriesList(categories, null);
+  }, [categories]);
+
+  const recentlyAddedCategories = useMemo(() => {
+    return Array.from(categories.values()).slice(0, 3);
   }, [categories]);
 
   return (
@@ -45,15 +50,21 @@ export const CategorySelectBox = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.1 }}
-            className="absolute top-44 left-1/2 transform -translate-x-1/2 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark"
+            className="absolute z-10 top-44 left-1/2 transform -translate-x-1/2 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark"
           >
-            {categoriesList.map((category) => (
-              <CategoryItem
-                key={category.id}
-                category={category}
+            <div>
+              <RecentlyAddedCategories
+                categories={recentlyAddedCategories}
                 setIsCategoriesOpen={setIsCategoriesOpen}
               />
-            ))}
+              {categoriesList.map((category) => (
+                <CategoryItem
+                  key={category.id}
+                  category={category}
+                  setIsCategoriesOpen={setIsCategoriesOpen}
+                />
+              ))}
+            </div>
           </motion.div>
         )}
       </div>

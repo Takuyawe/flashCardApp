@@ -1,14 +1,14 @@
-import { Category, Word } from '@prisma/client';
-import { atom } from 'recoil';
+import { Category, Word } from "@prisma/client";
+import { atom } from "recoil";
 import {
   CATEGORIES_ATOM_KEY,
   CHOSEN_CATEGORY_ID_ATOM_KEY,
   NEW_WORD_FIELDS_KEY,
   USER_ATOM_KEY,
   WORDS_ATOM_KEY,
-} from '~/constants/Atom';
-import { NewWordFieldsAtom, UserAtom } from '~/types/atom';
-import { CategoriesMap, WordsMap } from '~/types/word';
+} from "~/constants/Atom";
+import { NewWordFieldsAtom, UserAtom } from "~/types/atom";
+import { CategoriesMap, WordsMap } from "~/types/word";
 
 export const userAtom = atom<UserAtom | null>({
   key: USER_ATOM_KEY,
@@ -22,7 +22,7 @@ export const categoriesAtom = atom<CategoriesMap>({
 
 export const chosenCategoryIdAtom = atom<string>({
   key: CHOSEN_CATEGORY_ID_ATOM_KEY,
-  default: '',
+  default: "",
 });
 
 export const wordsAtom = atom<WordsMap>({
@@ -33,13 +33,14 @@ export const wordsAtom = atom<WordsMap>({
 export const newWordFieldsAtom = atom<NewWordFieldsAtom>({
   key: NEW_WORD_FIELDS_KEY,
   default: {
-    word: '',
-    definition: '',
-    sentence: '',
-    sentenceKana: '',
-    sentenceRomaji: '',
-    sentenceTranslation: '',
-    category: '',
-    chosenCategoryId: '',
+    word: "",
+    kana: "",
+    definition: "",
+    sentence: "",
+    sentenceKana: "",
+    sentenceRomaji: "",
+    sentenceTranslation: "",
+    category: "",
+    chosenCategoryId: "",
   },
 });

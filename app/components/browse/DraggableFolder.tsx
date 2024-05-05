@@ -32,7 +32,9 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
       name: category.name,
       parentCategoryId: category.parentCategoryId,
     },
-    canDrag: () => !isMoveCategoryConfirmationDialogOpen,
+    canDrag: () =>
+      !isMoveCategoryConfirmationDialogOpen &&
+      category.parentCategoryId !== null,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),

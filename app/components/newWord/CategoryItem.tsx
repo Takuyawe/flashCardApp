@@ -56,7 +56,6 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
           ) : (
             <button
               onClick={() => {
-                if (category.parentCategoryId === null) return;
                 setIsCategoriesOpen(false);
                 setNewWordFields((prevState) => ({
                   ...prevState,
@@ -64,7 +63,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                   chosenCategoryId: category.id,
                 }));
               }}
-              className={`flex gap-x-1 items-center text-start pl-1 rounded-sm ${
+              className={`flex gap-x-1 items-center text-start pl-1 pr-2 rounded-sm ${
                 newWordFields.category === category.name && "bg-light-blue"
               }`}
             >

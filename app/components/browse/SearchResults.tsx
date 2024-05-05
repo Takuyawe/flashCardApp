@@ -55,6 +55,7 @@ export const SearchResults = ({
             {isMatchedCategoriesOpen &&
               Array.from(searchMatchedCategories.values()).map((category) => (
                 <Link
+                  // modify
                   to=""
                   onClick={() => {
                     setIsResultBoxOpen(false);

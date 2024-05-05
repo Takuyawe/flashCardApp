@@ -35,7 +35,9 @@ export const RecentlyAddedWordsContainer = () => {
           {recentlyAddedWords.map((word) => (
             <RecentlyAddedWord key={word.id} word={word} />
           ))}
-          <ShowMoreButton onClick={handleShowMore} />
+          {words.size > wordIndex && (
+            <ShowMoreButton onClick={handleShowMore} />
+          )}
         </>
       )}
     </div>

@@ -16,11 +16,11 @@ Checking-the-answers
 - add to category
 
 TODO:
-- recently added categories for new word
 - browse word edit
 - click category path and show the only selected category
 - replace claude with deepl for definition
 - quiz game
+- generate random word based on category name
 - forgotten password
 - auto suggestion for word input and show word and definition
 - user level feature

@@ -16,7 +16,6 @@ Checking-the-answers
 - add to category
 
 TODO:
-- search categories for browse
 - recently added categories for new word
 - browse word edit
 - click category path and show the only selected category

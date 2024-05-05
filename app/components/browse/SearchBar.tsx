@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
 import { SearchResults } from "./SearchResults";
 import { useRecoilState } from "recoil";
-import { wordsAtom } from "~/atoms/atom";
+import { categoriesAtom, wordsAtom } from "~/atoms/atom";
 import { AnimatePresence } from "framer-motion";
 import { stringSimilarity } from "string-similarity-js";
 
 export const SearchBar = () => {
   const [words] = useRecoilState(wordsAtom);
+  const [categories] = useRecoilState(categoriesAtom);
   const [text, setText] = useState<string>("");
   const [isResultBoxOpen, setIsResultBoxOpen] = useState<boolean>(false);
 
@@ -29,6 +30,26 @@ export const SearchBar = () => {
       .splice(0, 5);
     return new Map(sortedMatchedWordsArr.map((word) => [word.id, word]));
   }, [text, words]);
+
+  const searchMatchedCategories = useMemo(() => {
+    const matchedCategoriesArr = [];
+    if (text) {
+      for (const category of categories.values()) {
+        const matchedDegree = stringSimilarity(category.name, text, 1);
+        if (matchedDegree > 0.5) {
+          matchedCategoriesArr.push({ category, matchedDegree });
+        }
+      }
+    }
+
+    const sortedMatchedCategoriesArr = matchedCategoriesArr
+      .sort((a, b) => b.matchedDegree - a.matchedDegree)
+      .map((item) => item.category)
+      .splice(0, 5);
+    return new Map(
+      sortedMatchedCategoriesArr.map((category) => [category.id, category])
+    );
+  }, [text, categories]);
 
   return (
     <div className="relative">
@@ -57,6 +78,7 @@ export const SearchBar = () => {
           <SearchResults
             setText={setText}
             searchMatchedWords={searchMatchedWords}
+            searchMatchedCategories={searchMatchedCategories}
             setIsResultBoxOpen={setIsResultBoxOpen}
           />
         )}

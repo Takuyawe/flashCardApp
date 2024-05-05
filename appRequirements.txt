@@ -16,7 +16,6 @@ Checking-the-answers
 - add to category
 
 TODO:
-- replace claude with deepl for definition
 - quiz game
 - generate random word based on category name
 - forgotten password

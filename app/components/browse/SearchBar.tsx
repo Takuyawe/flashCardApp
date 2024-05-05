@@ -2,9 +2,8 @@ import { useMemo, useState } from "react";
 import { SearchResults } from "./SearchResults";
 import { useRecoilState } from "recoil";
 import { wordsAtom } from "~/atoms/atom";
-import { searchWithKMP } from "~/modules/browse/searchWithKMP";
 import { AnimatePresence } from "framer-motion";
-import { Word } from "@prisma/client";
+import { stringSimilarity } from "string-similarity-js";
 
 export const SearchBar = () => {
   const [words] = useRecoilState(wordsAtom);
@@ -12,33 +11,23 @@ export const SearchBar = () => {
   const [isResultBoxOpen, setIsResultBoxOpen] = useState<boolean>(false);
 
   const searchMatchedWords = useMemo(() => {
-    const matchedWords = new Map<string, Word>();
+    const matchedWordsArr = [];
     if (text) {
       for (const word of words.values()) {
-        const result = searchWithKMP(word.name, text);
-        if (result !== -1) {
-          matchedWords.set(word.id, word);
-        }
-      }
-      for (const word of words.values()) {
-        if (matchedWords.has(word.id)) continue;
-        const result = searchWithKMP(
-          word.definition.toLowerCase(),
-          text.toLowerCase()
-        );
-        if (result !== -1) {
-          matchedWords.set(word.id, word);
-        }
-      }
-      for (const word of words.values()) {
-        if (matchedWords.has(word.id)) continue;
-        const result = searchWithKMP(word.kana, text);
-        if (result !== -1) {
-          matchedWords.set(word.id, word);
+        for (const attribute of [word.name, word.definition, word.kana]) {
+          const matchedDegree = stringSimilarity(attribute, text, 1);
+          if (matchedDegree > 0.25) {
+            matchedWordsArr.push({ word, matchedDegree });
+            break;
+          }
         }
       }
     }
-    return matchedWords;
+    const sortedMatchedWordsArr = matchedWordsArr
+      .sort((a, b) => b.matchedDegree - a.matchedDegree)
+      .map((item) => item.word)
+      .splice(0, 5);
+    return new Map(sortedMatchedWordsArr.map((word) => [word.id, word]));
   }, [text, words]);
 
   return (

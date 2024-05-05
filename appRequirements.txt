@@ -23,7 +23,7 @@ TODO:
 - replace claude with deepl for definition
 - quiz game
 - forgotten password
-- auto suggestion for word input
+- auto suggestion for word input and show word and definition
 - user level feature
 - remove title
 - responsive design

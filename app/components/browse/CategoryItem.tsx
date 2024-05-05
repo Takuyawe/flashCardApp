@@ -8,24 +8,24 @@ import { DraggableFolder } from "./DraggableFolder";
 import { DndProvider } from "react-dnd-multi-backend";
 import { HTML5toTouch } from "rdndmb-html5-to-touch";
 import CustomDragLayer from "./CustomDragLayer";
-import { useFetcher, useLocation } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
 import { ADD_CATEGORY, EDIT_CATEGORY_NAME } from "~/constants/ActionPath";
 
 type Props = {
   category: CategoryWithChildren;
+  categoryId?: string | null;
 };
 
-export const CategoryItem = ({ category }: Props) => {
+export const CategoryItem = ({ category, categoryId }: Props) => {
   const [isDeleteConfirmationDialogOpen, setIsDeleteConfirmationDialogOpen] =
     useState<boolean>(false);
   const [isChildrenOpen, setIsChildrenOpen] = useState(
-    category.parentCategoryId === null
+    category.parentCategoryId === null || categoryId === category.id
   );
   const [user] = useRecoilState(userAtom);
   const [, setChosenCategoryId] = useRecoilState(chosenCategoryIdAtom);
   const addCategoryFetcher = useFetcher();
   const editCategoryFetcher = useFetcher();
-  const location = useLocation();
   const [isAddingCategory, setIsAddingCategory] = useState<boolean>(false);
   const [newCategoryName, setNewCategoryName] = useState<string>("");
   const [isEditing, setIsEditing] = useState<boolean>(false);

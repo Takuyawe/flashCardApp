@@ -7,7 +7,11 @@ export default function Index() {
 
   return (
     <div className="flex-1">
-      <CategoriesList categories={categories} parentCategoryId={null} />
+      <CategoriesList
+        categories={categories}
+        parentCategoryId={null}
+        categoryId={null}
+      />
     </div>
   );
 }

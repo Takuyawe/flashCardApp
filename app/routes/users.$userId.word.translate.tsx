@@ -3,6 +3,7 @@ import { ActionFunctionArgs, json } from "@remix-run/node";
 import { Translator } from "deepl-node";
 import { WORD_REQUIRED_ERROR } from "~/constants/NewWord";
 import { getYahooAnalysisData } from "~/modules/word/getYahooAnalysisData";
+import { translateText } from "~/modules/word/translateText";
 import { translateSchema } from "~/zodSchema/newWord";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -16,11 +17,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     });
   }
   const word = formData.get("word") as string;
-  const authKey = process.env.DEEPL_API as string;
-  const translator = new Translator(authKey);
 
   try {
-    const { text } = await translator.translateText(word, "en", "ja");
+    const text = await translateText(word, "en", "ja");
     const { result } = await getYahooAnalysisData(text);
     const kana = result.tokens[0][1];
     return json({ text, kana });

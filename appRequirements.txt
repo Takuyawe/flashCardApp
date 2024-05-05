@@ -16,8 +16,6 @@ Checking-the-answers
 - add to category
 
 TODO:
-- browse word edit
-- click category path and show the only selected category
 - replace claude with deepl for definition
 - quiz game
 - generate random word based on category name
@@ -28,6 +26,8 @@ TODO:
 - responsive design
 
 SUB_TODO:
+- mix words and categoires in browse
+- browse word edit
 - replace id with something else for route path
 - fix yahoo api mistranslation
 - limit search result words

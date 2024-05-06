@@ -61,7 +61,11 @@ export const DraggableFolder = ({ category, setChosenCategoryId }: Props) => {
   }, [preview]);
 
   return (
-    <div ref={(node) => drag(drop(node))} className="w-full">
+    <div
+      ref={(node) => drag(drop(node))}
+      onTouchMove={(e) => e.preventDefault()}
+      className="w-full"
+    >
       <Link
         to={getWordCategoryPath(user?.id as string, category.name, category.id)}
         className="flex gap-x-1 w-full"

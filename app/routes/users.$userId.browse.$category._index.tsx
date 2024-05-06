@@ -17,7 +17,8 @@ export default function Index() {
   const [categories] = useRecoilState(categoriesAtom);
 
   const parentCategoryId = useMemo(() => {
-    return categories.get(categoryId as string)?.parentCategoryId;
+    if (!categoryId) return;
+    return categories.get(categoryId)?.parentCategoryId;
   }, [categories, categoryId]);
 
   return (

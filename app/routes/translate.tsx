@@ -1,6 +1,5 @@
 import { parseWithZod } from "@conform-to/zod";
 import { ActionFunctionArgs, json } from "@remix-run/node";
-import { Translator } from "deepl-node";
 import { WORD_REQUIRED_ERROR } from "~/constants/NewWord";
 import { getYahooAnalysisData } from "~/modules/word/getYahooAnalysisData";
 import { translateText } from "~/modules/word/translateText";

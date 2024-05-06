@@ -2,8 +2,9 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { newWordFieldsAtom } from "~/atoms/atom";
+import { TRANSLATE } from "~/constants/ActionPath";
 import { generateWordLetterByLetter } from "~/modules/word/generateWordLetterByLetter";
-import { action } from "~/routes/users.$userId.word.translate";
+import { action } from "~/routes/translate";
 
 export const EnWordTranslation = () => {
   const [, setNewWordFields] = useRecoilState(newWordFieldsAtom);
@@ -28,7 +29,7 @@ export const EnWordTranslation = () => {
   return (
     <fetcher.Form
       method="post"
-      action="translate"
+      action={TRANSLATE}
       onSubmit={(e) => {
         if (word === "") {
           e.preventDefault();

@@ -6,6 +6,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const userId = formData.get("userId");
   const newCategory = formData.get("newCategoryName");
   const parentCategoryId = formData.get("parentCategoryId");
+
+  if (!userId || !newCategory || !parentCategoryId)
+    throw new Error("Necessary fields not found");
+
   const now = new Date();
 
   const response = addNewCategory(

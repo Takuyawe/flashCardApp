@@ -3,7 +3,6 @@ import { parseWithZod } from "@conform-to/zod";
 import { ActionFunctionArgs, json } from "@remix-run/node";
 import { WORD_REQUIRED_ERROR } from "~/constants/NewWord";
 import { convertSentenceToRomaji } from "~/modules/word/convertSentenceToRomaji";
-import { createDefinitionWithAI } from "~/modules/word/createDefinitionWithAI";
 import { createSentenceWithAI } from "~/modules/word/createSentenceWithAI";
 import { getSentenceKanaWithYahoo } from "~/modules/word/getSentenceKanaWithYahoo";
 import { translateText } from "~/modules/word/translateText";

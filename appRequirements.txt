@@ -16,6 +16,7 @@ Checking-the-answers
 - add to category
 
 TODO:
+- refactoring
 - when expanding categories, elements go upper
 - on producion mode, its hard to drag and drop
 - quiz game

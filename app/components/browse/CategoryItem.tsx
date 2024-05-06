@@ -5,8 +5,9 @@ import { CategoryWithChildren } from "~/types/word";
 import { Modal } from "../modal/Modal";
 import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
 import { DraggableFolder } from "./DraggableFolder";
-import { DndProvider } from "react-dnd-multi-backend";
+import { DndProvider } from "react-dnd";
 import { HTML5toTouch } from "rdndmb-html5-to-touch";
+import { MultiBackend } from "react-dnd-multi-backend";
 import CustomDragLayer from "./CustomDragLayer";
 import { useFetcher } from "@remix-run/react";
 import { ADD_CATEGORY, EDIT_CATEGORY_NAME } from "~/constants/ActionPath";
@@ -58,7 +59,7 @@ export const CategoryItem = ({ category, categoryId }: Props) => {
             />
           </div>
         ) : (
-          <DndProvider options={HTML5toTouch}>
+          <DndProvider backend={MultiBackend} options={HTML5toTouch}>
             <DraggableFolder
               category={category}
               setChosenCategoryId={setChosenCategoryId}

@@ -7,8 +7,11 @@ installGlobals();
 
 export default defineConfig({
   plugins: [remix(), tsconfigPaths()],
-  server: {
-    host: '0.0.0.0',
-    port: 3000,
-  },
+  server:
+    process.env.NODE_ENV === 'production'
+      ? {}
+      : {
+          host: '0.0.0.0',
+          port: 3000,
+        },
 });

@@ -15,6 +15,7 @@ Checking-the-answers
 - ?/10 and show meter
 - expandable word card
 - add to category (select multiple, make it blue when touched, and enable drag)
+- after adding, delete the word from left side
 
 TODO:
 - loading

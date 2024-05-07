@@ -26,6 +26,7 @@ TODO:
 - responsive design
 
 SUB_TODO:
+- shadcn ui (scroll area, accordion)
 - on producion mode, its hard to drag and drop
 - auto suggestion for word input and show word and definition
 - mix words and categoires in browse

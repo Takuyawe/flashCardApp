@@ -14,10 +14,10 @@ export const CategoryInput = () => {
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="border border-base-dark pl-2"
+          className="border border-base-dark pl-2 rounded-md"
           placeholder="Enter a category"
         />
-        <button className="bg-base-dark text-white px-2 rounded-md">
+        <button className="bg-base-dark text-white px-2 rounded-md text-xs">
           Start
         </button>
       </div>

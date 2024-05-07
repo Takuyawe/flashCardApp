@@ -1,15 +1,19 @@
-import {
-  CLAUDE_MODEL,
-  DEFINITION_INSTRUCTION,
-} from '~/constants/AIInstruction';
 import Anthropic from '@anthropic-ai/sdk';
+import { CLAUDE_MODEL } from '~/constants/AIInstruction';
 
-export const createDefinitionWithAI = async (
+type GenerateQuizWords = (
   anthropic: Anthropic,
+  instruction: string,
   word: string
+) => Promise<string[] | undefined>;
+
+export const generateQuizWords: GenerateQuizWords = async (
+  anthropic,
+  instruction,
+  word
 ) => {
   try {
-    return await anthropic.messages.create({
+    const response = await anthropic.messages.create({
       model: CLAUDE_MODEL,
       max_tokens: 100,
       temperature: 1,
@@ -19,12 +23,15 @@ export const createDefinitionWithAI = async (
           content: [
             {
               type: 'text',
-              text: DEFINITION_INSTRUCTION.BEGINNER.replace('word', word),
+              text: instruction.replace('word', word),
             },
           ],
         },
       ],
     });
+    if (response) {
+      return response.content[0].text.split('/').map((word) => word.trim());
+    }
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(error.message);

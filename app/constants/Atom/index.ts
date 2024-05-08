@@ -5,4 +5,5 @@ export const WORDS_ATOM_KEY = 'words';
 export const NEW_WORD_FIELDS_KEY = 'newWordFields';
 export const QUIZ_LEVEL = 'quizLevel';
 export const QUIZ_CATEGORY = 'quizCategory';
+export const QUIZ_INDEX = 'quizIndex';
 export const QUIZ_WORD_LIST = 'quizWordList';

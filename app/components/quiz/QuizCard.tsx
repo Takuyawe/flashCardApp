@@ -9,7 +9,11 @@ import {
 import { quizCategoryAtom, quizWordListAtom } from '~/atoms/atom';
 import { QuizMultipleChoice } from './QuizMultipleChoice';
 
-export const QuizCard = () => {
+type Props = {
+  setQuizIndex: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export const QuizCard = ({ setQuizIndex }: Props) => {
   const [quizWordList] = useRecoilState(quizWordListAtom);
   const [quizCategory, setQuizCategory] = useRecoilState(quizCategoryAtom);
 
@@ -26,8 +30,8 @@ export const QuizCard = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="top-20 -left-16" />
-        <CarouselNext className="top-20 -right-16" />
+        <CarouselPrevious />
+        <CarouselNext />
       </Carousel>
     </div>
   );

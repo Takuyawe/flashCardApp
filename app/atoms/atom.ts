@@ -5,6 +5,7 @@ import {
   CHOSEN_CATEGORY_ID_ATOM_KEY,
   NEW_WORD_FIELDS_KEY,
   QUIZ_CATEGORY,
+  QUIZ_INDEX,
   QUIZ_LEVEL,
   QUIZ_WORD_LIST,
   USER_ATOM_KEY,
@@ -57,6 +58,11 @@ export const quizLevelAtom = atom<QuizLevel>({
 export const quizCategoryAtom = atom<string>({
   key: QUIZ_CATEGORY,
   default: '',
+});
+
+export const quizIndexAtom = atom<number>({
+  key: QUIZ_INDEX,
+  default: 0,
 });
 
 export const quizWordListAtom = atom<QuizWordList>({

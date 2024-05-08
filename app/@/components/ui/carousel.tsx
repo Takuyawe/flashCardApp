@@ -8,6 +8,8 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 import { cn } from 'app/@/lib/utils';
 import { Button } from 'app/@/components/ui/button';
+import { useRecoilState } from 'recoil';
+import { quizIndexAtom } from '~/atoms/atom';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -197,6 +199,7 @@ const CarouselPrevious = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+  const [, setQuizIndex] = useRecoilState(quizIndexAtom);
 
   return (
     <Button
@@ -206,12 +209,15 @@ const CarouselPrevious = React.forwardRef<
       className={cn(
         'absolute  h-8 w-8 rounded-full',
         orientation === 'horizontal'
-          ? '-left-12 top-1/2 -translate-y-1/2'
+          ? 'top-20 -left-16 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
         className
       )}
       disabled={!canScrollPrev}
-      onClick={scrollPrev}
+      onClick={() => {
+        scrollPrev();
+        setQuizIndex((prev) => prev - 1);
+      }}
       {...props}>
       <ArrowLeft className="h-4 w-4" />
       <span className="sr-only">Previous slide</span>
@@ -225,6 +231,7 @@ const CarouselNext = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
+  const [, setQuizIndex] = useRecoilState(quizIndexAtom);
 
   return (
     <Button
@@ -234,12 +241,15 @@ const CarouselNext = React.forwardRef<
       className={cn(
         'absolute h-8 w-8 rounded-full',
         orientation === 'horizontal'
-          ? '-right-12 top-1/2 -translate-y-1/2'
+          ? 'top-20 -right-16 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
         className
       )}
       disabled={!canScrollNext}
-      onClick={scrollNext}
+      onClick={() => {
+        scrollNext();
+        setQuizIndex((prev) => prev + 1);
+      }}
       {...props}>
       <ArrowRight className="h-4 w-4" />
       <span className="sr-only">Next slide</span>

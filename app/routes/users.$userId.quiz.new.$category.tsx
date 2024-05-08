@@ -2,7 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { json, LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { generate } from 'random-words';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { quizCategoryAtom, quizWordListAtom } from '~/atoms/atom';
 import { QuizCard } from '~/components/quiz/QuizCard';
@@ -114,6 +114,7 @@ export default function Layout() {
   const loaderData = useLoaderData<typeof loader>();
   const [quizWordList, setQuizWordList] = useRecoilState(quizWordListAtom);
   const [quizCategory, setQuizCategory] = useRecoilState(quizCategoryAtom);
+  const [quizIndex, setQuizIndex] = useState<number>(0);
 
   useEffect(() => {
     if (!loaderData || 'error' in loaderData) return;
@@ -123,9 +124,9 @@ export default function Layout() {
   }, [loaderData, setQuizWordList, setQuizCategory]);
 
   return (
-    <div className="flex flex-col items-center">
-      <QuizStepper />
-      <QuizCard />
+    <div className="flex flex-col items-center gap-y-5 mt-5">
+      <QuizStepper quizIndex={quizIndex} setQuizIndex={setQuizIndex} />
+      <QuizCard ssetQuizIndex={setQuizIndex} et />
     </div>
   );
 }

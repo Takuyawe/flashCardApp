@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { quizCorrectAnswerCountAtom } from '~/atoms/atom';
 import { shuffleMultipleChoice } from '~/modules/quiz/shuffleMultipleChoice';
 import { QuizWord } from '~/types/quiz';
 
@@ -8,6 +10,9 @@ type Props = {
 
 export const QuizMultipleChoice = ({ quizWord }: Props) => {
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
+  const [quizCorrectAnswerCount, setQuizCorrectAnswerCount] = useRecoilState(
+    quizCorrectAnswerCountAtom
+  );
 
   const multipleChoice = useMemo(() => {
     const joinedArray = [{ ...quizWord }, ...quizWord.multipleChoice];
@@ -29,13 +34,20 @@ export const QuizMultipleChoice = ({ quizWord }: Props) => {
               ) : (
                 <i className="ri-close-line text-2xl" />
               )}
-              {option.definition}
+              {option.definition} / {option.kana}
             </span>
           </div>
         ) : (
           <button
             key={option.word}
-            onClick={() => setIsAnswered(true)}
+            onClick={() => {
+              setIsAnswered(true);
+              if (option.isCorrectAnswer) {
+                setQuizCorrectAnswerCount([...quizCorrectAnswerCount, 1]);
+              } else {
+                setQuizCorrectAnswerCount([...quizCorrectAnswerCount, 0]);
+              }
+            }}
             className="h-10 w-60 border border-base-dark rounded-full text-md shadow-md">
             {option.definition}
           </button>

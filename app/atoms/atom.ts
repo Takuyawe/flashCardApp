@@ -65,6 +65,11 @@ export const quizIndexAtom = atom<number>({
   default: 0,
 });
 
+export const quizCorrectAnswerCountAtom = atom<(0 | 1)[]>({
+  key: 'quizCorrectAnswerCount',
+  default: [],
+});
+
 export const quizWordListAtom = atom<QuizWordList>({
   key: QUIZ_WORD_LIST,
   default: [],

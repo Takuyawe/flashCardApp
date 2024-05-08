@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import 'remixicon/fonts/remixicon.css';
-import stylesheet from '~/tailwind.css?url';
+import stylesheet from '~/globals.css?url';
 import { Header } from './components/Header';
 import { requireUserSession } from './server/auth.server';
 import { redirect } from 'remix-typedjson';

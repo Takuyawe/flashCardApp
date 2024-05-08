@@ -4,8 +4,9 @@ import { generate } from "random-words";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { newWordFieldsAtom } from "~/atoms/atom";
+import { TRANSLATE } from "~/constants/ActionPath";
 import { generateWordLetterByLetter } from "~/modules/word/generateWordLetterByLetter";
-import { action } from "~/routes/users.$userId.word.translate";
+import { action } from "~/routes/translate";
 
 export const WordOfToday = () => {
   const [, setNewWordFields] = useRecoilState(newWordFieldsAtom);
@@ -27,7 +28,7 @@ export const WordOfToday = () => {
   }, [fetcher.data, setNewWordFields]);
 
   return (
-    <fetcher.Form method="post" action="translate">
+    <fetcher.Form method="post" action={TRANSLATE}>
       <input type="hidden" name="word" value={word} />
       <motion.button
         type="submit"

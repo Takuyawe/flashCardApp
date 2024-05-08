@@ -1,7 +1,7 @@
-import { CategoriesMap } from "~/types/word";
-import { CategoryItem } from "./CategoryItem";
-import { useMemo } from "react";
-import { generateCategoriesList } from "~/modules/category/generateCategoriesList";
+import { CategoriesMap } from '~/types/word';
+import { CategoryItem } from './CategoryItem';
+import { useMemo } from 'react';
+import { generateCategoriesList } from '~/modules/category/generateCategoriesList';
 
 type Props = {
   categories: CategoriesMap;
@@ -22,7 +22,7 @@ export const CategoriesList = ({
     } else {
       return generateCategoriesList(categories, parentCategoryId);
     }
-  }, [categories, parentCategoryId]);
+  }, [categories, parentCategoryId, categoryId]);
 
   return (
     <div className="flex flex-col gap-y-1 w-72">

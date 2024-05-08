@@ -2,23 +2,23 @@ language: English
 
 Quiz
 mode 10 words
-- random words -> use library
+- random words -> choose category (claude)
 - random words from user word list
 - choose from existing category
 Quiz
-- Multiple choices(3 random words and one correct answer)
--> save english words(deepl) to show the meanings after the user choice
+- Multiple choices(3 random words and one correct answer) <- use library
+-> use deepl to show the meanings after the user picks the answer
 features
 - checking the answers
 - gain experience ?/10 * 10 exp
 Checking-the-answers
+- ?/10 and show meter
 - expandable word card
-- add to category
+- add to category (select multiple, make it blue when touched, and enable drag)
+- after adding, delete the word from left side
 
 TODO:
-- when expanding categories, elements go upper
-- on producion mode, its hard to drag and drop
-- quiz game
+- loading
 - generate random word based on category name
 - forgotten password
 - user level feature
@@ -26,6 +26,8 @@ TODO:
 - responsive design
 
 SUB_TODO:
+- shadcn ui (scroll area, accordion)
+- on producion mode, its hard to drag and drop
 - auto suggestion for word input and show word and definition
 - mix words and categoires in browse
 - browse word edit

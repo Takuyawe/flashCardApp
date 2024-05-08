@@ -3,7 +3,7 @@ import { CategoryItem } from "./CategoryItem";
 import { generateCategoriesList } from "~/modules/category/generateCategoriesList";
 import { useRecoilState } from "recoil";
 import { categoriesAtom, newWordFieldsAtom } from "~/atoms/atom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { RecentlyAddedCategories } from "./RecentlyAddedCategories";
 
 export const CategorySelectBox = () => {
@@ -45,28 +45,31 @@ export const CategorySelectBox = () => {
             </button>
           </div>
         </div>
-        {isCategoriesOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.1 }}
-            className="absolute z-10 top-44 left-1/2 transform -translate-x-1/2 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark"
-          >
-            <div>
-              <RecentlyAddedCategories
-                categories={recentlyAddedCategories}
-                setIsCategoriesOpen={setIsCategoriesOpen}
-              />
-              {categoriesList.map((category) => (
-                <CategoryItem
-                  key={category.id}
-                  category={category}
+        <AnimatePresence>
+          {isCategoriesOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute z-10 top-44 min-h-60 max-h-96 w-80 overflow-auto h-auto py-4 pl-3 rounded-md bg-white border border-base-dark"
+            >
+              <div>
+                <RecentlyAddedCategories
+                  categories={recentlyAddedCategories}
                   setIsCategoriesOpen={setIsCategoriesOpen}
                 />
-              ))}
-            </div>
-          </motion.div>
-        )}
+                {categoriesList.map((category) => (
+                  <CategoryItem
+                    key={category.id}
+                    category={category}
+                    setIsCategoriesOpen={setIsCategoriesOpen}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

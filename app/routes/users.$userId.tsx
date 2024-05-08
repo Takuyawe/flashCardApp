@@ -1,15 +1,18 @@
-import { json, LoaderFunctionArgs } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { typedjson } from "remix-typedjson";
-import { categoriesAtom, userAtom, wordsAtom } from "~/atoms/atom";
-import { BottomMenuBar } from "~/components/BottomMenuBar";
-import { convertCategoryObjectToMap } from "~/modules/category/convertCategoryObjectToMap";
-import { fetchCategories, getUserDataWithId } from "~/modules/prisma";
-import { fetchWords } from "~/modules/prisma";
-import { convertWordObjectToMap } from "~/modules/word/convertWordObjectToMap";
-import { UserAtom } from "~/types/atom";
+import { json, LoaderFunctionArgs } from '@remix-run/node';
+import { Outlet, useLoaderData } from '@remix-run/react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { typedjson } from 'remix-typedjson';
+import { categoriesAtom, userAtom, wordsAtom } from '~/atoms/atom';
+import { BottomMenuBar } from '~/components/BottomMenuBar';
+import { convertCategoryObjectToMap } from '~/modules/category/convertCategoryObjectToMap';
+import {
+  fetchWords,
+  fetchCategories,
+  getUserDataWithId,
+} from '~/modules/prisma';
+import { convertWordObjectToMap } from '~/modules/word/convertWordObjectToMap';
+import { UserAtom } from '~/types/atom';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const userId = params.userId;

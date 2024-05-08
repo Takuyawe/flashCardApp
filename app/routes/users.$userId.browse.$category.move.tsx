@@ -4,12 +4,16 @@ import { moveCategory } from '~/modules/prisma';
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
 
-  const currentCategoryId = formData.get('currentCategoryId') as string;
-  const targetCategoryId = formData.get('targetCategoryId') as string;
+  const currentCategoryId = formData.get('currentCategoryId');
+  const targetCategoryId = formData.get('targetCategoryId');
 
-  const response = await moveCategory(currentCategoryId, targetCategoryId);
+  if (!currentCategoryId || !targetCategoryId)
+    throw new Error('Category ID not found');
 
-  console.log(response);
+  const response = await moveCategory(
+    currentCategoryId as string,
+    targetCategoryId as string
+  );
 
   return response;
 };

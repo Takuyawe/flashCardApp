@@ -1,11 +1,9 @@
-import { useFetcher, useLocation } from "@remix-run/react";
-import { useEffect, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
-import { newWordFieldsAtom, userAtom } from "~/atoms/atom";
-import { ADD_CATEGORY, EDIT_CATEGORY_NAME } from "~/constants/ActionPath";
-import { getAddCategoryActionPath } from "~/modules/path/getAddCategoryActionPath";
-import { getEditCategoryActionPath } from "~/modules/path/getEditCategoryActionPath";
-import { CategoryWithChildren } from "~/types/word";
+import { useFetcher } from '@remix-run/react';
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { newWordFieldsAtom, userAtom } from '~/atoms/atom';
+import { ADD_CATEGORY, EDIT_CATEGORY_NAME } from '~/constants/ActionPath';
+import { CategoryWithChildren } from '~/types/word';
 
 type Props = {
   category: CategoryWithChildren;
@@ -17,12 +15,11 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
   const [user] = useRecoilState(userAtom);
   const addCategoryFetcher = useFetcher();
   const editCategoryFetcher = useFetcher();
-  const location = useLocation();
   const [isChildrenOpen, setIsChildrenOpen] = useState(
     category.parentCategoryId === null
   );
   const [isAddingCategory, setIsAddingCategory] = useState<boolean>(false);
-  const [newCategoryName, setNewCategoryName] = useState<string>("");
+  const [newCategoryName, setNewCategoryName] = useState<string>('');
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editingText, setEditingText] = useState<string>(category.name);
 
@@ -31,8 +28,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
       <div className="flex items-center gap-x-1 mr-3">
         <button
           onClick={() => setIsChildrenOpen(!isChildrenOpen)}
-          className="flex items-center justify-center"
-        >
+          className="flex items-center justify-center">
           {category.childCategories &&
           category.childCategories.length > 0 &&
           !isChildrenOpen ? (
@@ -64,9 +60,8 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 }));
               }}
               className={`flex gap-x-1 items-center text-start pl-1 pr-2 rounded-sm ${
-                newWordFields.category === category.name && "bg-light-blue"
-              }`}
-            >
+                newWordFields.category === category.name && 'bg-light-blue'
+              }`}>
               <i className="ri-folder-fill text-bright-blue text-lg" />
               <span className="text-sm">{category.name}</span>
             </button>
@@ -77,35 +72,32 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 <button
                   className="opacity-50"
                   onClick={() => {
-                    if (editingText === "" || editingText === category.name) {
+                    if (editingText === '' || editingText === category.name) {
                       setIsEditing(false);
                       return;
                     }
                     const formData = new FormData();
-                    formData.append("categoryId", category.id as string);
-                    formData.append("newCategoryName", editingText);
+                    formData.append('categoryId', category.id as string);
+                    formData.append('newCategoryName', editingText);
                     editCategoryFetcher.submit(formData, {
-                      method: "post",
+                      method: 'post',
                       action: EDIT_CATEGORY_NAME,
                     });
                     setIsEditing(false);
-                  }}
-                >
+                  }}>
                   <i className="ri-send-plane-2-fill text-md" />
                 </button>
               ) : (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="opacity-50"
-                >
+                  className="opacity-50">
                   <i className="ri-pencil-fill text-lg" />
                 </button>
               )
             ) : (
               <button
                 onClick={() => setIsChildrenOpen(false)}
-                className="opacity-50"
-              >
+                className="opacity-50">
                 <i className="ri-folder-reduce-line text-lg" />
               </button>
             )}
@@ -114,8 +106,7 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
                 setIsChildrenOpen(true);
                 setIsAddingCategory(true);
               }}
-              className="opacity-50"
-            >
+              className="opacity-50">
               <i className="ri-add-line text-lg" />
             </button>
           </div>
@@ -127,19 +118,19 @@ export const CategoryItem = ({ category, setIsCategoriesOpen }: Props) => {
           <input
             onBlur={() => {
               setIsAddingCategory(false);
-              if (newCategoryName.trim() === "") {
-                setNewCategoryName("");
+              if (newCategoryName.trim() === '') {
+                setNewCategoryName('');
                 return;
               }
               const formData = new FormData();
-              formData.append("userId", user?.id as string);
-              formData.append("newCategoryName", newCategoryName);
-              formData.append("parentCategoryId", category.id);
+              formData.append('userId', user?.id as string);
+              formData.append('newCategoryName', newCategoryName);
+              formData.append('parentCategoryId', category.id);
               addCategoryFetcher.submit(formData, {
-                method: "post",
+                method: 'post',
                 action: ADD_CATEGORY,
               });
-              setNewCategoryName("");
+              setNewCategoryName('');
               setIsChildrenOpen(true);
             }}
             autoFocus

@@ -11,8 +11,8 @@ const config = {
       },
       colors: {
         'bright-purple': '#F14DFF',
-        'bright-green': '#4F8A10',
-        'bright-red': '#cc0000',
+        'bright-green': '#13C716',
+        'bright-red': '#FF2D2D',
         'base-dark': '#050023',
         'light-dark': '#35343D',
         'smoke-light': 'rgba(0, 0, 0, 0.5)',

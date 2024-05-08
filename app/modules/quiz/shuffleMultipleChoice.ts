@@ -1,6 +1,6 @@
-import { QuizOption } from '~/types/quiz';
+import { QuizOptionList } from '~/types/quiz';
 
-export const shuffleMultipleChoice = (array: QuizOption[]) => {
+export const shuffleMultipleChoice = (array: QuizOptionList) => {
   let currentIndex = array.length,
     randomIndex;
 

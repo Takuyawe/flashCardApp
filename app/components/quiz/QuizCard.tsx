@@ -6,24 +6,25 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '~/@/components/ui/carousel';
-import { quizCategoryAtom, quizWordListAtom } from '~/atoms/atom';
+import {
+  quizCategoryAtom,
+  quizIndexAtom,
+  quizWordListAtom,
+} from '~/atoms/atom';
 import { QuizMultipleChoice } from './QuizMultipleChoice';
 
-type Props = {
-  setQuizIndex: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export const QuizCard = ({ setQuizIndex }: Props) => {
+export const QuizCard = () => {
   const [quizWordList] = useRecoilState(quizWordListAtom);
   const [quizCategory, setQuizCategory] = useRecoilState(quizCategoryAtom);
+  const [quizIndex] = useRecoilState(quizIndexAtom);
 
   return (
     <div className="">
       <Carousel className="w-60">
-        <CarouselContent className="">
+        <CarouselContent>
           {quizWordList.map((quizWord) => (
             <CarouselItem className="" key={quizWord.word}>
-              <div className="flex items-center justify-center border border-base-dark bg-white h-36 w-60 rounded-lg">
+              <div className="flex items-center justify-center border border-base-dark bg-white h-36 w-60 rounded-lg shadow-md">
                 <span className="text-2xl">{quizWord.word}</span>
               </div>
               <QuizMultipleChoice quizWord={quizWord} />

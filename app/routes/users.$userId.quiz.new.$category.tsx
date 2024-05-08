@@ -90,20 +90,52 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
       kana: 'たべもの',
       definition: 'food',
       multipleChoice: [
-        { word: '野菜', kana: 'やさい', definition: 'vegetable' },
-        { word: 'のみもの', kana: 'のみもの', definition: 'drinks' },
-        { word: '果物', kana: 'くだもの', definition: 'fruits' },
+        {
+          word: '野菜',
+          kana: 'やさい',
+          definition: 'vegetable',
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'のみもの',
+          kana: 'のみもの',
+          definition: 'drinks',
+          isCorrectAnswer: false,
+        },
+        {
+          word: '果物',
+          kana: 'くだもの',
+          definition: 'fruits',
+          isCorrectAnswer: false,
+        },
       ],
+      isCorrectAnswer: true,
     },
     {
       word: 'しょくひん',
       kana: 'しょくひん',
       definition: 'commodity',
       multipleChoice: [
-        { word: 'たべもの', kana: 'たべもの', definition: 'food' },
-        { word: 'たべもの', kana: 'たべもの', definition: 'food' },
-        { word: 'たべもの', kana: 'たべもの', definition: 'food' },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
       ],
+      isCorrectAnswer: true,
     },
   ];
 
@@ -114,7 +146,6 @@ export default function Layout() {
   const loaderData = useLoaderData<typeof loader>();
   const [quizWordList, setQuizWordList] = useRecoilState(quizWordListAtom);
   const [quizCategory, setQuizCategory] = useRecoilState(quizCategoryAtom);
-  const [quizIndex, setQuizIndex] = useState<number>(0);
 
   useEffect(() => {
     if (!loaderData || 'error' in loaderData) return;
@@ -125,8 +156,8 @@ export default function Layout() {
 
   return (
     <div className="flex flex-col items-center gap-y-5 mt-5">
-      <QuizStepper quizIndex={quizIndex} setQuizIndex={setQuizIndex} />
-      <QuizCard ssetQuizIndex={setQuizIndex} et />
+      <QuizStepper />
+      <QuizCard />
     </div>
   );
 }

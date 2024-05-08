@@ -18,7 +18,6 @@ Checking-the-answers
 - after adding, delete the word from left side
 
 TODO:
-- navigate to category name with quiz level as params
 - loading
 - generate random word based on category name
 - forgotten password

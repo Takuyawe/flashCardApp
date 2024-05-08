@@ -4,12 +4,14 @@ import {
   CATEGORIES_ATOM_KEY,
   CHOSEN_CATEGORY_ID_ATOM_KEY,
   NEW_WORD_FIELDS_KEY,
+  QUIZ_CATEGORY,
   QUIZ_LEVEL,
+  QUIZ_WORD_LIST,
   USER_ATOM_KEY,
   WORDS_ATOM_KEY,
 } from '~/constants/Atom';
 import { NewWordFieldsAtom, UserAtom } from '~/types/atom';
-import { QuizLevel } from '~/types/quiz';
+import { QuizLevel, QuizWordList } from '~/types/quiz';
 import { CategoriesMap, WordsMap } from '~/types/word';
 
 export const userAtom = atom<UserAtom | null>({
@@ -50,4 +52,14 @@ export const newWordFieldsAtom = atom<NewWordFieldsAtom>({
 export const quizLevelAtom = atom<QuizLevel>({
   key: QUIZ_LEVEL,
   default: 'easy',
+});
+
+export const quizCategoryAtom = atom<string>({
+  key: QUIZ_CATEGORY,
+  default: '',
+});
+
+export const quizWordListAtom = atom<QuizWordList>({
+  key: QUIZ_WORD_LIST,
+  default: [],
 });

@@ -22,7 +22,7 @@ export const CorrectAnswersGauge = ({ correctAnswerNum }: Props) => {
   }, [fillPercentage]);
 
   return (
-    <div className="flex items-center justify-center size-72">
+    <div className="flex items-center justify-center size-36">
       <svg className="size-36" viewBox="0 0 180 180">
         <circle
           cx={GAUGE_CX}

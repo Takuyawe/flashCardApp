@@ -15,7 +15,7 @@ export const QuizMultipleChoice = ({ quizWord }: Props) => {
   const [user] = useRecoilState(userAtom);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [isAllAnswered, setIsAllAnswered] = useState<boolean>(false);
-  const [quizCorrectAnswerCount, setQuizCorrectAnswerCount] = useRecoilState(
+  const [, setQuizCorrectAnswerCount] = useRecoilState(
     quizCorrectAnswerCountAtom
   );
 

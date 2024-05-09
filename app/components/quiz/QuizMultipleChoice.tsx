@@ -1,6 +1,9 @@
+import { Link } from '@remix-run/react';
+import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { quizCorrectAnswerCountAtom } from '~/atoms/atom';
+import { quizCorrectAnswerCountAtom, userAtom } from '~/atoms/atom';
+import { getQuizResultPath } from '~/modules/path/getQuizResultPath';
 import { shuffleMultipleChoice } from '~/modules/quiz/shuffleMultipleChoice';
 import { QuizWord } from '~/types/quiz';
 
@@ -9,7 +12,9 @@ type Props = {
 };
 
 export const QuizMultipleChoice = ({ quizWord }: Props) => {
+  const [user] = useRecoilState(userAtom);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
+  const [isAllAnswered, setIsAllAnswered] = useState<boolean>(false);
   const [quizCorrectAnswerCount, setQuizCorrectAnswerCount] = useRecoilState(
     quizCorrectAnswerCountAtom
   );
@@ -20,12 +25,12 @@ export const QuizMultipleChoice = ({ quizWord }: Props) => {
   }, [quizWord]);
 
   return (
-    <div className="flex w-full flex-wrap justify-center gap-4 mt-5">
+    <div className="flex flex-wrap justify-center gap-4 mt-10">
       {multipleChoice.map((option) =>
         isAnswered ? (
           <div
             key={option.word}
-            className={`flex items-center justify-center h-10 w-60 rounded-full text-md shadow-md text-white ${
+            className={`flex items-center justify-center h-10 w-full rounded-full text-md shadow-md text-white ${
               option.isCorrectAnswer ? 'bg-bright-green' : 'bg-bright-red'
             }`}>
             <span className="flex items-center justify-start w-full gap-x-2 ml-4">
@@ -42,16 +47,28 @@ export const QuizMultipleChoice = ({ quizWord }: Props) => {
             key={option.word}
             onClick={() => {
               setIsAnswered(true);
-              if (option.isCorrectAnswer) {
-                setQuizCorrectAnswerCount([...quizCorrectAnswerCount, 1]);
-              } else {
-                setQuizCorrectAnswerCount([...quizCorrectAnswerCount, 0]);
-              }
+              setQuizCorrectAnswerCount((prev) => {
+                if (prev.length === 9) setIsAllAnswered(true);
+                return [...prev, option.isCorrectAnswer ? 1 : 0];
+              });
             }}
-            className="h-10 w-60 border border-base-dark rounded-full text-md shadow-md">
+            className="h-10 w-full border border-base-dark rounded-full text-md shadow-md">
             {option.definition}
           </button>
         )
+      )}
+      {isAllAnswered && (
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="h-8 w-full mt-10">
+          <Link
+            to={getQuizResultPath(user?.id as string)}
+            className="h-full grid place-items-center bg-base-dark rounded-md text-white tracking-widest">
+            FINISH
+          </Link>
+        </motion.div>
       )}
     </div>
   );

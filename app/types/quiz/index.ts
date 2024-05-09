@@ -1,4 +1,4 @@
-export type QuizLevel = 'easy' | 'normal' | 'hard';
+// export type QuizLevel = 'easy' | 'normal' | 'hard';
 
 export type QuizOption = Pick<
   QuizWord,

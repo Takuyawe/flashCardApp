@@ -18,6 +18,9 @@ Checking-the-answers
 - after adding, delete the word from left side
 
 TODO:
+- checking the answers
+- show the words with quiz results
+- add button to display folder from right
 - loading
 - generate random word based on category name
 - forgotten password

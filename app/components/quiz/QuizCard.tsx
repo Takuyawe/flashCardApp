@@ -6,17 +6,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '~/@/components/ui/carousel';
-import {
-  quizCategoryAtom,
-  quizIndexAtom,
-  quizWordListAtom,
-} from '~/atoms/atom';
+import { quizWordListAtom } from '~/atoms/atom';
 import { QuizMultipleChoice } from './QuizMultipleChoice';
 
 export const QuizCard = () => {
   const [quizWordList] = useRecoilState(quizWordListAtom);
-  const [quizCategory, setQuizCategory] = useRecoilState(quizCategoryAtom);
-  const [quizIndex] = useRecoilState(quizIndexAtom);
 
   return (
     <div className="">

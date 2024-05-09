@@ -1,3 +1,3 @@
-export const getQuizPath = (category: string, quizLevel: string) => {
-  return `${category}?quizLevel=${quizLevel}`;
+export const getQuizPath = (category: string) => {
+  return `${category}`;
 };

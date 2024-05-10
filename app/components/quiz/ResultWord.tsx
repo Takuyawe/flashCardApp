@@ -8,16 +8,20 @@ import { AnimatePresence } from 'framer-motion';
 type Props = {
   word: QuizWord;
   index: number;
+  isSelectEnabled: boolean;
 };
 
-export const ResultWord = ({ word, index }: Props) => {
+export const ResultWord = ({ word, index, isSelectEnabled }: Props) => {
   const [quizCorrectAnswerCount] = useRecoilState(quizCorrectAnswerCountAtom);
   const [isWordExpanded, setIsWordExpanded] = useState<boolean>(false);
 
   return (
     <>
       <button
-        onClick={() => setIsWordExpanded((prevState) => !prevState)}
+        onClick={() => {
+          if (isSelectEnabled) return;
+          setIsWordExpanded((prevState) => !prevState);
+        }}
         className="flex items-center gap-x-2 pl-1 border border-base-dark rounded-sm"
         key={word.definition}>
         {quizCorrectAnswerCount[index] === 0 ? (
@@ -26,7 +30,9 @@ export const ResultWord = ({ word, index }: Props) => {
           <i className="ri-circle-line text-xl text-bright-green" />
         )}
         <span className="text-base-dark text-sm">
-          {word.word} / {word.definition}
+          {isSelectEnabled
+            ? `${word.word}`
+            : `${word.word} / ${word.definition}`}
         </span>
         <div className="ml-auto mr-3">
           {isWordExpanded ? (

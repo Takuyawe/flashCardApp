@@ -18,7 +18,7 @@ Checking-the-answers
 - after adding, delete the word from left side
 
 TODO:
-- click the word and show the word card with sentences provided
+- generate sentences beforehand
 - add button to display folder from right(select button)
 - enable multiple selection
 - tap folder and show dialog for confirmation

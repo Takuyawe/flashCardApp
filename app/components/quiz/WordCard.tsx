@@ -9,11 +9,10 @@ type Props = {
 export const WordCard = ({ word }: Props) => {
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.1 }}
       className="min-h-32 h-auto w-96 rounded-sm border border-base-dark px-2 py-2">
       <div className="flex items-center justify-start gap-x-2">
         <button onClick={() => speakWord(word.word)}>

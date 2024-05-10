@@ -18,9 +18,11 @@ Checking-the-answers
 - after adding, delete the word from left side
 
 TODO:
-- checking the answers
-- show the words with quiz results
-- add button to display folder from right
+- click the word and show the word card with sentences provided
+- add button to display folder from right(select button)
+- enable multiple selection
+- tap folder and show dialog for confirmation
+- INRCREASE ACCURACY
 - loading
 - generate random word based on category name
 - forgotten password

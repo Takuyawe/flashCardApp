@@ -54,7 +54,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     generatedWords?.map(async (word, index) => {
       const kana = await getGooHiraganaWord(word);
       const multipleChoice: QuizOptionList = await Promise.all(
-        randomWords.slice(index, index + 3).map(async (definition) => {
+        randomWords.slice(index * 3, index * 3 + 3).map(async (definition) => {
           const word = await translateText(definition, 'en', 'ja');
           const kana = await getGooHiraganaWord(word);
           return { word, kana, definition, isCorrectAnswer: false };
@@ -140,8 +140,8 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function Layout() {
   const loaderData = useLoaderData<typeof loader>();
-  const [quizWordList, setQuizWordList] = useRecoilState(quizWordListAtom);
-  const [quizCategory, setQuizCategory] = useRecoilState(quizCategoryAtom);
+  const [, setQuizWordList] = useRecoilState(quizWordListAtom);
+  const [, setQuizCategory] = useRecoilState(quizCategoryAtom);
 
   useEffect(() => {
     if (!loaderData || 'error' in loaderData) return;

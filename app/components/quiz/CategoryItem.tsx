@@ -1,9 +1,9 @@
-import { useFetcher } from '@remix-run/react';
-import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { userAtom } from '~/atoms/atom';
-import { ADD_CATEGORY } from '~/constants/ActionPath';
-import { CategoryWithChildren } from '~/types/word';
+import { useFetcher } from "@remix-run/react";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { userAtom } from "~/atoms/atom";
+import { ADD_CATEGORY } from "~/constants/ActionPath";
+import { CategoryWithChildren } from "~/types/word";
 
 type Props = {
   category: CategoryWithChildren;
@@ -16,25 +16,26 @@ export const CategoryItem = ({ category }: Props) => {
     category.parentCategoryId === null
   );
   const [isAddingCategory, setIsAddingCategory] = useState<boolean>(false);
-  const [newCategoryName, setNewCategoryName] = useState<string>('');
+  const [newCategoryName, setNewCategoryName] = useState<string>("");
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-x-1 mr-3">
+      <div className="flex items-center gap-x-1">
         <button
           onClick={() => setIsChildrenOpen(!isChildrenOpen)}
-          className="flex items-center justify-center">
+          className="flex items-center justify-center"
+        >
           {category.childCategories &&
           category.childCategories.length > 0 &&
           !isChildrenOpen ? (
-            <i className="ri-arrow-right-s-line text-2xl" />
+            <i className="ri-arrow-right-s-line text-lg" />
           ) : (
-            <i className="ri-arrow-down-s-line text-2xl" />
+            <i className="ri-arrow-down-s-line text-lg" />
           )}
         </button>
         <div className="flex flex-1 border-b">
-          <button onClick={() => {}}>
-            <i className="ri-folder-fill text-bright-blue text-lg" />
+          <button onClick={() => {}} className="flex items-center gap-x-1">
+            <i className="ri-folder-fill text-bright-blue text-md" />
             <span className="text-sm">{category.name}</span>
           </button>
 
@@ -42,7 +43,8 @@ export const CategoryItem = ({ category }: Props) => {
             {category.parentCategoryId === null && (
               <button
                 onClick={() => setIsChildrenOpen(false)}
-                className="opacity-50">
+                className="opacity-50"
+              >
                 <i className="ri-folder-reduce-line text-lg" />
               </button>
             )}
@@ -51,31 +53,32 @@ export const CategoryItem = ({ category }: Props) => {
                 setIsChildrenOpen(true);
                 setIsAddingCategory(true);
               }}
-              className="opacity-50">
+              className="opacity-50"
+            >
               <i className="ri-add-line text-lg" />
             </button>
           </div>
         </div>
       </div>
       {isAddingCategory && (
-        <div className="flex gap-x-1 items-center mt-1 ml-12 opacity-50">
+        <div className="flex gap-x-1 items-center mt-1 pl-6 opacity-50">
           <i className="ri-folder-fill text-bright-blue text-lg" />
           <input
             onBlur={() => {
               setIsAddingCategory(false);
-              if (newCategoryName.trim() === '') {
-                setNewCategoryName('');
+              if (newCategoryName.trim() === "") {
+                setNewCategoryName("");
                 return;
               }
               const formData = new FormData();
-              formData.append('userId', user?.id as string);
-              formData.append('newCategoryName', newCategoryName);
-              formData.append('parentCategoryId', category.id);
+              formData.append("userId", user?.id as string);
+              formData.append("newCategoryName", newCategoryName);
+              formData.append("parentCategoryId", category.id);
               addCategoryFetcher.submit(formData, {
-                method: 'post',
+                method: "post",
                 action: ADD_CATEGORY,
               });
-              setNewCategoryName('');
+              setNewCategoryName("");
               setIsChildrenOpen(true);
             }}
             autoFocus
@@ -83,14 +86,14 @@ export const CategoryItem = ({ category }: Props) => {
             name="newCategoryName"
             onChange={(e) => setNewCategoryName(e.target.value)}
             type="text"
-            className="border-b h-4 px-2 text-xs"
+            className="border h-4 w-24 px-2 text-xs"
           />
         </div>
       )}
       {isChildrenOpen &&
         category.childCategories &&
         category.childCategories.length > 0 && (
-          <div className="ml-4">
+          <div className="ml-3">
             {category.childCategories.map((childCategory) => (
               <CategoryItem key={childCategory.id} category={childCategory} />
             ))}

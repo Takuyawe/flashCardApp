@@ -19,7 +19,6 @@ Checking-the-answers
 
 TODO:
 - generate sentences beforehand
-- add button to display folder from right(select button)
 - enable multiple selection
 - tap folder and show dialog for confirmation
 - INRCREASE ACCURACY

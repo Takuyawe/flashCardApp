@@ -1,6 +1,6 @@
-import { Word } from '@prisma/client';
-import { motion } from 'framer-motion';
-import { speakWord } from '~/modules/browse/speakWord';
+import { Word } from "@prisma/client";
+import { motion } from "framer-motion";
+import { speakWord } from "~/modules/browse/speakWord";
 
 type Props = {
   word: Word;
@@ -13,14 +13,14 @@ export const WordCard = ({ word }: Props) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.1 }}
-      className="min-h-32 h-auto w-96 rounded-sm border border-base-dark px-2 py-2">
+      className="min-h-32 h-auto w-96 rounded-sm border border-base-dark px-2 py-2"
+    >
       <div className="flex items-center justify-start gap-x-2">
         <button onClick={() => speakWord(word.word)}>
           <i className="ri-speak-fill text-lg" />
         </button>
         <span className="text-sm">
-          {word.word} ({word.kana}) /{' '}
-          {word.definition.replaceAll('.', '').replaceAll(`"`, '')}
+          {word.word} ({word.kana}) / {word.definition}
         </span>
       </div>
       <div className="flex flex-col">

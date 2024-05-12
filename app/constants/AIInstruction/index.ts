@@ -1,4 +1,4 @@
-export const CLAUDE_MODEL = 'claude-3-haiku-20240307';
+export const CLAUDE_MODEL = "claude-3-haiku-20240307";
 
 // export const DEFINITION_INSTRUCTION = {
 //   BEGINNER: `この単語"word"の定義で書いてください。ただし、文字数は15文字以下で、定義文以外は返さないでください。また、漢字は使わないでください。`,
@@ -16,4 +16,8 @@ export const SENTENCE_INSTRUCTION = {
 };
 
 // For quiz
-export const QUIZ_INSTRUCTION = `この単語"word"に関する日本語の単語を10個書いてください。また、最後の単語以外の各単語の後に"/"を挿入してください。あと、単語以外は何も書かないでください。`;
+export const QUIZ_WORD_INSTRUCTION = `Write 10 words in English that are related to "input". Do not include any other text. Put "/" between each word.`;
+export const QUIZ_SENTENCE_INSTRUCTION = `Write a sentence in English for each word in this list that contains 10 words: ["input"]. Thus, generate 10 sentences. Do not include any other text other than sentences. Put "/" between each sentence.`;
+
+// export const QUIZ_WORD_INSTRUCTION = `「input」に関連する英語の単語を10個書いてください。他のテキストは含めず、各単語をスラッシュ「/」で区切ってください。`;
+// export const QUIZ_SENTENCE_INSTRUCTION = `このリストにある各単語「["input"]」について、その単語を含む英語の文を一つずつ書いてください。他のテキストは含めず、各文をスラッシュ「/」で区切ってください。`;

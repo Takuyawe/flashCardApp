@@ -1,9 +1,10 @@
 import { Word } from "@prisma/client";
 import { motion } from "framer-motion";
 import { speakWord } from "~/modules/browse/speakWord";
+import { QuizWord } from "~/types/quiz";
 
 type Props = {
-  word: Word;
+  word: QuizWord;
 };
 
 export const WordCard = ({ word }: Props) => {
@@ -27,10 +28,10 @@ export const WordCard = ({ word }: Props) => {
         <span className="text-xs">Example sentence</span>
         <div className="w-1/2 border-t border-base-dark " />
         <div className="flex flex-col gap-y-1 mt-1">
-          <span className="text-xs">{word.exampleSentence}</span>
-          <span className="text-xs">{word.exampleSentenceKana}</span>
-          <span className="text-xs">{word.exampleSentenceRomaji}</span>
-          <span className="text-xs">{word.exampleSentenceTranslation}</span>
+          <span className="text-xs">{word.sentence}</span>
+          <span className="text-xs">{word.sentenceKana}</span>
+          <span className="text-xs">{word.sentenceRomaji}</span>
+          <span className="text-xs">{word.sentenceTranslation}</span>
         </div>
       </div>
     </motion.div>

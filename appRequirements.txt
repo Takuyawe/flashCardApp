@@ -18,6 +18,7 @@ Checking-the-answers
 - after adding, delete the word from left side
 
 TODO:
+- add kana to quiz card
 - generate sentences beforehand
 - enable multiple selection
 - tap folder and show dialog for confirmation

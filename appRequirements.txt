@@ -19,7 +19,6 @@ Checking-the-answers
 
 TODO:
 - add kana to quiz card
-- generate sentences beforehand
 - enable multiple selection
 - tap folder and show dialog for confirmation
 - INRCREASE ACCURACY

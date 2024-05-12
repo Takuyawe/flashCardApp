@@ -60,11 +60,8 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
         const jaWord = await translateText(definition, "en", "ja");
         const kana = await getGooHiraganaWord(jaWord);
         const sentenceTranslation = sentences[index];
-        console.log(sentenceTranslation);
         const sentence = await translateText(sentenceTranslation, "en", "ja");
-        console.log(sentence);
         const sentenceKana = await getGooHiraganaWord(sentence);
-        console.log(sentenceKana);
         const sentenceRomaji = convertToRomaji(sentenceKana);
         const multipleChoice: QuizOptionList = await Promise.all(
           randomWords
@@ -102,7 +99,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
         };
       })
     );
-    console.log(quizWords);
 
     return json({ category, quizWords });
   } catch (error) {

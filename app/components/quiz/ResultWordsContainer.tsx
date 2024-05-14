@@ -1,14 +1,129 @@
-import { useRecoilState } from "recoil";
-import { quizCategoryAtom, quizWordListAtom } from "~/atoms/atom";
-import { ResultWord } from "./ResultWord";
-import { useState } from "react";
-import { CategoriesList } from "./CategoriesList";
-import { AnimatePresence } from "framer-motion";
+import { useRecoilState } from 'recoil';
+import { quizCategoryAtom, quizWordListAtom } from '~/atoms/atom';
+import { ResultWord } from './ResultWord';
+import { useState } from 'react';
+import { CategoriesList } from './CategoriesList';
+import { AnimatePresence } from 'framer-motion';
 
 export const ResultWordsContainer = () => {
-  const [quizWordList] = useRecoilState(quizWordListAtom);
+  // const [quizWordList] = useRecoilState(quizWordListAtom);
   const [quizCategory] = useRecoilState(quizCategoryAtom);
   const [isSelectEnabled, setIsSelectEnabled] = useState<boolean>(false);
+
+  const quizWordList = [
+    {
+      word: 'たべもの',
+      kana: 'たべもの',
+      definition: 'food',
+
+      multipleChoice: [
+        {
+          word: '野菜',
+          kana: 'やさい',
+          definition: 'vegetable',
+
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'のみもの',
+          kana: 'のみもの',
+          definition: 'drinks',
+
+          isCorrectAnswer: false,
+        },
+        {
+          word: '果物',
+          kana: 'くだもの',
+          definition: 'fruits',
+
+          isCorrectAnswer: false,
+        },
+      ],
+      isCorrectAnswer: true,
+    },
+    {
+      word: 'しょくひん',
+      kana: 'しょくひん',
+      definition: 'commodity',
+
+      multipleChoice: [
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+
+          isCorrectAnswer: false,
+        },
+      ],
+      isCorrectAnswer: true,
+    },
+    {
+      word: 'しょくひん',
+      kana: 'しょくひん',
+      definition: 'commodity',
+      multipleChoice: [
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+      ],
+      isCorrectAnswer: true,
+    },
+    {
+      word: 'しょくひん',
+      kana: 'しょくひん',
+      definition: 'commodity',
+      multipleChoice: [
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+        {
+          word: 'たべもの',
+          kana: 'たべもの',
+          definition: 'food',
+          isCorrectAnswer: false,
+        },
+      ],
+      isCorrectAnswer: true,
+    },
+  ];
 
   return (
     <div className="flex flex-col w-96 gap-y-1 mb-5">
@@ -17,8 +132,7 @@ export const ResultWordsContainer = () => {
         <div className="flex gap-x-2 items-center">
           <button
             onClick={() => setIsSelectEnabled((prevState) => !prevState)}
-            className="h-5 w-12 text-xs bg-base-dark text-white rounded-full "
-          >
+            className="h-5 w-12 text-xs bg-base-dark text-white rounded-full ">
             select
           </button>
           <button>
@@ -26,12 +140,11 @@ export const ResultWordsContainer = () => {
           </button>
         </div>
       </div>
-      <div className={`flex mt-2 ${isSelectEnabled && "divide-x-2 gap-x-3"}`}>
+      <div className={`flex mt-2 ${isSelectEnabled && 'divide-x-2 gap-x-3'}`}>
         <div
           className={`flex flex-col gap-y-1 ${
-            isSelectEnabled ? "w-1/2" : "w-full"
-          }`}
-        >
+            isSelectEnabled ? 'w-1/2' : 'w-full'
+          }`}>
           {quizWordList.map((word, index) => (
             <ResultWord
               key={word.definition}

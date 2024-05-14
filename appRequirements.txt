@@ -18,7 +18,6 @@ Checking-the-answers
 - after adding, delete the word from left side
 
 TODO:
-- add kana to quiz card
 - enable multiple selection
 - tap folder and show dialog for confirmation
 - INRCREASE ACCURACY

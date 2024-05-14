@@ -80,6 +80,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
             kana,
             definition,
             multipleChoice,
+            sentence: '',
             isCorrectAnswer: true,
           };
         }

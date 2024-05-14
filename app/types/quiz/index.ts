@@ -14,7 +14,7 @@ export type QuizWord = {
   kana: string;
   definition: string;
   multipleChoice: QuizOptionList;
-  sentence?: string;
+  sentence: string;
   sentenceKana?: string;
   sentenceRomaji?: string;
   sentenceTranslation?: string;

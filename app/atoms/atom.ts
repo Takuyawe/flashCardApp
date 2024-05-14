@@ -4,6 +4,7 @@ import {
   CATEGORIES_ATOM_KEY,
   CHOSEN_CATEGORY_ID_ATOM_KEY,
   NEW_WORD_FIELDS_KEY,
+  QUIZ_ALREADY_SAVED_LIST,
   QUIZ_CATEGORY,
   QUIZ_INDEX,
   QUIZ_SELECTED_WORD_LIST,
@@ -72,5 +73,10 @@ export const quizWordListAtom = atom<QuizWordList>({
 
 export const quizSelectedWordListAtom = atom<QuizWordList>({
   key: QUIZ_SELECTED_WORD_LIST,
+  default: [],
+});
+
+export const quizAlreadySavedListAtom = atom<QuizWordList>({
+  key: QUIZ_ALREADY_SAVED_LIST,
   default: [],
 });

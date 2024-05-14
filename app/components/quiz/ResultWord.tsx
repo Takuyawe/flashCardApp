@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import {
+  quizAlreadySavedListAtom,
   quizCorrectAnswerCountAtom,
   quizSelectedWordListAtom,
 } from '~/atoms/atom';
@@ -20,16 +21,22 @@ export const ResultWord = ({ word, index, isSelectEnabled }: Props) => {
   const [quizSelectedWordList, setQuizSelectedWordList] = useRecoilState(
     quizSelectedWordListAtom
   );
+  const [quizAlreadySavedList] = useRecoilState(quizAlreadySavedListAtom);
 
   const isColoredBlue = useMemo(() => {
     return quizSelectedWordList.includes(word);
   }, [quizSelectedWordList, word]);
+
+  const isColoredGray = useMemo(() => {
+    return quizAlreadySavedList.includes(word);
+  }, [quizAlreadySavedList, word]);
 
   return (
     <>
       <button
         onClick={() => {
           if (isSelectEnabled) {
+            if (isColoredGray) return;
             setQuizSelectedWordList((prevState) => {
               if (prevState.includes(word)) {
                 return prevState.filter((item) => item !== word);
@@ -43,7 +50,7 @@ export const ResultWord = ({ word, index, isSelectEnabled }: Props) => {
         }}
         className={`flex items-center gap-x-2 pl-1 border border-base-dark rounded-sm ${
           isColoredBlue && 'bg-blue-200'
-        }`}
+        } ${isColoredGray && 'bg-gray-400'}`}
         key={word.definition}>
         {quizCorrectAnswerCount[index] === 0 ? (
           <i className="ri-close-line text-xl text-bright-red" />

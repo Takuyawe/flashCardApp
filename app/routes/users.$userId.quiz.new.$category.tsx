@@ -127,8 +127,6 @@ export default function Layout() {
   useEffect(() => {
     if (!loaderData || 'error' in loaderData) return;
 
-    console.log(loaderData.quizWords);
-
     setQuizWordList(loaderData.quizWords);
     setQuizCategory(loaderData.category);
   }, [loaderData, setQuizWordList, setQuizCategory]);

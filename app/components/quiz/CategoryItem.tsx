@@ -1,9 +1,13 @@
-import { useFetcher } from "@remix-run/react";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { userAtom } from "~/atoms/atom";
-import { ADD_CATEGORY } from "~/constants/ActionPath";
-import { CategoryWithChildren } from "~/types/word";
+import { useFetcher } from '@remix-run/react';
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import {
+  quizAlreadySavedListAtom,
+  quizSelectedWordListAtom,
+  userAtom,
+} from '~/atoms/atom';
+import { ADD_CATEGORY, ADD_WORDS } from '~/constants/ActionPath';
+import { CategoryWithChildren } from '~/types/word';
 
 type Props = {
   category: CategoryWithChildren;
@@ -11,20 +15,24 @@ type Props = {
 
 export const CategoryItem = ({ category }: Props) => {
   const addCategoryFetcher = useFetcher();
+  const addWordsFetcher = useFetcher();
   const [user] = useRecoilState(userAtom);
   const [isChildrenOpen, setIsChildrenOpen] = useState(
     category.parentCategoryId === null
   );
   const [isAddingCategory, setIsAddingCategory] = useState<boolean>(false);
-  const [newCategoryName, setNewCategoryName] = useState<string>("");
+  const [newCategoryName, setNewCategoryName] = useState<string>('');
+  const [quizSelectedWordList, setQuizSelectedWordList] = useRecoilState(
+    quizSelectedWordListAtom
+  );
+  const [, setQuizAlreadySavedList] = useRecoilState(quizAlreadySavedListAtom);
 
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-x-1">
         <button
           onClick={() => setIsChildrenOpen(!isChildrenOpen)}
-          className="flex items-center justify-center"
-        >
+          className="flex items-center justify-center">
           {category.childCategories &&
           category.childCategories.length > 0 &&
           !isChildrenOpen ? (
@@ -34,7 +42,27 @@ export const CategoryItem = ({ category }: Props) => {
           )}
         </button>
         <div className="flex flex-1 border-b">
-          <button onClick={() => {}} className="flex items-center gap-x-1">
+          <button
+            onClick={() => {
+              const payload = {
+                userId: user?.id,
+                categoryId: category.id,
+                words: quizSelectedWordList,
+              };
+              addWordsFetcher.submit(
+                { data: JSON.stringify(payload) },
+                {
+                  method: 'post',
+                  action: ADD_WORDS,
+                }
+              );
+              setQuizAlreadySavedList((prevState) => [
+                ...prevState,
+                ...quizSelectedWordList,
+              ]);
+              setQuizSelectedWordList([]);
+            }}
+            className="flex items-center gap-x-1">
             <i className="ri-folder-fill text-bright-blue text-md" />
             <span className="text-sm">{category.name}</span>
           </button>
@@ -43,8 +71,7 @@ export const CategoryItem = ({ category }: Props) => {
             {category.parentCategoryId === null && (
               <button
                 onClick={() => setIsChildrenOpen(false)}
-                className="opacity-50"
-              >
+                className="opacity-50">
                 <i className="ri-folder-reduce-line text-lg" />
               </button>
             )}
@@ -53,8 +80,7 @@ export const CategoryItem = ({ category }: Props) => {
                 setIsChildrenOpen(true);
                 setIsAddingCategory(true);
               }}
-              className="opacity-50"
-            >
+              className="opacity-50">
               <i className="ri-add-line text-lg" />
             </button>
           </div>
@@ -66,19 +92,19 @@ export const CategoryItem = ({ category }: Props) => {
           <input
             onBlur={() => {
               setIsAddingCategory(false);
-              if (newCategoryName.trim() === "") {
-                setNewCategoryName("");
+              if (newCategoryName.trim() === '') {
+                setNewCategoryName('');
                 return;
               }
               const formData = new FormData();
-              formData.append("userId", user?.id as string);
-              formData.append("newCategoryName", newCategoryName);
-              formData.append("parentCategoryId", category.id);
+              formData.append('userId', user?.id as string);
+              formData.append('newCategoryName', newCategoryName);
+              formData.append('parentCategoryId', category.id);
               addCategoryFetcher.submit(formData, {
-                method: "post",
+                method: 'post',
                 action: ADD_CATEGORY,
               });
-              setNewCategoryName("");
+              setNewCategoryName('');
               setIsChildrenOpen(true);
             }}
             autoFocus

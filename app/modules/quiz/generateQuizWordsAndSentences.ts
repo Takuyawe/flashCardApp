@@ -1,9 +1,9 @@
-import Anthropic from "@anthropic-ai/sdk";
+import Anthropic from '@anthropic-ai/sdk';
 import {
   CLAUDE_MODEL,
   QUIZ_SENTENCE_INSTRUCTION,
   QUIZ_WORD_INSTRUCTION,
-} from "~/constants/AIInstruction";
+} from '~/constants/AIInstruction';
 
 type GenerateQuizWordsAndSentences = (
   anthropic: Anthropic,
@@ -19,11 +19,11 @@ export const generateQuizWordsAndSentences: GenerateQuizWordsAndSentences =
         temperature: 1,
         messages: [
           {
-            role: "user",
+            role: 'user',
             content: [
               {
-                type: "text",
-                text: QUIZ_WORD_INSTRUCTION.replace("input", word),
+                type: 'text',
+                text: QUIZ_WORD_INSTRUCTION.replace('input', word),
               },
             ],
           },
@@ -31,18 +31,18 @@ export const generateQuizWordsAndSentences: GenerateQuizWordsAndSentences =
       });
       if (wordResponse) {
         const words = wordResponse.content[0].text;
-        const generatedWords = words.split("/").map((word) => word.trim());
+        const generatedWords = words.split('/').map((word) => word.trim());
         const sentenceResponse = await anthropic.messages.create({
           model: CLAUDE_MODEL,
           max_tokens: 100,
           temperature: 1,
           messages: [
             {
-              role: "user",
+              role: 'user',
               content: [
                 {
-                  type: "text",
-                  text: QUIZ_SENTENCE_INSTRUCTION.replace("input", words),
+                  type: 'text',
+                  text: QUIZ_SENTENCE_INSTRUCTION.replace('input', words),
                 },
               ],
             },
@@ -51,16 +51,16 @@ export const generateQuizWordsAndSentences: GenerateQuizWordsAndSentences =
 
         if (sentenceResponse) {
           const generatedSentences = sentenceResponse.content[0].text
-            .split("/")
+            .split('/')
             .map((sentence) => sentence.trim());
           return { words: generatedWords, sentences: generatedSentences };
         }
       }
-      return { error: "Something went wrong" };
+      return { error: 'Something went wrong' };
     } catch (error: unknown) {
       if (error instanceof Error) {
-        return { error: "Something went wrong: " + error.message };
+        return { error: 'Something went wrong: ' + error.message };
       }
-      return { error: "Something went wrong" };
+      return { error: 'Something went wrong' };
     }
   };

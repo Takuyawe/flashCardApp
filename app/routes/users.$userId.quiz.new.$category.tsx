@@ -1,32 +1,28 @@
-import Anthropic from "@anthropic-ai/sdk";
-import { json, LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { generate } from "random-words";
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { quizCategoryAtom, quizWordListAtom } from "~/atoms/atom";
-import { QuizCard } from "~/components/quiz/QuizCard";
-import { QuizStepper } from "~/components/quiz/QuizStepper";
-import {
-  QUIZ_WORD_INSTRUCTION,
-  QUIZ_SENTENCE_INSTRUCTION,
-} from "~/constants/AIInstruction";
-import { generateQuizWordsAndSentences } from "~/modules/quiz/generateQuizWordsAndSentences";
-import { getGooHiraganaWord } from "~/modules/quiz/getGooHiraganaWord";
-import { convertToRomaji } from "~/modules/word/convertToRomaji";
+import Anthropic from '@anthropic-ai/sdk';
+import { json, LoaderFunctionArgs } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+import { generate } from 'random-words';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { quizCategoryAtom, quizWordListAtom } from '~/atoms/atom';
+import { QuizCard } from '~/components/quiz/QuizCard';
+import { QuizStepper } from '~/components/quiz/QuizStepper';
+import { generateQuizWordsAndSentences } from '~/modules/quiz/generateQuizWordsAndSentences';
+import { getGooHiraganaWord } from '~/modules/quiz/getGooHiraganaWord';
+import { convertToRomaji } from '~/modules/word/convertToRomaji';
 // import { convertSentenceToRomaji } from '~/modules/word/convertSentenceToRomaji';
 // import { createSentenceWithAI } from '~/modules/word/createSentenceWithAI';
 // import { getKanaAndPardWithYahoo } from '~/modules/word/getKanaAndPartWithYahoo';
 // import { getSentenceKanaWithYahoo } from '~/modules/word/getSentenceKanaWithYahoo';
-import { translateText } from "~/modules/word/translateText";
-import { QuizOptionList, QuizWordList } from "~/types/quiz";
+import { translateText } from '~/modules/word/translateText';
+import { QuizOptionList, QuizWordList } from '~/types/quiz';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const category = params.category;
 
   if (!category) {
     return json({
-      error: "Something went wrong. Please try again.",
+      error: 'Something went wrong. Please try again.',
     });
   }
 
@@ -41,9 +37,9 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
       category as string
     );
 
-    if ("error" in response) {
+    if ('error' in response) {
       return json({
-        error: "Something went wrong. Please try again.",
+        error: 'Something went wrong. Please try again.',
       });
     }
 
@@ -57,20 +53,16 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     const quizWords: QuizWordList = await Promise.all(
       words.map(async (enWord, index) => {
         const definition = enWord.toLowerCase();
-        const jaWord = await translateText(definition, "en", "ja");
+        const jaWord = await translateText(definition, 'en', 'ja');
         const kana = await getGooHiraganaWord(jaWord);
-        const sentenceTranslation = sentences[index];
-        const sentence = await translateText(sentenceTranslation, "en", "ja");
-        const sentenceKana = await getGooHiraganaWord(sentence);
-        const sentenceRomaji = convertToRomaji(sentenceKana);
         const multipleChoice: QuizOptionList = await Promise.all(
           randomWords
             .slice(index * 3, index * 3 + 3)
             .map(async (optionDefinition) => {
               const optionJaWord = await translateText(
                 optionDefinition,
-                "en",
-                "ja"
+                'en',
+                'ja'
               );
               const optionKana = await getGooHiraganaWord(optionJaWord);
               return {
@@ -81,10 +73,20 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
               };
             })
         );
-        // const { sentenceArr, sentenceKana } = await getSentenceKanaWithYahoo(
-        //   sentence
-        // );
-        // const sentenceRomaji = convertSentenceToRomaji(sentenceArr);
+        const sentenceTranslation = sentences[index] || null;
+        if (!sentenceTranslation) {
+          return {
+            word: jaWord,
+            kana,
+            definition,
+            multipleChoice,
+            isCorrectAnswer: true,
+          };
+        }
+
+        const sentence = await translateText(sentenceTranslation, 'en', 'ja');
+        const sentenceKana = await getGooHiraganaWord(sentence);
+        const sentenceRomaji = convertToRomaji(sentenceKana);
 
         return {
           word: jaWord,
@@ -97,6 +99,11 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
           sentenceTranslation,
           isCorrectAnswer: true,
         };
+
+        // const { sentenceArr, sentenceKana } = await getSentenceKanaWithYahoo(
+        //   sentence
+        // );
+        // const sentenceRomaji = convertSentenceToRomaji(sentenceArr);
       })
     );
 
@@ -117,7 +124,7 @@ export default function Layout() {
   const [, setQuizCategory] = useRecoilState(quizCategoryAtom);
 
   useEffect(() => {
-    if (!loaderData || "error" in loaderData) return;
+    if (!loaderData || 'error' in loaderData) return;
 
     console.log(loaderData.quizWords);
 

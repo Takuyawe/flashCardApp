@@ -7,3 +7,5 @@ export const QUIZ_CATEGORY = 'quizCategory';
 export const QUIZ_INDEX = 'quizIndex';
 export const QUIZ_CORRECT_ANSWER_COUNT = 'quizCorrectAnswerCount';
 export const QUIZ_WORD_LIST = 'quizWordList';
+export const QUIZ_SELECTED_WORD_LIST = 'quizSelectedWordList';
+export const QUIZ_ALREADY_SAVED_LIST = 'quizAlreadySavedList';

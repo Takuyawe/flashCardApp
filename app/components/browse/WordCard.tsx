@@ -11,12 +11,12 @@ export const WordCard = ({ word }: Props) => {
 
   return (
     <div className="min-h-32 h-auto w-72 rounded-lg border border-base-dark px-2 py-2">
-      <div className="flex items-center justify-start gap-x-1">
+      <div className="flex items-center justify-start gap-x-2">
         <button onClick={() => speakWord(word.name)}>
           <i className="ri-speak-fill text-lg" />
         </button>
         <span className="text-sm">
-          {word.name} / ({word.kana}) /{' '}
+          {word.name} ({word.kana}) /{' '}
           {word.definition.replaceAll('.', '').replaceAll(`"`, '')}
         </span>
         <fetcher.Form method="delete" action="delete" className="ml-auto">

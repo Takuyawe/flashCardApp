@@ -10,6 +10,121 @@ export const ResultWordsContainer = () => {
   const [quizCategory] = useRecoilState(quizCategoryAtom);
   const [isSelectEnabled, setIsSelectEnabled] = useState<boolean>(false);
 
+  // const quizWordList = [
+  //   {
+  //     word: 'たべもの',
+  //     kana: 'たべもの',
+  //     definition: 'food',
+
+  //     multipleChoice: [
+  //       {
+  //         word: '野菜',
+  //         kana: 'やさい',
+  //         definition: 'vegetable',
+
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: 'のみもの',
+  //         kana: 'のみもの',
+  //         definition: 'drinks',
+
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: '果物',
+  //         kana: 'くだもの',
+  //         definition: 'fruits',
+
+  //         isCorrectAnswer: false,
+  //       },
+  //     ],
+  //     isCorrectAnswer: true,
+  //   },
+  //   {
+  //     word: 'しょくひん',
+  //     kana: 'しょくひん',
+  //     definition: 'commodity',
+
+  //     multipleChoice: [
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+
+  //         isCorrectAnswer: false,
+  //       },
+  //     ],
+  //     isCorrectAnswer: true,
+  //   },
+  //   {
+  //     word: 'しょくひん',
+  //     kana: 'しょくひん',
+  //     definition: 'commodity',
+  //     multipleChoice: [
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+  //         isCorrectAnswer: false,
+  //       },
+  //     ],
+  //     isCorrectAnswer: true,
+  //   },
+  //   {
+  //     word: 'しょくひん',
+  //     kana: 'しょくひん',
+  //     definition: 'commodity',
+  //     multipleChoice: [
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+  //         isCorrectAnswer: false,
+  //       },
+  //       {
+  //         word: 'たべもの',
+  //         kana: 'たべもの',
+  //         definition: 'food',
+  //         isCorrectAnswer: false,
+  //       },
+  //     ],
+  //     isCorrectAnswer: true,
+  //   },
+  // ];
+
   return (
     <div className="flex flex-col w-96 gap-y-1 mb-5">
       <div className="flex justify-between items-center">

@@ -18,8 +18,7 @@ Checking-the-answers
 - after adding, delete the word from left side
 
 TODO:
-- enable multiple selection
-- tap folder and show dialog for confirmation
+- fix bug that does not send action
 - INRCREASE ACCURACY
 - loading
 - generate random word based on category name
